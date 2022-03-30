@@ -55,7 +55,7 @@ DB_PASSWORD=
 
 4. Caso o comando tenha sido bem sucedido, você deve ser capaz e encontrar uma saída como abaixo ao executar o comando `docker ps`:
 
-![resultado-docker-ps](readme-images\docker-ps-result.png).
+![resultado-docker-ps](https://github.com/walttsm/gerenciamento-estagios/blob/main/readme-images/docker-ps-result.png).
 
 5. Alternativamente, você pode checar a criação do contêiner no aplicativo docker desktop.
 
