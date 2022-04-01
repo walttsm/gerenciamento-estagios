@@ -6,8 +6,9 @@ Aqui estão disponíveis os arquivos com o código do sistema, para que futurame
 
 ## Tecnologias usadas
 
-1. PHP 8.0
+1. PHP 8.1.3
 2. Laravel 9
+3. NodeJS 17.4.0
 3. MySQL 5.7
 4. Docker
 5. Tailwind CSS
@@ -45,7 +46,7 @@ Para instalar o php e o composer, podemos usar duas formas:
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
-DB_DATABASE=gerenciamento-estagio
+DB_DATABASE=gerenciamento_estagio
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -68,8 +69,19 @@ DB_PASSWORD=
 composer install
 ```
 
-8. Agora experimente acessar localhost:8080. A aplicação deve estar funcionando para você começar a desenvolver.
+8. Esse projeto usa componentes com tailwind css, portanto, você deve rodar também os comandos:
 
-9. Quando for executar os comandos de criação de componentes do composer e do php artisan, use esse terminal do contêiner.
+```
+npm install
 
-10. Ao finalizar seus trabalhos é possível fechar o terminal usando control + d. Caso for voltar a desenvolver basta acessar o terminal do contêiner usando os comandos do item número 6.
+npm run dev
+```
+**Obs.: Caso o comando não execute no docker, abra um novo terminal na pasta do projeto e execute os comandos num terminal local da sua máquina (você deve ter o nodeJS instalado).**
+
+9. Agora experimente acessar localhost:8080. A aplicação deve estar funcionando para você começar a desenvolver.
+
+10. Quando for executar os comandos de criação de componentes do composer e do php artisan, use esse terminal do contêiner.
+
+11. Ao finalizar seus trabalhos é possível fechar o terminal usando control + d. Caso for voltar a desenvolver basta acessar o terminal do contêiner usando os comandos do item número 6.
+
+
