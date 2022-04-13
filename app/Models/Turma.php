@@ -9,6 +9,8 @@ class Turma extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public $fields = [
         'ano',
         'codigo',
