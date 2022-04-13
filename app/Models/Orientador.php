@@ -9,7 +9,10 @@ class Orientador extends Model
 {
     use HasFactory;
 
-    public $fields = [
+    protected $table = 'orientadores';
+    public $timestamps = false;
+
+    protected $fillable = [
         'nome',
         'curso',
         'email',

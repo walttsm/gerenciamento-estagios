@@ -10,6 +10,7 @@ class Aluno extends Model
     use HasFactory;
 
     public $fields = [
+        'id',
         'nome_aluno',
         'curso',
         'matricula',
