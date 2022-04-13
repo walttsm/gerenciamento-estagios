@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Aluno;
+
 class Turma extends Model
 {
     use HasFactory;
@@ -15,4 +17,8 @@ class Turma extends Model
         'ano',
         'codigo',
     ];
+
+    public function alunos() {
+        return $this->hasMany(Aluno::class);
+    }
 }

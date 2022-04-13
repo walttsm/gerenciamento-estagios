@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Aluno;
+
 class Orientador extends Model
 {
     use HasFactory;
@@ -17,4 +19,12 @@ class Orientador extends Model
         'curso',
         'email',
     ];
+
+    public function user() {
+        return $this->hasOne(User::class);
+    }
+
+    public function alunos() {
+        return $this->hasMany(Aluno::class);
+    }
 }

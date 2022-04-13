@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CoordenadorSeeder::class,
-            //TurmaSeeder::class,
-            //AlunoSeeder::class,
-            //OrientadorSeeder::class,
+            TurmaSeeder::class,
+            OrientadorSeeder::class,
+            AlunoSeeder::class,
         ]);
     }
 }

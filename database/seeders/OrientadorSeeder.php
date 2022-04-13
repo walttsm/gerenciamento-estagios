@@ -19,17 +19,18 @@ class OrientadorSeeder extends Seeder
     public function run()
     {
         //
-        for ($i = 0; $i < 15; $i++) {
-            $orientador = Orientador::factory()->createOne();
+        for ($i = 0; $i < 10; $i++) {
+            $user = User::factory()->createOne([
+                'permission' => 1,
+            ]);
 
-            User::create([
-                'name' => $orientador['nome'],
-                'curso' => $orientador['curso'],
-                'email' => $orientador['email'],
-                'permission' => 1, // permissão orientador
-                'password' => Hash::make('orientador'), // senha de admin
+            $cursos = ['CC', 'ES'];
+            Orientador::create([
+                'nome' => $user['name'],
+                'curso' => $cursos[array_rand($cursos)],
+                'email' => $user['email'],
+                'user_id' => $user->id,
             ]);
         }
-        Orientador::factory()->count(15)->create();
     }
 }

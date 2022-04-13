@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Aluno;
+use App\Models\Orientador;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -44,6 +47,11 @@ class User extends Authenticatable
     ];
 
     public function aluno() {
-        return this->hasOne('Aluno', 'user_id');
+        return $this->hasOne(Aluno::class);
     }
+
+    public function orientador() {
+        return $this->hasOne(Orientador::class);
+    }
+
 }
