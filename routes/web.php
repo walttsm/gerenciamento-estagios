@@ -25,5 +25,6 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/coordenador/declaracoes', [CoordenadorController::class, 'gerar_declaracao']);
+Route::get('/coordenador/declaracoes', [CoordenadorController::class, 'show_geracao']);
+Route::post('/coordenador/declaracoes', [CoordenadorController::class, 'show_geracao']);
 

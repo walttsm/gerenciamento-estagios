@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
     <title>Document</title>
     <style>
@@ -17,7 +18,8 @@
 <body class="antialiased">
     <h1 style="font-size: 1.85em; font-weight:bold">Gerar declarações</h1>
     <!--<p>{{ $alunos }}</p>-->
-    <form action="" method="get" id="selecao_alunos">
+    <form method="post" id="selecao_alunos">
+        @csrf
         <button onclick="enviar_dados()">Gerar declarações</button>
         <table width=100% center>
             <tr>
@@ -48,7 +50,7 @@
 
     <script>
         function enviar_dados() {
-            console.log(document.getElementById("selecao_alunos"))
+            console.log(document.getElementById("selecao_alunos").innerText)
         }
     </script>
 </body>
