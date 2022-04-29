@@ -42,5 +42,8 @@
 }
 
 @layer utilities {
+    .smooth-transition {
+        transition: width 300ms;
+    }
 }
 

@@ -32,4 +32,4 @@ Route::get('/rpodpage', function(){
 // Rotas de geração de declarações
 Route::get('/coordenador/declaracoes', [CoordenadorController::class, 'show_geracao']);
 Route::post('/coordenador/gerar_declaracoes', [CoordenadorController::class, 'gerar_declaracao']);
-
+Route::view('/coordenador/modelo_declaracao', 'coordenador.modelo.declaracao');
