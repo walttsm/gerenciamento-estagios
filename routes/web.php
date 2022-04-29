@@ -1,6 +1,9 @@
 <?php
+require __DIR__.'/auth.php';
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\CoordenadorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +28,8 @@ require __DIR__.'/auth.php';
 Route::get('/rpodpage', function(){
     return view('aluno/rpodpage');
 });
+
+// Rotas de geração de declarações
+Route::get('/coordenador/declaracoes', [CoordenadorController::class, 'show_geracao']);
+Route::post('/coordenador/gerar_declaracoes', [CoordenadorController::class, 'gerar_declaracao']);
+
