@@ -31,4 +31,10 @@
     .p {
         @apply font-sans text-sm md:text-base;
     }
+
+    button
+    .button{
+        border: 1px black;
+    }
 }
+
