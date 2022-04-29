@@ -32,9 +32,15 @@
         @apply font-sans text-sm md:text-base;
     }
 
-    button
-    .button{
-        border: 1px black;
+}
+
+@layer components {
+    .default-button
+    {
+        @apply w-fit min-h-[2rem] max-h-11 px-8 py-2 text-white align-middle;
     }
+}
+
+@layer utilities {
 }
 
