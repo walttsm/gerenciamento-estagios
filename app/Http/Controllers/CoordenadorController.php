@@ -22,7 +22,7 @@ class CoordenadorController extends Controller
             ['alunos' => $alunos]);
     }
 
-    public function gerar_declaracao(Request $request) {
+    public function gerar_declaracoes(Request $request) {
         $request->validate([
         'data' => 'required',
         ]);
@@ -34,5 +34,9 @@ class CoordenadorController extends Controller
 
 
         return view('coordenador.gerando', ['data' => $alunos]);
+    }
+
+    public function gerar_declaracao(Aluno $aluno) {
+        return view('coordenador.modelo.declaracao', ['aluno' => $aluno]);
     }
 }

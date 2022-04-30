@@ -31,6 +31,6 @@ class Aluno extends Model
     }
 
     public function orientador(){
-        return $this->belongsTo('Orientador');
+        return $this->belongsTo(Orientador::class, 'orientador_id');
     }
 }

@@ -1,3 +1,7 @@
+<?php
+use Spatie\Browsershot\Browsershot;
+?>
+
 @extends('layouts.common')
 
 @section('content')
@@ -13,7 +17,7 @@
             <input type="text" placeholder="Turma" name="filtro-turma" id="filtro-turma"
                 class="min-w-[2rem] max-w-xs h-6 mx-8 my-auto" onchange="filtro_turma()">
             <div class="flex-1">
-                <button type="submit" class="default-button     float-right bg-blue">
+                <button type="submit" class="default-button float-right bg-blue" onclick="">
                     Gerar declarações
                 </button>
             </div>
@@ -40,6 +44,9 @@
                 <td>ok</td>
                 <td>0/80</td>
                 <td>{{ $aluno['orientador'] }}</td>
+                <td>
+                    <a href="/coordenador/modelo_declaracao/{{ $aluno['id'] }}"> gerar</a>
+                </td>
             </tr>
             @endforeach
         </table>
@@ -47,12 +54,6 @@
     </form>
 
     <script>
-        function filtro_turma() {
 
-        }
-
-        function filtro_nome() {
-
-        }
     </script>
 @endsection
