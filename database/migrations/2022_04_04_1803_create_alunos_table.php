@@ -20,10 +20,11 @@ return new class extends Migration
             $table->string('matricula')->unique();
             $table->string('email')->unique();
             $table->string('nome_trabalho')->nullable();
+            $table->unsignedBigInteger('turma_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('orientador_id');
 
-            $table->unsignedBigInteger('turma_id')->references('id')->on('turmas')->onDelete('cascade');
+            $table->foreign('turma_id')->references('id')->on('turmas')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('cascade');
         });

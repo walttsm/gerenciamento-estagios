@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('rpod', function (Blueprint $table) {
             $table->id();
-            $table->int('mes');
-            $table->int('horas_mes');
+            $table->integer('mes');
+            $table->integer('horas_mes');
             $table->string('local_arquivo');
             $table->unsignedBigInteger('aluno_id');
             $table->unsignedBigInteger('orientador_id');

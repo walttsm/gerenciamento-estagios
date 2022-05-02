@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('registro', function (Blueprint $table) {
             $table->id();
-            $table->timestamps('data_criacao');
+            $table->timestamps();
             $table->string('assunto');
             $table->string('prox_assunto');
             $table->string('observacao');
@@ -25,9 +25,9 @@ return new class extends Migration
             $table->unsignedBigInteger('orientador_id');
             $table->unsignedBigInteger('orientacao_id');
 
-            $table->foreign('aluno_id')->references('alunos')->on('id')->onDelete('cascade');
-            $table->foreign('orientador_id')->references('orientadores')->on('id')->onDelete('cascade');
-            $table->foreign('orientacao_id')->references('orientacao')->on('id')->onDelete('cascade');
+            $table->foreign('aluno_id')->references('id')->on('alunos')->onDelete('cascade');
+            $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('cascade');
+            $table->foreign('orientacao_id')->references('id')->on('orientacao')->onDelete('cascade');
         });
     }
 

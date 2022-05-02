@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('aviso_titulo');
             $table->string('aviso_conteudo');
             $table->unsignedBigInteger('aluno_id');
-            $table->unsignedBigIntefer('orientador_id');
-            
+            $table->unsignedBigInteger('orientador_id');
+
             $table->foreign('aluno_id')->references('id')->on('alunos')->onDelete('cascade');
             $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('cascade');
         });
