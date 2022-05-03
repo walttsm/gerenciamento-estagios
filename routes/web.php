@@ -33,4 +33,4 @@ Route::get('/rpodpage', function(){
 Route::get('/coordenador/declaracoes', [CoordenadorController::class, 'show_geracao']);
 Route::post('/coordenador/gerar_declaracoes', [CoordenadorController::class, 'gerar_declaracoes']);
 Route::view('/coordenador/modelo_declaracao', 'coordenador.modelo.declaracao');
-Route::get('/coordenador/modelo_declaracao/{aluno}', [CoordenadorController::class, 'gerar_declaracao']);
+Route::get('/coordenador/modelo_declaracao/{aluno}', [CoordenadorController::class, 'gerar_declaracao'])->name('gerar_declaracao');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Aluno;
 use App\Models\Orientador;
+use Spatie\Browsershot\Browsershot;
 
 class CoordenadorController extends Controller
 {
@@ -37,6 +38,19 @@ class CoordenadorController extends Controller
     }
 
     public function gerar_declaracao(Aluno $aluno) {
+        $savepath = '../../../resources/declaracoes_geradas/';
+        /*Browsershot::url(route('gerar_declaracao', ['aluno' => $aluno]))
+        ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
+        ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
+        ->format('A4')
+        ->save('/home/walter/declaracao.pdf');*/
+
+        Browsershot::html(view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render())
+        ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
+        ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
+        ->format('A4')
+        ->save('/home/walter/declaracao.pdf');
+
         return view('coordenador.modelo.declaracao', ['aluno' => $aluno]);
     }
 }
