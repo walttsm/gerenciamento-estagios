@@ -245,8 +245,10 @@
 
         <p class="text-right my-20">Londrina,
             <?php
-            $cur_date = new DateTime();
-            echo $cur_date->format('d/m/Y');
+            //$cur_date = new DateTime();
+            //echo $cur_date->format('d/m/Y');
+
+            echo get_data_escrita();
             ?>.
         </p>
 

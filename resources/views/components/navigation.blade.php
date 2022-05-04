@@ -1,5 +1,5 @@
 <nav id="sidebar"
-    class="fixed left-0 h-screen w-[5%] hover:w-1/6 bg-blue text-white smooth-transition">
+    class="fixed left-0 h-screen w-[3%] hover:w-1/6 bg-blue text-white smooth-transition">
     <div class="flex flex-col">
         <div class="self-end my-4 mr-5">
                 <div class="space-y-2">

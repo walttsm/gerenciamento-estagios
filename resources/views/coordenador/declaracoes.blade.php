@@ -9,7 +9,7 @@ use Spatie\Browsershot\Browsershot;
     <hr>
     <!--<p>{{ $alunos }}</p>-->
 
-    <form action="gerar_declaracoes" method="post" id="selecao_alunos">
+    <form action="" method="post" id="selecao_alunos">
         @csrf
         <div class=" p-4 align-middle flex w-full">
             <input type="text" placeholder="Nome" name="filtro-nome" id="filtro-nome"
@@ -36,7 +36,7 @@ use Spatie\Browsershot\Browsershot;
                 @foreach ($alunos as $aluno)
             <tr>
                 <td>
-                    <input type="checkbox" name="data[]" id="{{ $aluno['id'] }}" value="{{ $aluno }}">
+                    <input type="checkbox" name="data[]" id="{{ $aluno['id'] }}" value="{{ $aluno['id'] }}">
                 </td>
                 <td>{{ $aluno['nome_aluno'] }}</td>
                 <td>{{ $aluno['turma_id'] }}</td>
