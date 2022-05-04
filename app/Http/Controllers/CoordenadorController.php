@@ -38,18 +38,21 @@ class CoordenadorController extends Controller
     }
 
     public function gerar_declaracao(Aluno $aluno) {
-        $savepath = '../../../resources/declaracoes_geradas/';
+        $savefolder = realpath('./').'/declaracoes_geradas/';
         /*Browsershot::url(route('gerar_declaracao', ['aluno' => $aluno]))
         ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
         ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
         ->format('A4')
         ->save('/home/walter/declaracao.pdf');*/
+        $string =view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
 
-        Browsershot::html(view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render())
+        Browsershot::html($string)
         ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
         ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
+        ->timeout(120)
+        ->emulateMedia("screen")
         ->format('A4')
-        ->save('/home/walter/declaracao.pdf');
+        ->savePdf($savefolder.'declaracao '.$aluno->nome_aluno.'.pdf');
 
         return view('coordenador.modelo.declaracao', ['aluno' => $aluno]);
     }
