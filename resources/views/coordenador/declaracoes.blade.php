@@ -24,17 +24,17 @@ use Spatie\Browsershot\Browsershot;
         </div>
 
         <table width=100% class="text-center" center>
-            <tr>
+            <thead>
                 <th></th>
-                <th>Nome</th>
-                <th>Turma</th>
-                <th>Curso</th>
+                <th>@sortablelink('nome_aluno', 'Nome')</th>
+                <th>@sortablelink('turma_id', 'Turma')</th>
+                <th>@sortablelink('curso', 'Curso')</th>
                 <th>Atividades</th>
                 <th>Horas</th>
                 <th>Orientador</th>
                 </th>
                 @foreach ($alunos as $aluno)
-            <tr>
+            </thead>
                 <td>
                     <input type="checkbox" name="data[]" id="{{ $aluno['id'] }}" value="{{ $aluno['id'] }}">
                 </td>
