@@ -13,7 +13,7 @@ use Spatie\Browsershot\Browsershot;
         @csrf
         <div class=" p-4 align-middle flex w-full">
             <input type="text" placeholder="Nome" name="filtro-nome" id="filtro-nome"
-                class="min-w-[2rem] max-w-xs h-6 mx-8 my-auto" onchange="filtro_nome()" />
+                class="min-w-[2rem] max-w-xs h-6 mx-8 my-auto" onchange="filtro_nome($alunos, $)" />
             <input type="text" placeholder="Turma" name="filtro-turma" id="filtro-turma"
                 class="min-w-[2rem] max-w-xs h-6 mx-8 my-auto" onchange="filtro_turma()">
             <div class="flex-1">
@@ -38,12 +38,12 @@ use Spatie\Browsershot\Browsershot;
                 <td>
                     <input type="checkbox" name="data[]" id="{{ $aluno['id'] }}" value="{{ $aluno['id'] }}">
                 </td>
-                <td>{{ $aluno['nome_aluno'] }}</td>
-                <td>{{ $aluno['turma_id'] }}</td>
-                <td>{{ $aluno['curso'] }}</td>
+                <td>{{ $aluno->nome_aluno }}</td>
+                <td>{{ $aluno->turma->ano }}</td>
+                <td>{{ $aluno->curso }}</td>
                 <td>ok</td>
                 <td>0/80</td>
-                <td>{{ $aluno['orientador'] }}</td>
+                <td>{{ $aluno->orientador->nome }}</td>
                 <td>
                     <a href="/coordenador/modelo_declaracao/{{ $aluno['id'] }}"> gerar</a>
                 </td>
@@ -51,9 +51,15 @@ use Spatie\Browsershot\Browsershot;
             @endforeach
         </table>
 
+        <div class="mt-8">
+            {{ $alunos->links() }}
+        </div>
+
     </form>
 
     <script>
+        var input_nome = document.getElementById('filtro-nome');
+        var table_data = $alunos;
 
     </script>
 @endsection

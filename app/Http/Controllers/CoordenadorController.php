@@ -15,12 +15,7 @@ class CoordenadorController extends Controller
     //
     public function show_geracao()
     {
-        $alunos = Aluno::all();
-
-        foreach ($alunos as $aluno) {
-            $orientador = Orientador::find($aluno['orientador_id']);
-            $aluno['orientador'] = $orientador['nome'];
-        }
+        $alunos = Aluno::paginate(10);
 
         return view(
             'coordenador.declaracoes',
