@@ -15,7 +15,7 @@ class CoordenadorController extends Controller
     //
     public function show_geracao()
     {
-        $alunos = Aluno::sortable()->paginate(10);
+        $alunos = Aluno::sortable(['turma_id' => 'desc'])->select('*')->get();
 
         return view(
             'coordenador.declaracoes',
