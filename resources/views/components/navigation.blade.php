@@ -71,7 +71,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <a id="declaracoes" href="/coordenador/declaracoes"
+                <a href="/coordenador/declaracoes/"
                     class="mx-2 my-2 p-4 hidden group-hover:flex active:bg-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description"
                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -96,7 +96,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <a href="#" class="mx-2 my-2 p-4 hidden group-hover:flex">
+                <a href="/orientador/registros/" class="mx-2 my-2 p-4 hidden group-hover:flex">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -115,7 +115,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <a href="#" class="mx-2 my-2 p-4 hidden group-hover:flex">
+                <a href="/orientador/orientandos/" class="mx-2 my-2 p-4 hidden group-hover:flex">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -136,7 +136,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <a href="#" class="mx-2 my-2 p-4 hidden group-hover:flex">
+                <a href="/orientador/orientacoes" class="mx-2 my-2 p-4 hidden group-hover:flex">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -156,14 +156,3 @@
         </ul>
     </div>
 </nav>
-
-<script>
-    document.getElementById('toggle-nav').addEventListener("click", update_width());
-
-    function style_selected() {
-        let elementos = document.querySelectorAll("a");
-        elementos.forEach(element => {
-            if (element.href == )
-        });
-    }
-</script>
