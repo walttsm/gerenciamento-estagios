@@ -29,8 +29,6 @@ class CoordenadorController extends Controller
             'data' => 'required',
         ]);
 
-        //dd(storage_path() . '/zips/declaracoes' . date('d/m/Y') . '.zip');
-
         if(!Storage::exists('/zips')){
             Storage::makeDirectory('/public/zips');
         }
@@ -45,10 +43,12 @@ class CoordenadorController extends Controller
 
         foreach ($request['data'] as $id) {
             $aluno = Aluno::find($id);
-            $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
             $savepath = storage_path() . '/temp/declaracao ' . $aluno->matricula . '-'. $aluno->nome_aluno  . '.pdf';
 
-            Browsershot::html($string)
+            if (!$savepath) {
+                $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
+
+                Browsershot::html($string)
                 ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
                 ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
                 ->timeout(120)
@@ -56,7 +56,8 @@ class CoordenadorController extends Controller
                 ->format('A4')
                 ->savePdf($savepath);
 
-            //array_push($filepaths, $savepath);
+            }
+
             $zipper->addFile($savepath, $aluno->matricula . '-'. $aluno->nome_aluno . '.pdf');
         }
 
