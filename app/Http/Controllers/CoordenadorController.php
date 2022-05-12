@@ -71,15 +71,17 @@ class CoordenadorController extends Controller
     {
         $savepath = storage_path() . '/temp/declaracao ' . $aluno->nome_aluno . '.pdf';
 
-        $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
+        if (!$savepath) {
+            $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
 
-        Browsershot::html($string)
+            Browsershot::html($string)
             ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
             ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
             ->timeout(120)
             ->emulateMedia("screen")
             ->format('A4')
             ->savePdf($savepath);
+        }
 
         //return view('coordenador.modelo.declaracao', ['aluno' => $aluno]);
         return response()->download($savepath);
