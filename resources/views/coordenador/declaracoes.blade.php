@@ -12,9 +12,9 @@ use Spatie\Browsershot\Browsershot;
     <form action="" method="post" id="selecao_alunos">
         @csrf
         <div class=" p-4 align-middle flex w-full">
-                <input type="text" placeholder="Nome" name="filtro-nome" id="filtro-nome"
+                <input class="bg-white mx-4" type="text" placeholder="Nome" name="filtro-nome" id="filtro-nome"
                     class="min-w-[2rem] max-w-xs h-6 mx-8 my-auto" onchange="filtro_nome($alunos, $)" />
-                <input type="text" placeholder="Turma" name="filtro-turma" id="filtro-turma"
+                <input class="bg-white mx-4" type="text" placeholder="Turma" name="filtro-turma" id="filtro-turma"
                     class="min-w-[2rem] max-w-xs h-6 mx-8 my-auto" onchange="filtro_turma()">
             <div class="flex-1">
                 <button type="submit" class="default-button float-right bg-blue-700 hover:bg-blue-600 transition-colors" onclick="">
