@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
 use App\Models\Aluno;
-use App\Models\Orientador;
 use Spatie\Browsershot\Browsershot;
 
 class CoordenadorController extends Controller
@@ -29,10 +28,10 @@ class CoordenadorController extends Controller
             'data' => 'required',
         ]);
 
-        if(!Storage::exists('/zips')){
+        if (!Storage::exists('/zips')) {
             Storage::makeDirectory('/public/zips');
         }
-        if(!Storage::exists('/temp')){
+        if (!Storage::exists('/temp')) {
             Storage::makeDirectory('/public/temp');
         }
 
@@ -43,48 +42,49 @@ class CoordenadorController extends Controller
 
         foreach ($request['data'] as $id) {
             $aluno = Aluno::find($id);
-            $savepath = storage_path() . '/temp/declaracao ' . $aluno->matricula . '-'. $aluno->nome_aluno  . '.pdf';
+            $savepath = storage_path() . '/temp/declaracao ' . $aluno->matricula . '-' . $aluno->nome_aluno  . '.pdf';
 
-            if (!$savepath) {
+            if (!Storage::exists($savepath)) {
                 $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
 
                 Browsershot::html($string)
-                ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
-                ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
-                ->timeout(120)
-                ->emulateMedia("screen")
-                ->format('A4')
-                ->savePdf($savepath);
-
+                    ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
+                    ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
+                    ->timeout(120)
+                    ->emulateMedia("screen")
+                    ->format('A4')
+                    ->savePdf($savepath);
             }
 
-            $zipper->addFile($savepath, $aluno->matricula . '-'. $aluno->nome_aluno . '.pdf');
+            $zipper->addFile($savepath, $aluno->matricula . '-' . $aluno->nome_aluno . '.pdf');
         }
 
         $zipper->close();
 
         return response()->download($zip_file);
-
-        //return view('coordenador.gerando', ['data' => $alunos]);
     }
 
     public function gerar_declaracao(Aluno $aluno)
     {
+
+        if (!Storage::exists('/temp')) {
+            Storage::makeDirectory('/public/temp');
+        }
+
         $savepath = storage_path() . '/temp/declaracao ' . $aluno->nome_aluno . '.pdf';
 
         if (!$savepath) {
             $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
 
             Browsershot::html($string)
-            ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
-            ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
-            ->timeout(120)
-            ->emulateMedia("screen")
-            ->format('A4')
-            ->savePdf($savepath);
+                ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
+                ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
+                ->timeout(120)
+                ->emulateMedia("screen")
+                ->format('A4')
+                ->savePdf($savepath);
         }
 
-        //return view('coordenador.modelo.declaracao', ['aluno' => $aluno]);
         return response()->download($savepath);
     }
 }

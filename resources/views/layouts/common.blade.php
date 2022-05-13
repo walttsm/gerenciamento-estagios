@@ -16,6 +16,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.10.1/dist/alpine.js" defer></script>
+    @stack('scripts')
 </head>
 
 <body class="font-sans antialiased box-border">
@@ -23,7 +25,7 @@
         <!-- Navigation -->
         @include('components.navigation')
         <!-- Page Content -->
-        <main class="m-16 flex-1">  
+        <main class="m-16 flex-1">
             @yield('content')
         </main>
     </div>
