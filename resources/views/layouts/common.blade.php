@@ -23,7 +23,7 @@
 <body class="font-sans antialiased box-border">
     <div class="flex">
         <!-- Navigation -->
-        @include('components.navigation')
+        @include('layouts.sideNavigation')
         <!-- Page Content -->
         <main class="m-16 flex-1">
             @yield('content')

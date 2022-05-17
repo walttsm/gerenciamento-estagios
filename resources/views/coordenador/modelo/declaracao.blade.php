@@ -234,9 +234,9 @@
         <div class="flex justify-center max-w-xl">
             <p class="text-justify">
                 Declaramos a realização, em {{ date('Y') }}, da banca de avaliação de Estágio entitulado
-                <b>{{ $aluno->nome_trabalho }}</b>, de autoria de {{ $aluno->nome_aluno }}, aluna do curso de
-                {{ $aluno->curso }}, orientada
-                pelo
+                <b>{{ $aluno->nome_trabalho }}</b>, de autoria de {{ $aluno->nome_aluno }}, discente do curso de
+                {{ $aluno->curso }}, sob orientação
+                do
                 professor <b>{{ $aluno->orientador->nome }}</b>.
                 Além do orientador, a banca teve em sua composição de avaliação os professores <b>Banca 1</b> e <b>Banca
                     2</b>.
@@ -245,9 +245,6 @@
 
         <p class="text-right my-20">Londrina,
             <?php
-            //$cur_date = new DateTime();
-            //echo $cur_date->format('d/m/Y');
-
             echo get_data_escrita();
             ?>.
         </p>

@@ -712,6 +712,9 @@ select {
 .left-0 {
   left: 0px;
 }
+.bottom-4 {
+  bottom: 1rem;
+}
 .z-0 {
   z-index: 0;
 }
@@ -989,6 +992,9 @@ select {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+.justify-self-end {
+  justify-self: end;
 }
 .overflow-hidden {
   overflow: hidden;

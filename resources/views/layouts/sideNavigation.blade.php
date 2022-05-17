@@ -1,5 +1,5 @@
 <nav id="sidebar"
-    class=" group fixed left-0 h-screen w-[3%] min-w-[50px] hover:w-[250px] bg-blue-700 text-white smooth-transition  overflow-y-auto over">
+    class=" group fixed left-0 h-screen w-[3%] min-w-[50px] hover:w-[250px] bg-blue-700 text-white smooth-transition overflow-y-auto over">
     <div class="flex flex-col">
         <div class="mr-1 text-right">
             <button class="w-10 align-bottom" id="toggle-nav" type="button">
@@ -149,5 +149,20 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
         </ul>
+
+        <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
+        <div>
+            <x-nav-link class="hidden group-hover:flex" :href="route('logout')" :active="request()->routeIs('logout')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <desc>Download more icon variants from https://tabler-icons.io/i/logout</desc>
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+                    <path d="M7 12h14l-3 -3m0 6l3 -3"></path>
+                 </svg>
+                {{ __('Sair') }}
+
+            </x-nav-link>
+        </div>
+        <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
     </div>
 </nav>
