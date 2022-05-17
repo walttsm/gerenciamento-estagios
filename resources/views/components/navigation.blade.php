@@ -17,7 +17,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('avisos')" :active="request()->routeIs('avisos')">
+                <x-nav-link class="hidden group-hover:flex" :href="route('avisos')" :active="request()->routeIs('avisos')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home mr-2" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -35,7 +35,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('orientadores')" :active="request()->routeIs('orientadores')">
+                <x-nav-link class="hidden group-hover:flex" :href="route('orientadores')" :active="request()->routeIs('orientadores')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school" width="24"
                     height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -52,7 +52,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('alunos')" :active="request()->routeIs('alunos')">
+                <x-nav-link class="hidden group-hover:flex" :href="route('alunos')" :active="request()->routeIs('alunos')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -71,7 +71,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('declaracoes')" :active="request()->routeIs('declaracoes')">
+                <x-nav-link class="hidden group-hover:flex" :href="route('declaracoes')" :active="request()->routeIs('declaracoes')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description"
                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -94,7 +94,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('orientador_rpods')" :active="request()->routeIs('orientador_rpods')">
+                <x-nav-link class="hidden group-hover:flex" :href="route('orientador_rpods')" :active="request()->routeIs('orientador_rpods')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -112,7 +112,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('orientador_orientandos')" :active="request()->routeIs('orientador_orientandos')">
+                <x-nav-link class="hidden group-hover:flex" :href="route('orientador_orientandos')" :active="request()->routeIs('orientador_orientandos')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -132,7 +132,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('orientador_orientacoes')" :active="request()->routeIs('orientador_orientacoes')">
+                <x-nav-link class="hidden group-hover:flex" :href="route('orientador_orientacoes')" :active="request()->routeIs('orientador_orientacoes')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
