@@ -37,7 +37,7 @@
 @layer components {
     .default-button
     {
-        @apply w-fit min-h-[2rem] max-h-11 px-8 py-2 text-white align-middle;
+        @apply w-fit min-h-[2rem] max-h-11 px-8 py-2 text-white align-middle bg-blue-700 hover:bg-blue-600 transition-colors;
     }
 }
 

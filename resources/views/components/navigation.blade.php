@@ -15,9 +15,10 @@
         </div>
         <ul class="my-2">
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
+
             <li>
-                <a href="/avisos/" class=" mx-2 my-2 p-4 hidden group-hover:flex" id="inicio">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24"
+                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('avisos')" :active="request()->routeIs('avisos')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home mr-2" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <desc>Download more icon variants from https://tabler-icons.io/i/home</desc>
@@ -26,32 +27,32 @@
                         <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
                         <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
                     </svg>
-                    <span class="pl-4"> Início </span>
-                </a>
+                    {{ __('Avisos') }}
+
+                </x-nav-link>
             </li>
 
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <a href="/coordenador/orientadores/" class="mx-2 my-2 p-4 hidden group-hover:flex">
+                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('orientadores')" :active="request()->routeIs('orientadores')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school" width="24"
-                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <desc>Download more icon variants from https://tabler-icons.io/i/school</desc>
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6"></path>
-                        <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4"></path>
-                    </svg>
-                    <span class="pl-4">
-                        Orientadores
-                    </span>
-                </a>
+                    height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <desc>Download more icon variants from https://tabler-icons.io/i/school</desc>
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6"></path>
+                    <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4"></path>
+                </svg>
+                    {{ __('Orientadores') }}
+
+                </x-nav-link>
             </li>
 
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <a href="/coordenador/alunos/" class="mx-2 my-2 p-4 hidden group-hover:flex">
+                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('alunos')" :active="request()->routeIs('alunos')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -62,17 +63,15 @@
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                         <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path>
                     </svg>
-                    <span class="pl-4">
-                        Alunos
-                    </span>
-                </a>
+                    {{ __('Alunos') }}
+
+                </x-nav-link>
             </li>
 
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <a href="/coordenador/declaracoes/"
-                    class="mx-2 my-2 p-4 hidden group-hover:flex active:bg-blue-600">
+                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('declaracoes')" :active="request()->routeIs('declaracoes')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description"
                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -83,10 +82,9 @@
                         <path d="M9 17h6"></path>
                         <path d="M9 13h6"></path>
                     </svg>
-                    <span class="pl-4">
-                        Declarações
-                    </span>
-                </a>
+                    {{ __('Declarações') }}
+
+                </x-nav-link>
             </li>
 
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
@@ -96,7 +94,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <a href="/orientador/registros/" class="mx-2 my-2 p-4 hidden group-hover:flex">
+                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('orientador_rpods')" :active="request()->routeIs('orientador_rpods')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -106,16 +104,15 @@
                         <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10"></path>
                         <line x1="10" y1="12" x2="14" y2="12"></line>
                     </svg>
-                    <span class="pl-4">
-                        Registros
-                    </span>
-                </a>
+                    {{ __('Registros') }}
+
+                </x-nav-link>
             </li>
 
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <a href="/orientador/orientandos/" class="mx-2 my-2 p-4 hidden group-hover:flex">
+                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('orientador_orientandos')" :active="request()->routeIs('orientador_orientandos')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -127,16 +124,15 @@
                         <line x1="15" y1="12" x2="17" y2="12"></line>
                         <line x1="7" y1="16" x2="17" y2="16"></line>
                     </svg>
-                    <span class="pl-4">
-                        Orientandos
-                    </span>
-                </a>
+                    {{ __('Orientandos') }}
+
+                </x-nav-link>
             </li>
 
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <a href="/orientador/orientacoes" class="mx-2 my-2 p-4 hidden group-hover:flex">
+                <x-nav-link class="p-4 py-4 hidden group-hover:flex align-middle" :href="route('orientador_orientacoes')" :active="request()->routeIs('orientador_orientacoes')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -145,10 +141,9 @@
                         <circle cx="12" cy="12" r="9"></circle>
                         <polyline points="12 7 12 12 15 15"></polyline>
                     </svg>
-                    <span class="pl-4">
-                        Orientações
-                    </span>
-                </a>
+                    {{ __('Orientações') }}
+
+                </x-nav-link>
             </li>
 
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">

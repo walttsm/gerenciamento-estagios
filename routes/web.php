@@ -1,5 +1,5 @@
 <?php
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 use Illuminate\Support\Facades\Route;
 
@@ -23,14 +23,44 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-Route::get('/rpodpage', function(){
+// ROTAS ALUNO
+
+Route::get('/rpodpage', function () {
     return view('aluno/rpodpage');
 });
 
+
+// ROTAS ORIENTADOR
+Route::get('/orientador/rpods', function () {
+    return view('orientador.rpods');
+})->name('orientador_rpods');
+
+Route::get('/orientador/orientandos', function () {
+    return view('orientador.orientandos');
+})->name('orientador_orientandos');
+
+Route::get('/orientador/orientacoes', function () {
+    return view('orientador.orientacoes');
+})->name('orientador_orientacoes');
+
+// ROTAS COORDENADOR
+
+Route::get('/avisos', function () {
+    return view('common.avisos');
+})->name('avisos');
+
+Route::get('/coordenador/orientadores', function () {
+    return view('coordenador.orientadores');
+})->name('orientadores');
+
+Route::get('/coordenador/alunos', function () {
+    return view('coordenador.alunos');
+})->name('alunos');
+
 // Rotas de geração de declarações
-Route::get('/coordenador/declaracoes', [CoordenadorController::class, 'show_geracao']);
+Route::get('/coordenador/declaracoes', [CoordenadorController::class, 'show_geracao'])->name('declaracoes');
 Route::post('/coordenador/declaracoes', [CoordenadorController::class, 'gerar_declaracoes']);
 Route::view('/coordenador/modelo_declaracao', 'coordenador.modelo.declaracao_modelo');
 Route::get('/coordenador/modelo_declaracao/{aluno}', [CoordenadorController::class, 'gerar_declaracao'])->name('gerar_declaracao');

@@ -1,7 +1,3 @@
-<?php
-use Spatie\Browsershot\Browsershot;
-?>
-
 @extends('layouts.common')
 
 @section('content')
@@ -16,7 +12,7 @@ use Spatie\Browsershot\Browsershot;
             <input class="bg-white mx-4 min-w-[2rem] max-w-xs h-6 my-auto" type="text" placeholder="Turma"
                 name="filtro-turma" id="filtro-turma"">
                     <div class="  flex-1">
-            <button type="submit" class="gerar default-button float-right bg-blue-700 hover:bg-blue-600 transition-colors">
+            <button type="submit" class="gerar default-button float-right ">
                 Gerar declarações
             </button>
         </div>
