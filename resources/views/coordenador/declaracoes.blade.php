@@ -6,16 +6,27 @@
 
     <form action="" method="post" id="selecao_alunos">
         @csrf
-        <div class="p-4 align-middle flex w-full">
-            <input class="bg-white min-w-[2rem] max-w-xs h-10 mx-8 my-auto" type="text" placeholder="Nome" name="filtro-nome"
+        <div class="p-4 align-middle flex justify-between w-full">
+            <div>
+                <input class="bg-white min-w-[2rem] max-w-xs h-10 mx-8 my-auto" type="text" placeholder="Nome" name="filtro-nome"
                 id="filtro-nome" onchange="filtro_nome($alunos, $)" />
-            <input class="bg-white mx-4 min-w-[2rem] max-w-xs h-10 my-auto" type="text" placeholder="Turma"
-                name="filtro-turma" id="filtro-turma"">
-                        <div class="   flex-1">
-            <button type="submit" class="gerar default-button float-right ">
-                Gerar declarações
-            </button>
-        </div>
+                <input class="bg-white mx-4 min-w-[2rem] max-w-xs h-10 my-auto" type="text" placeholder="Turma"
+                name="filtro-turma" id="filtro-turma" />
+            </div>
+            <div>
+                <button type="submit" class="inline-flex gerar default-button float-right font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24"
+                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <desc>Download more icon variants from https://tabler-icons.io/i/check</desc>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M5 12l5 5l10 -10"></path>
+                    </svg>
+                    <span class="ml-2">
+                        Gerar declarações
+                    </span>
+                </button>
+            </div>
         </div>
 
         <div x-data="selectAllData()">
