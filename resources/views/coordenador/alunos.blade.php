@@ -1,11 +1,12 @@
 @extends('layouts.common')
 
 @section('content')
-    <div class="align-middle mx-4 my-8">
+    <div class="align-middle mx-8 my-12 text-3xl font-bold">
         <h1>Alunos</h1>
-    </div>
 
+    </div>
     <hr>
+
 
     <div>
         <div class="p-4 align-middle flex w-full justify-between">
@@ -24,10 +25,30 @@
                 </span>
             </form>
 
-            <span>
-                <button type="button" class="default-button">Nova turma</button>
-                <button type="button" class="default-button">Adicionar Alunos</button>
-            </span>
+            <div>
+                <button type="button" class="default-button mx-4 min-w-fit inline-flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <desc>Download more icon variants from https://tabler-icons.io/i/plus</desc>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span>
+                        Nova turma
+                    </span>
+                </button>
+                <button type="button" class="default-button mx-4 min-w-fit inline-flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <desc>Download more icon variants from https://tabler-icons.io/i/plus</desc>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                     </svg>
+                    <span>
+                        Adicionar Alunos
+                    </span>
+                </button>
+            </div>
         </div>
 
         <table class="table-auto text-center w-full">

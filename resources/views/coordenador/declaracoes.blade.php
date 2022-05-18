@@ -1,7 +1,7 @@
 @extends('layouts.common')
 
 @section('content')
-    <h1 class="m-8" style="font-size: 1.85em; font-weight:bold">Gerar declarações</h1>
+    <h1 class=" mx-8 my-12 text-3xl font-bold">Gerar declarações</h1>
     <hr>
 
     <form action="" method="post" id="selecao_alunos">
