@@ -35,7 +35,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <x-nav-link class="hidden group-hover:flex" :href="route('orientadores')" :active="request()->routeIs('orientadores')">
+                <x-nav-link class="hidden group-hover:flex" :href="route('orientadores.index')" :active="request()->routeIs('orientadores.index')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school" width="24"
                     height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -52,7 +52,7 @@
             <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
             <li>
-                <x-nav-link class="hidden group-hover:flex" :href="route('alunos')" :active="request()->routeIs('alunos')">
+                <x-nav-link class="hidden group-hover:flex" :href="route('alunos.index')" :active="request()->routeIs('alunos.index')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">

@@ -6,12 +6,12 @@
 
     <form action="" method="post" id="selecao_alunos">
         @csrf
-        <div class=" p-4 align-middle flex w-full">
-            <input class="bg-white min-w-[2rem] max-w-xs h-6 mx-8 my-auto" type="text" placeholder="Nome" name="filtro-nome"
+        <div class="p-4 align-middle flex w-full">
+            <input class="bg-white min-w-[2rem] max-w-xs h-10 mx-8 my-auto" type="text" placeholder="Nome" name="filtro-nome"
                 id="filtro-nome" onchange="filtro_nome($alunos, $)" />
-            <input class="bg-white mx-4 min-w-[2rem] max-w-xs h-6 my-auto" type="text" placeholder="Turma"
+            <input class="bg-white mx-4 min-w-[2rem] max-w-xs h-10 my-auto" type="text" placeholder="Turma"
                 name="filtro-turma" id="filtro-turma"">
-                    <div class="  flex-1">
+                        <div class="   flex-1">
             <button type="submit" class="gerar default-button float-right ">
                 Gerar declarações
             </button>
@@ -70,21 +70,20 @@
 @endsection
 
 @push('scripts')
-
     <script>
         function selectAllData() {
-        return {
-            selectall: false,
+            return {
+                selectall: false,
 
-            toggleAllCheckboxes() {
-                this.selectall = !this.selectall
+                toggleAllCheckboxes() {
+                    this.selectall = !this.selectall
 
-                checkboxes = document.querySelectorAll('[id^=checkbox]');
-                [...checkboxes].map((el) => {
-                    el.checked = this.selectall;
-                })
+                    checkboxes = document.querySelectorAll('[id^=checkbox]');
+                    [...checkboxes].map((el) => {
+                        el.checked = this.selectall;
+                    })
+                }
             }
         }
-    }
     </script>
 @endpush

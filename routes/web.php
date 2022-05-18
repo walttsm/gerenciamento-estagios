@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CoordenadorController;
 use App\Http\Controllers\Coordenador\DeclaracaoController;
+use App\Http\Controllers\Coordenador\AlunosController;
+use App\Http\Controllers\Coordenador\OrientadoresController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -57,13 +59,11 @@ Route::prefix('/orientador')->middleware('auth')->controller(OrientadorControlle
 
 // ROTAS COORDENADOR
 Route::prefix('/coordenador')->middleware('auth')->controller(DeclaracaoController::class)->group(function () {
-    Route::get('orientadores', function () {
-        return view('coordenador.orientadores');
-    })->name('orientadores');
 
-    Route::get('alunos', function () {
-        return view('coordenador.alunos');
-    })->name('alunos');
+    Route::resources([
+        'alunos' => AlunosController::class,
+        'orientadores' => OrientadoresController::class,
+    ]);
 
     // Rotas de geração de declarações
     Route::get('declaracoes', 'create')->name('declaracoes');

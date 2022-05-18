@@ -20,12 +20,12 @@
     @stack('scripts')
 </head>
 
-<body class="font-sans antialiased box-border">
+<body class="font-sans antialiased box-border bg-bg-beige">
     <div class="flex">
         <!-- Navigation -->
         @include('layouts.sideNavigation')
         <!-- Page Content -->
-        <main class="m-16 flex-1">
+        <main class="m-16 flex-1 ">
             @yield('content')
         </main>
     </div>
