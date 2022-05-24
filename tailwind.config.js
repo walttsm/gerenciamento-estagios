@@ -18,7 +18,7 @@ module.exports = {
         },
         colors: {
             'blue': {
-                '100': '#ebf2f6',
+                '100':'#ebf2f6',
                 '200':'#c4d9e5',
                 '300':'#9dc0d3',
                 '400':'#76a7c1',
@@ -32,8 +32,9 @@ module.exports = {
             'gray': '#D3D0CB',
             'bg-beige': '#F2F2F2',
             'white': '#ffffff',
-            'red': 'DD4141',
-
+            'red': '#DD4141',
+            'purple': '#552b7c',
+            'modal-purple': '#E2E3EF'
         }
     },
 

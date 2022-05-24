@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $users = User::all();
-        
+
         return $users;
     }
 }

@@ -19,6 +19,9 @@
 </head>
 
 <body>
+    <?php
+
+    ?>
     <div class="text-center mx-auto max-w-xl">
         <h1 class="mt-40 mb-20">Declaração</h1>
         <br>
