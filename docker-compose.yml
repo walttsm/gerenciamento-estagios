@@ -4,7 +4,7 @@ services:
     build: 
       context: .
       dockerfile: .docker/Dockerfile
-    image: 'gerenciamento-estagio'
+    image: 'gerenciamento_estagio'
     ports:
       - 8080:80
     volumes:
@@ -13,10 +13,11 @@ services:
     image: mysql:5.7
     restart: always
     ports: 
-      - "3306:3306"
+      - "3307:3307"
     environment:
-       MYSQL_DATABASE: 'gerenciamento-estagio'
+       MYSQL_DATABASE: 'gerenciamento_estagio'
        MYSQL_ALLOW_EMPTY_PASSWORD: 1
        MYSQL_ROOT_PASSWORD: ""
+       MYSQL_TCP_PORT: 3307
     volumes:
       - ./db:/var/lib/mysql
