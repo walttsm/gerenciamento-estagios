@@ -132,6 +132,8 @@ class AlunosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Aluno::destroy($id);
+
+        return redirect()->route('alunos.index')->with(['message' => "Usuário deletado com sucesso!"]);
     }
 }

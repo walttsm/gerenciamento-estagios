@@ -1,4 +1,4 @@
-<div class=" bg-modal-purple fixed z-10 inset-0 overflow-y-auto w-8/12 h-fit mx-auto my-auto px-16" id="interestModal">
+<div class=" bg-modal-purple hidden fixed z-10 inset-0 overflow-y-auto w-8/12 h-fit mx-auto my-auto px-16" id="interestModal">
 
     <h1 class="my-8">Adicionar aluno</h1>
 
@@ -51,7 +51,7 @@
         </div>
 
         <div id="buttons" class="my-8 flex justify-end">
-            <button type="button" class="cancel-button closeModal mx-4" onclick="document.getElementById('createForm').reset()">Descartar</button>
+            <button type="button" class="cancel-button closeAlunoModal mx-4" onclick="document.getElementById('createForm').reset()">Descartar</button>
             {{-- <button type="reset"  class="default-button mx-4">Salvar/add outro</button> --}}
             <button type="submit" class="default-button mx-4">Salvar</button>
         </div>
