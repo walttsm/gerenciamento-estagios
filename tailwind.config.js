@@ -31,6 +31,7 @@ module.exports = {
             'white': '#ffffff',
             'red': '#DD4141',
             'purple': '#552b7c',
+            'modal-purple': '#E2E3EF'
         }
     },
 

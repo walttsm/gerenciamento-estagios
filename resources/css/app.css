@@ -37,7 +37,11 @@
 @layer components {
     .default-button
     {
-        @apply w-fit min-h-[2rem] max-h-11 px-4 py-2 text-white align-middle bg-blue-700 hover:bg-blue-600 transition-colors;
+        @apply w-fit min-h-[2rem] max-h-11 px-4 py-2 rounded-md font-bold text-white align-middle bg-blue-700 hover:brightness-125 transition-all;
+    }
+    .cancel-button  
+    {
+        @apply w-fit min-h-[2rem] max-h-11 px-4 py-2 rounded-md font-bold text-white align-middle bg-red hover:brightness-125 transition-all;
     }
 }
 

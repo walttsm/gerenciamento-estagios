@@ -17,13 +17,16 @@ class Aluno extends Model
 
     public $timestamps = false;
 
-    public $fields = [
+    public $fillable = [
         'id',
         'nome_aluno',
         'curso',
         'matricula',
         'email',
         'nome_trabalho',
+        'turma_id',
+        'orientador_id',
+        'user_id',
     ];
 
     public $sortable = [

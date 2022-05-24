@@ -43,15 +43,15 @@ Route::prefix('/aluno')->middleware('auth')->controller(AlunoController::class)-
 
 // ROTAS ORIENTADOR
 Route::prefix('/orientador')->middleware('auth')->controller(OrientadorController::class)->group(function() {
-    Route::get('/orientador/rpods', function () {
+    Route::get('/rpods', function () {
         return view('orientador.rpods');
     })->name('orientador_rpods');
 
-    Route::get('/orientador/orientandos', function () {
+    Route::get('/orientandos', function () {
         return view('orientador.orientandos');
     })->name('orientador_orientandos');
 
-    Route::get('/orientador/orientacoes', function () {
+    Route::get('/orientacoes', function () {
         return view('orientador.orientacoes');
     })->name('orientador_orientacoes');
 });
