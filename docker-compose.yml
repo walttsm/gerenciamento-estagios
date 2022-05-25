@@ -1,19 +1,10 @@
 version: '3.7'
 services:
-  app:
-    build: 
-      context: .
-      dockerfile: .docker/Dockerfile
-    image: 'gerenciamento_estagio'
-    ports:
-      - 8080:80
-    volumes:
-      - ./:/var/www/html
   db:
     image: mysql:5.7
     restart: always
-    ports: 
-      - "3307:3307"
+    ports:
+      - "3306:3306"
     environment:
        MYSQL_DATABASE: 'gerenciamento_estagio'
        MYSQL_ALLOW_EMPTY_PASSWORD: 1

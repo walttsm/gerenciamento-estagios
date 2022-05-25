@@ -1,4 +1,4 @@
-<div class=" bg-modal-purple hidden fixed z-10 inset-0 overflow-y-auto w-8/12 h-fit mx-auto my-auto px-16" id="interestModal">
+<div class=" bg-modal-purple hidden fixed z-10 inset-0 overflow-y-auto w-8/12 h-fit mx-auto my-auto px-16" id="createModal">
 
     <h1 class="my-8">Adicionar aluno</h1>
 

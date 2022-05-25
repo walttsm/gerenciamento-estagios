@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <x-create-aluno-modal :orientadores=$orientadores />
+        <x-create-aluno-modal :orientadores="$orientadores" />
 
         <table class="table-auto text-center w-full">
             <thead>
@@ -77,13 +77,15 @@
 
             <tbody>
                 @foreach ($alunos as $aluno)
+                    <x-edit-aluno-modal :aluno="$aluno" turma="{{ $aluno->turma->ano }}"
+                        orientador="{{ $aluno->orientador->nome }}" :orientadores="$orientadores" />
                     <tr>
                         <td>{{ $aluno->nome_aluno }}</td>
                         <td>{{ $aluno->turma->ano }}</td>
                         <td>{{ $aluno->curso }}</td>
                         <td>{{ $aluno->orientador->nome }}</td>
-                        <td class="flex">
-                            <button id="editarUsuario" type="button">
+                        <td class="flex justify-center">
+                            <button id="editarUsuario" type="button" onclick="openModal({{ $aluno->id }})">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-edit text-blue-700" width="24" height="24"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -96,7 +98,7 @@
                                 </svg>
                             </button>
                             <div>
-                                <form action="{{ route('alunos.destroy', [$aluno->id])}}" method="POST">
+                                <form action="{{ route('alunos.destroy', [$aluno->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button id="deletarUsuario" type="submit">
@@ -128,11 +130,20 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.openAlunoModal').on('click', function(e) {
-                $('#interestModal').removeClass('hidden');
+                $('#createModal').removeClass('hidden');
             });
             $('.closeAlunoModal').on('click', function(e) {
-                $('#interestModal').addClass('hidden');
+                $('#createModal').addClass('hidden');
             });
         });
+    </script>
+    <script type="text/javascript">
+        function openModal(id) {
+            $('#editModal' + id).removeClass('hidden');
+        }
+
+        function closeModal(id) {
+            $('#editModal' + id).addClass('hidden');
+        }
     </script>
 @endpush
