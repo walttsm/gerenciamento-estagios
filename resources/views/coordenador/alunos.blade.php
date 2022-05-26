@@ -8,9 +8,37 @@
     <hr>
 
     @if ($message = Session::get('message'))
-        <div class="bg-[lightgreen] text-[green] mx-8 my-4 px-8 py-4">
+        <div class="flex align-middle justify-between bg-[lightgreen] text-[green] mx-8 my-4 px-8 py-4" id="messageSuccess">
             <p>{{ $message }}</p>
+            <button type="button" class="self-end" onclick="hideMessage('Success')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <desc>Download more icon variants from https://tabler-icons.io/i/x</desc>
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                 </svg>
+            </button>
         </div>
+    @endif
+
+    @if ($errors->any())
+    <div class="flex align-middle justify-between bg-[salmon] text-[red] mx-8 my-4 px-8 py-4" id="messageError">
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        <button type="button" class="self-end" onclick="hideMessage('Error')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <desc>Download more icon variants from https://tabler-icons.io/i/x</desc>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+             </svg>
+        </button>
+    </div>
     @endif
 
 
@@ -33,7 +61,7 @@
             </form>
 
             <div>
-                <button type="button" class="default-button mx-4 min-w-fit inline-flex">
+                <button type="button" class="default-button openTurmaModal mx-4 min-w-fit inline-flex">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -62,6 +90,7 @@
             </div>
         </div>
 
+        <x-add-turma-modal />
         <x-create-aluno-modal :orientadores="$orientadores" />
 
         <table class="table-auto text-center w-full">
@@ -126,7 +155,6 @@
 @endsection
 
 @push('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('.openAlunoModal').on('click', function(e) {
@@ -134,6 +162,12 @@
             });
             $('.closeAlunoModal').on('click', function(e) {
                 $('#createModal').addClass('hidden');
+            });
+            $('.openTurmaModal').on('click', function(e) {
+                $('#turmaModal').removeClass('hidden');
+            });
+            $('.closeTurmaModal').on('click', function(e) {
+                $('#turmaModal').addClass('hidden');
             });
         });
     </script>
@@ -144,6 +178,9 @@
 
         function closeModal(id) {
             $('#editModal' + id).addClass('hidden');
+        }
+        function hideMessage(id) {
+            $('#message' + id).addClass('hidden');
         }
     </script>
 @endpush

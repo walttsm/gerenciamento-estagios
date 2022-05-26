@@ -3,12 +3,12 @@ require __DIR__ . '/auth.php';
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\CoordenadorController;
 use App\Http\Controllers\RpodController;
 use App\Http\Controllers\Coordenador\DeclaracaoController;
 use App\Http\Controllers\Coordenador\AlunosController;
 use App\Http\Controllers\Coordenador\OrientadoresController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Coordenador\TurmaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +80,8 @@ Route::prefix('/coordenador')->middleware('auth')->controller(DeclaracaoControll
         'alunos' => AlunosController::class,
         'orientadores' => OrientadoresController::class,
     ]);
+
+    Route::post('/turma', [TurmaController::class, 'store'])->name('turma.store');
 
     // Rotas de geração de declarações
     Route::get('declaracoes', 'create')->name('declaracoes');

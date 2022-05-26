@@ -2,9 +2,9 @@
     <div class=" bg-modal-purple hidden fixed z-10 inset-0 overflow-y-auto w-8/12 h-fit mx-auto my-auto px-16"
         id="{{ 'editModal' . $aluno['id'] }}">
 
-        <h1 class="my-8">Adicionar aluno</h1>
+        <h1 class="my-8">Editar aluno</h1>
 
-        <form id="{{ 'editForm' . $aluno['id'] }} " action="{{ route('alunos.edit', $aluno['id']) }}"
+        <form id="{{ 'editForm' . $aluno['id'] }} " action="{{ route('alunos.update', $aluno['id']) }}"
             method="POST">
             @csrf
             @method('PUT')

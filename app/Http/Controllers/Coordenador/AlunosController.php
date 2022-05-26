@@ -7,6 +7,7 @@ use App\Models\Aluno;
 use App\Models\Orientador;
 use App\Models\Turma;
 use App\Models\User;
+use Exception;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 
@@ -87,7 +88,7 @@ class AlunosController extends Controller
         ]);
 
         $aluno->save();
-        return redirect()->route('alunos.index')->with(['message' => "Usuário criado com sucesso!"]);
+        return redirect()->route('alunos.index')->with(['message' => "Aluno criado com sucesso!"]);
     }
 
     /**
@@ -121,7 +122,33 @@ class AlunosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $request->validate([
+                'nome_aluno'=> 'required',
+                'email'=> 'required',
+                'matricula' => 'required',
+                'turma' => 'required',
+            ]);
+
+            $turma = Turma::where('ano', $request['turma'])->get()->first();
+            $orientador = Orientador::where('nome', $request['orientador'])->get()->first();
+            $aluno = Aluno::find($id);
+
+            $aluno->nome_aluno = $request['nome_aluno'];
+            $aluno->curso = $request['curso'];
+            $aluno->matricula = $request['matricula'];
+            $aluno-> email = $request['email'];
+            $aluno->nome_trabalho = $request['titulo'];
+            $aluno->turma_id = $turma['id'];
+            $aluno->orientador_id = $orientador['id'];
+
+            $aluno->save();
+            $message = "Aluno editado com sucesso!";
+        } catch (Exception $e) {
+            $message = "Erro ao editar aluno, tente novamente!";
+        }
+
+        return redirect()->route('alunos.index')->with(['message' => $message]);
     }
 
     /**
@@ -132,7 +159,9 @@ class AlunosController extends Controller
      */
     public function destroy($id)
     {
-        Aluno::destroy($id);
+        $aluno = Aluno::find($id);
+        User::destroy($aluno->user_id);
+        $aluno->delete();
 
         return redirect()->route('alunos.index')->with(['message' => "Usuário deletado com sucesso!"]);
     }
