@@ -39,11 +39,19 @@
 }
 
 @layer components {
+    .message-success {
+        @apply flex align-middle justify-between bg-[lightgreen] text-[green] mx-8 my-4 px-8 py-4;
+    }
+
+    .message-error {
+        @apply flex align-middle justify-between bg-[salmon] text-[darkred] mx-8 my-4 px-8 py-4;
+    }
+
     .default-button
     {
         @apply w-fit min-h-[2rem] max-h-11 px-4 py-2 rounded-md font-bold text-white align-middle bg-blue-700 hover:brightness-125 transition-all;
     }
-    .cancel-button  
+    .cancel-button
     {
         @apply w-fit min-h-[2rem] max-h-11 px-4 py-2 rounded-md font-bold text-white align-middle bg-red hover:brightness-125 transition-all;
     }

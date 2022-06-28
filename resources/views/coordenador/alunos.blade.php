@@ -8,7 +8,7 @@
     <hr>
 
     @if ($message = Session::get('message'))
-        <div class="flex align-middle justify-between bg-[lightgreen] text-[green] mx-8 my-4 px-8 py-4" id="messageSuccess">
+        <div class="message-success" id="messageSuccess">
             <p>{{ $message }}</p>
             <button type="button" class="self-end" onclick="hideMessage('Success')">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24"
@@ -24,7 +24,7 @@
     @endif
 
     @if ($errors->any())
-        <div class="flex align-middle justify-between bg-[salmon] text-[darkred] mx-8 my-4 px-8 py-4" id="messageError">
+        <div class="message-error" id="messageError">
             <div>
                 <ul>
                     @foreach ($errors->all() as $error)
