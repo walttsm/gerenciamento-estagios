@@ -26,7 +26,7 @@ class AlunoSeeder extends Seeder
             $user = User::factory()->createOne([
                 'permission' => 2,
             ]);
-            
+
             $cursos = ['CC', 'ES'];
             $orientadores = Orientador::all()->pluck('id');
             $turmas = Turma::all()->pluck('id');
@@ -40,6 +40,8 @@ class AlunoSeeder extends Seeder
                 'user_id' => $user->id,
                 'orientador_id' => $faker->randomElement($orientadores),
                 'turma_id' => $faker->randomElement($turmas),
+                'banca1_id' => $faker->randomElement($orientadores),
+                'banca2_id' => $faker->randomElement($orientadores)
             ]);
         }
     }

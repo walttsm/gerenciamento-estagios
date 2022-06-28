@@ -22,11 +22,15 @@ return new class extends Migration
             $table->string('nome_trabalho')->nullable();
             $table->unsignedBigInteger('turma_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('orientador_id');
+            $table->unsignedBigInteger('orientador_id')->nullable();
+            $table->unsignedBigInteger('banca1_id')->nullable();
+            $table->unsignedBigInteger('banca2_id')->nullable();
 
             $table->foreign('turma_id')->references('id')->on('turmas')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('cascade');
+            $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('SET NULL');
+            $table->foreign('banca1_id')->references('id')->on('orientadores')->onDelete('SET NULL');
+            $table->foreign('banca2_id')->references('id')->on('orientadores')->onDelete('SET NULL');
         });
     }
 

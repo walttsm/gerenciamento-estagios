@@ -27,4 +27,8 @@ class Orientador extends Model
     public function alunos() {
         return $this->hasMany(Aluno::class);
     }
+
+    public function bancas() {
+        return $this->hasMany(Aluno::class);
+    }
 }

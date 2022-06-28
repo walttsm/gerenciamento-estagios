@@ -65,6 +65,9 @@ class AlunosController extends Controller
 
         $turma = Turma::where('ano', $request['turma'])->get()->first();
         $orientador = Orientador::where('nome', $request['orientador'])->get()->first();
+        $banca1 = Orientador::where('nome', $request['banca1'])->get()->first();
+        $banca2 = Orientador::where('nome', $request['banca2'])->get()->first();
+        // dd($banca1, $banca2);
         $user = new User([
             'name' => $request['nome_aluno'],
             'email' => $request['email'],
@@ -85,6 +88,8 @@ class AlunosController extends Controller
             'turma_id' => $turma['id'],
             'user_id' => $user_id,
             'orientador_id' => $orientador['id'],
+            'banca1_id' => $banca1->id,
+            'banca2_id' => $banca2->id,
         ]);
 
         $aluno->save();
@@ -132,6 +137,8 @@ class AlunosController extends Controller
 
             $turma = Turma::where('ano', $request['turma'])->get()->first();
             $orientador = Orientador::where('nome', $request['orientador'])->get()->first();
+            $banca1 = Orientador::where('nome', $request['banca1'])->get()->first();
+            $banca2 = Orientador::where('nome', $request['banca2'])->get()->first();
             $aluno = Aluno::find($id);
 
             $aluno->nome_aluno = $request['nome_aluno'];
@@ -141,6 +148,8 @@ class AlunosController extends Controller
             $aluno->nome_trabalho = $request['titulo'];
             $aluno->turma_id = $turma['id'];
             $aluno->orientador_id = $orientador['id'];
+            $aluno->banca1_id = $banca1['id'];
+            $aluno->banca2_id = $banca2['id'];
 
             $aluno->save();
             $message = "Aluno editado com sucesso!";

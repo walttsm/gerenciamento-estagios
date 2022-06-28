@@ -11,34 +11,38 @@
         <div class="flex align-middle justify-between bg-[lightgreen] text-[green] mx-8 my-4 px-8 py-4" id="messageSuccess">
             <p>{{ $message }}</p>
             <button type="button" class="self-end" onclick="hideMessage('Success')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
                     <desc>Download more icon variants from https://tabler-icons.io/i/x</desc>
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
-                 </svg>
+                </svg>
             </button>
         </div>
     @endif
 
     @if ($errors->any())
-    <div class="flex align-middle justify-between bg-[salmon] text-[darkred] mx-8 my-4 px-8 py-4" id="messageError">
-        <div>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="flex align-middle justify-between bg-[salmon] text-[darkred] mx-8 my-4 px-8 py-4" id="messageError">
+            <div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <button type="button" class="self-middle" onclick="hideMessage('Error')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <desc>Download more icon variants from https://tabler-icons.io/i/x</desc>
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
         </div>
-        <button type="button" class="self-middle" onclick="hideMessage('Error')">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <desc>Download more icon variants from https://tabler-icons.io/i/x</desc>
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-             </svg>
-        </button>
-    </div>
     @endif
 
 
@@ -46,7 +50,8 @@
         <div class="p-4 align-middle flex w-full justify-between">
             <form action="{{ route('alunos.index') }}" method="GET">
                 <span id="filters">
-                    <input type="text" placeholder="Nome" name="filtro_nome" class="bg-white max-w-2xl h-10 mx-8 my-auto">
+                    <input type="text" placeholder="Nome" name="filtro_nome"
+                        class="bg-white max-w-2xl h-10 mx-8 my-auto">
                     <button type="submit" class="bg-blue-700 rounded-full w-fit p-2 text-white align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -62,9 +67,9 @@
 
             <div>
                 <button type="button" class="default-button openTurmaModal mx-4 min-w-fit inline-flex">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
-                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <desc>Download more icon variants from https://tabler-icons.io/i/plus</desc>
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -75,9 +80,9 @@
                     </span>
                 </button>
                 <button type="button" class="default-button openAlunoModal mx-4 min-w-fit inline-flex">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
-                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <desc>Download more icon variants from https://tabler-icons.io/i/plus</desc>
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -107,7 +112,8 @@
             <tbody>
                 @foreach ($alunos as $aluno)
                     <x-edit-aluno-modal :aluno="$aluno" turma="{{ $aluno->turma->ano }}"
-                        orientador="{{ $aluno->orientador->nome }}" :orientadores="$orientadores" />
+                        orientador="{{ $aluno->orientador->nome }}" banca1="{{ $aluno->banca1->nome }}"
+                        banca2="{{ $aluno->banca2->nome }}" :orientadores="$orientadores" />
                     <tr>
                         <td>{{ $aluno->nome_aluno }}</td>
                         <td>{{ $aluno->turma->ano }}</td>
@@ -122,7 +128,8 @@
                                     <desc>Download more icon variants from https://tabler-icons.io/i/edit</desc>
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
-                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z">
+                                    </path>
                                     <path d="M16 5l3 3"></path>
                                 </svg>
                             </button>
@@ -132,9 +139,9 @@
                                     @method('DELETE')
                                     <button id="deletarUsuario" type="submit">
                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-trash text-red" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
+                                            class="icon icon-tabler icon-tabler-trash text-red" width="24"
+                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <desc>Download more icon variants from https://tabler-icons.io/i/trash</desc>
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <line x1="4" y1="7" x2="20" y2="7"></line>
@@ -179,6 +186,7 @@
         function closeModal(id) {
             $('#editModal' + id).addClass('hidden');
         }
+
         function hideMessage(id) {
             $('#message' + id).addClass('hidden');
         }

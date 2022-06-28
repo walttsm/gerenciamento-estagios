@@ -27,6 +27,8 @@ class Aluno extends Model
         'turma_id',
         'orientador_id',
         'user_id',
+        'banca1_id',
+        'banca2_id'
     ];
 
     public $sortable = [
@@ -49,5 +51,13 @@ class Aluno extends Model
     public function orientador()
     {
         return $this->belongsTo(Orientador::class, 'orientador_id');
+    }
+
+    public function banca1() {
+        return $this->belongsTo(Orientador::class, 'banca1_id');
+    }
+
+    public function banca2() {
+        return $this->belongsTo(Orientador::class, 'banca2_id');
     }
 }
