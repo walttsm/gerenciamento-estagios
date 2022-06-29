@@ -1,5 +1,5 @@
 <nav id="sidebar"
-    class=" group fixed left-0 h-screen w-[3%] min-w-[50px] hover:w-[250px] bg-blue-700 text-white smooth-transition overflow-y-auto over">
+    class=" group fixed left-0 h-screen w-[3%] min-w-[50px] hover:w-[250px] bg-orange-500 text-white smooth-transition overflow-y-auto over">
     <div class="flex flex-col">
         <div class="mr-1 text-right">
             <button class="w-10 align-bottom" id="toggle-nav" type="button">
@@ -36,7 +36,7 @@
 
             <li>
                 <x-nav-link class="hidden group-hover:flex" :href="route('orientadores.index')" :active="request()->routeIs('orientadores.index')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school" width="24"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school mr-2" width="24"
                     height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <desc>Download more icon variants from https://tabler-icons.io/i/school</desc>
@@ -53,7 +53,7 @@
 
             <li>
                 <x-nav-link class="hidden group-hover:flex" :href="route('alunos.index')" :active="request()->routeIs('alunos.index')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users mr-2" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <desc>Download more icon variants from https://tabler-icons.io/i/users</desc>
@@ -72,7 +72,7 @@
 
             <li>
                 <x-nav-link class="hidden group-hover:flex" :href="route('declaracoes')" :active="request()->routeIs('declaracoes')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description mr-2"
                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <desc>Download more icon variants from https://tabler-icons.io/i/file-description</desc>
@@ -95,7 +95,7 @@
 
             <li>
                 <x-nav-link class="hidden group-hover:flex" :href="route('orientador_rpods')" :active="request()->routeIs('orientador_rpods')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive mr-2" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <desc>Download more icon variants from https://tabler-icons.io/i/archive</desc>
@@ -113,7 +113,7 @@
 
             <li>
                 <x-nav-link class="hidden group-hover:flex" :href="route('orientador_orientandos')" :active="request()->routeIs('orientador_orientandos')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="24"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id mr-2" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <desc>Download more icon variants from https://tabler-icons.io/i/id</desc>
@@ -133,7 +133,7 @@
 
             <li>
                 <x-nav-link class="hidden group-hover:flex" :href="route('orientador_orientacoes')" :active="request()->routeIs('orientador_orientacoes')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock mr-2" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <desc>Download more icon variants from https://tabler-icons.io/i/clock</desc>
@@ -153,7 +153,7 @@
         <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
         <div>
             <x-nav-link class="hidden group-hover:flex" :href="route('logout')" :active="request()->routeIs('logout')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout mr-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <desc>Download more icon variants from https://tabler-icons.io/i/logout</desc>
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>

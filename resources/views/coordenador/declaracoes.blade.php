@@ -15,9 +15,9 @@
             </div>
             <div>
                 <button type="submit" class="inline-flex gerar default-button float-right font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24"
-                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <desc>Download more icon variants from https://tabler-icons.io/i/check</desc>
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M5 12l5 5l10 -10"></path>
@@ -30,7 +30,6 @@
         </div>
 
         <div x-data="selectAllData()">
-
             <table width=100% class="text-center" center>
                 <thead>
                     <th><input @click="toggleAllCheckboxes()" type="checkbox" class="form-checkbox"></th>
@@ -44,8 +43,7 @@
                 </thead>
                 <tbody>
                     @foreach ($alunos as $aluno)
-                        <tr class="bg-blue-100 border-y-8 border-bg-beige">
-
+                        <tr class="odd:bg-orange-200">
                             <td>
                                 <input type="checkbox" name="data[]" id="checkbox{{ $aluno['id'] }}"
                                     value="{{ $aluno['id'] }}">
@@ -58,12 +56,14 @@
                             <td>{{ $aluno->orientador->nome }}</td>
                             <td>
                                 <a href="/coordenador/modelo_declaracao/{{ $aluno->id }}" class="text-white">
-                                    <button type="button" class="bg-blue-700 hover:bg-blue-600 p-2 rounded-full">
+                                    <button type="button"
+                                        class="bg-orange-600 hover:bg-orange-500 transition-all my-1 p-2 rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-file-download" width="24" height="24"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
-                                            <desc>Download more icon variants from https://tabler-icons.io/i/file-download
+                                            <desc>Download more icon variants from
+                                                https://tabler-icons.io/i/file-download
                                             </desc>
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>

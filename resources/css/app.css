@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 @tailwind base;
 @tailwind components;
@@ -36,24 +36,40 @@
         @apply font-sans text-sm md:text-base;
     }
 
+    input[type="text"],
+    input[type="checkbox"],
+    input[type="number"],
+    select {
+        @apply rounded-md shadow-sm border-gray-300 focus:border-orange-600 focus:ring focus:ring-orange-700 focus:ring-opacity-50;
+    }
+
+    input[type="checkbox"] {
+        @apply rounded border-gray-300 text-orange-600 shadow-sm focus:border-orange-600 focus:ring focus:ring-orange-700 focus:ring-opacity-50;
+    }
 }
 
 @layer components {
     .message-success {
-        @apply flex align-middle justify-between bg-[lightgreen] text-[green] mx-8 my-4 px-8 py-4;
+        @apply flex align-middle justify-between bg-lime-500 text-green-700 mx-8 my-4 px-8 py-4;
     }
 
     .message-error {
-        @apply flex align-middle justify-between bg-[salmon] text-[darkred] mx-8 my-4 px-8 py-4;
+        @apply flex align-middle justify-between bg-red-400 text-red-900 mx-8 my-4 px-8 py-4;
     }
 
-    .default-button
-    {
-        @apply w-fit min-h-[2rem] max-h-11 px-4 py-2 rounded-md font-bold text-white align-middle bg-blue-700 hover:brightness-125 transition-all;
+    .default-button {
+        @apply w-fit min-h-[2rem] max-h-11 px-4 py-2 rounded-md font-bold text-white align-middle bg-orange-600 hover:brightness-125 transition-all;
     }
-    .cancel-button
-    {
-        @apply w-fit min-h-[2rem] max-h-11 px-4 py-2 rounded-md font-bold text-white align-middle bg-red hover:brightness-125 transition-all;
+    .cancel-button {
+        @apply w-fit min-h-[2rem] max-h-11 px-4 py-2 rounded-md font-bold text-white align-middle bg-red-500 hover:brightness-125 transition-all;
+    }
+
+    .modal-container {
+        @apply fixed top-0 bottom-0 left-0 right-0 hidden z-10 bg-black;
+    }
+
+    .modal {
+        @apply rounded-lg bg-orange-100 fixed z-10 inset-0 overflow-y-auto w-8/12 h-fit mx-auto my-auto px-16 border-4 border-orange-600;
     }
 }
 
@@ -62,6 +78,3 @@
         transition: width 300ms;
     }
 }
-
-
-

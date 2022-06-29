@@ -52,7 +52,7 @@
                 <span id="filters">
                     <input type="text" placeholder="Nome" name="filtro_nome"
                         class="bg-white max-w-2xl h-10 mx-8 my-auto">
-                    <button type="submit" class="bg-blue-700 rounded-full w-fit p-2 text-white align-middle">
+                    <button type="submit" class="default-button rounded-full w-fit p-2 text-white align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -114,17 +114,17 @@
                     <x-edit-aluno-modal :aluno="$aluno" turma="{{ $aluno->turma->ano }}"
                         orientador="{{ $aluno->orientador->nome }}" banca1="{{ $aluno->banca1->nome }}"
                         banca2="{{ $aluno->banca2->nome }}" :orientadores="$orientadores" />
-                    <tr>
+                    <tr class="odd:bg-orange-200">
                         <td>{{ $aluno->nome_aluno }}</td>
                         <td>{{ $aluno->turma->ano }}</td>
                         <td>{{ $aluno->curso }}</td>
                         <td>{{ $aluno->orientador->nome }}</td>
-                        <td class="flex justify-center">
+                        <td class="flex justify-center items-center">
                             <button id="editarUsuario" type="button" onclick="openModal({{ $aluno->id }})">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="icon icon-tabler icon-tabler-edit text-blue-700" width="24" height="24"
-                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                    class="icon icon-tabler icon-tabler-edit text-orange-600 hover:brightness-125"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <desc>Download more icon variants from https://tabler-icons.io/i/edit</desc>
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
@@ -133,26 +133,25 @@
                                     <path d="M16 5l3 3"></path>
                                 </svg>
                             </button>
-                            <div>
-                                <form action="{{ route('alunos.destroy', [$aluno->id]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button id="deletarUsuario" type="submit">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-trash text-red" width="24"
-                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <desc>Download more icon variants from https://tabler-icons.io/i/trash</desc>
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <line x1="4" y1="7" x2="20" y2="7"></line>
-                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                        </svg>
-                                    </button>
-                                </form>
-                            </div>
+                            <form action="{{ route('alunos.destroy', [$aluno->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button id="deletarUsuario" type="submit" class="align-middle">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-trash text-red-500 hover:brightness-125"
+                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <desc>Download more icon variants from https://tabler-icons.io/i/trash</desc>
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <line x1="4" y1="7" x2="20" y2="7"></line>
+                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                    </svg>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

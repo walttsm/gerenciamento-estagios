@@ -15,9 +15,9 @@ class OrientadoresController extends Controller
      */
     public function index()
     {
-        $orientadores = Orientador::all()->json_encode();
+        $orientadores = Orientador::sortable()->get();
 
-        return response()->view('coordenador.orientadores', $orientadores, 200);
+        return response()->view('coordenador.orientadores', ['orientadores' => $orientadores], 200);
     }
 
     /**
