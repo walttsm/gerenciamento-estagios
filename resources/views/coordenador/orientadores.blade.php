@@ -52,7 +52,7 @@
                 <span id="filters">
                     <input type="text" placeholder="Nome" name="filtro_nome"
                         class="bg-white max-w-2xl h-10 mx-8 my-auto">
-                    <button type="submit" class="bg-blue-700 rounded-full w-fit p-2 text-white align-middle">
+                    <button type="submit" class="default-button rounded-full w-fit p-2 text-white align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        {{-- <x-add-orientador-modal /> --}}
+        <x-add-orientador-modal />
         {{-- <x-create-orientador-modal :orientadores="$orientadores" /> --}}
 
         <table class="table-auto text-center w-full">
@@ -150,18 +150,11 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.openModal').on('click', function(e) {
-                $('#createModal').removeClass('hidden');
+                $('#addModal').removeClass('hidden');
                 $('.modal-container').removeClass('hidden')
             });
-            $('.closeModal').on('click', function(e) {
-                $('#createModal').addClass('hidden');
-            });
-            $('.openTurmaModal').on('click', function(e) {
-                $('#turmaModal').removeClass('hidden');
-                $('.modal-container').removeClass('hidden')
-            });
-            $('.closeTurmaModal').on('click', function(e) {
-                $('#turmaModal').addClass('hidden');
+            $('.closeAddModal').on('click', function(e) {
+                $('#addModal').addClass('hidden');
             });
         });
     </script>
