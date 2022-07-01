@@ -35,28 +35,24 @@ class OrientadoresController extends Controller
             "email" => "required",
         ]);
 
-        $user = new User([
-            "name" => $request['nome'],
-            "email" => $request['email'],
-            "password" => hash('md5', '12345'),
-        ]);
+        $user = User::updateOrCreate(
+            ['email' => $request['email']],
+            [
+                "name" => $request['nome'],
+                "password" => hash('md5', '12345'),
+            ],
+        );
 
-        $user->save();
-
-        $created_user = User::where('email', $user->email)->get()->first();
-        $created_user_id = $created_user->id;
-
-        $orientador = new Orientador([
-            "nome" => $request['nome'],
-            "email" => $request['email'],
-            "curso" => $request['curso'],
-            "user_id" => $created_user_id,
-        ]);
-
-        $orientador->save();
+        $orientador = Orientador::updateOrCreate(
+            ["email" => $request['email']],
+            [
+                "nome" => $request['nome'],
+                "curso" => $request['curso'],
+                "user_id" => $user->id,
+            ],
+        );
 
         return redirect()->route('orientadores.index')->with(['message' => "Orientador criado com sucesso!"]);
-
     }
 
     /**
@@ -101,6 +97,9 @@ class OrientadoresController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $orientador = Orientador::find($id);
+        $orientador->delete();
+
+        return redirect()->route('orientadores.index')->with(['message' => "Orientador deletado com sucesso!"]);
     }
 }

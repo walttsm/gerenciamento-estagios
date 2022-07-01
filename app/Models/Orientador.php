@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Aluno;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 
 class Orientador extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory, SoftDeletes, Sortable;
 
     protected $table = 'orientadores';
     public $timestamps = false;

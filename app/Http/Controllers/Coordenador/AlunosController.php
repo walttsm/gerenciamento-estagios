@@ -47,8 +47,8 @@ class AlunosController extends Controller
     {
         //
         $request->validate([
-            'nome_aluno'=> 'required',
-            'email'=> 'required|unique:alunos,email',
+            'nome_aluno' => 'required',
+            'email' => 'required|unique:alunos,email',
             'matricula' => 'required|unique:alunos,matricula',
             'turma' => 'required',
         ]);
@@ -97,8 +97,8 @@ class AlunosController extends Controller
     {
         try {
             $request->validate([
-                'nome_aluno'=> 'required',
-                'email'=> 'required',
+                'nome_aluno' => 'required',
+                'email' => 'required',
                 'matricula' => 'required',
                 'turma' => 'required',
             ]);
@@ -112,7 +112,7 @@ class AlunosController extends Controller
             $aluno->nome_aluno = $request['nome_aluno'];
             $aluno->curso = $request['curso'];
             $aluno->matricula = $request['matricula'];
-            $aluno-> email = $request['email'];
+            $aluno->email = $request['email'];
             $aluno->nome_trabalho = $request['titulo'];
             $aluno->turma_id = $turma['id'];
             $aluno->orientador_id = $orientador['id'];
@@ -140,6 +140,6 @@ class AlunosController extends Controller
         User::destroy($aluno->user_id);
         $aluno->delete();
 
-        return redirect()->route('alunos.index')->with(['message' => "Usuário deletado com sucesso!"]);
+        return redirect()->route('alunos.index')->with(['message' => "Aluno deletado com sucesso!"]);
     }
 }
