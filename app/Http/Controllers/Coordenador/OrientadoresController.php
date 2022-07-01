@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Coordenador;
 
 use App\Http\Controllers\Controller;
 use App\Models\Orientador;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrientadoresController extends Controller
@@ -21,16 +22,6 @@ class OrientadoresController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -39,6 +30,33 @@ class OrientadoresController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            "nome" => "required",
+            "email" => "required",
+        ]);
+
+        $user = new User([
+            "name" => $request['nome'],
+            "email" => $request['email'],
+            "password" => hash('md5', '12345'),
+        ]);
+
+        $user->save();
+
+        $created_user = User::where('email', $user->email)->get()->first();
+        $created_user_id = $created_user->id;
+
+        $orientador = new Orientador([
+            "nome" => $request['nome'],
+            "email" => $request['email'],
+            "curso" => $request['curso'],
+            "user_id" => $created_user_id,
+        ]);
+
+        $orientador->save();
+
+        return redirect()->route('orientadores.index')->with(['message' => "Orientador criado com sucesso!"]);
+
     }
 
     /**

@@ -19,6 +19,7 @@ class Orientador extends Model
         'nome',
         'curso',
         'email',
+        'user_id',
     ];
 
     public $sortable = [

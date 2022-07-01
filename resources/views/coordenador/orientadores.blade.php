@@ -105,11 +105,11 @@
                         <td>{{ $orientador->email }}</td>
                         <td>{{ $orientador->curso }}</td>
                         <td class="flex justify-center">
-                            {{-- <button id="editarUsuario" type="button" onclick="openModal({{ $orientador->id }})">
+                            <button id="editarUsuario" type="button" onclick="openModal({{ $orientador->id }})">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="icon icon-tabler icon-tabler-edit text-blue-700" width="24" height="24"
-                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                    class="icon icon-tabler icon-tabler-edit text-orange-600 hover:brightness-125"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <desc>Download more icon variants from https://tabler-icons.io/i/edit</desc>
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                     <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
@@ -119,14 +119,15 @@
                                 </svg>
                             </button>
                             <div>
-                                <form action="{{ route('orientadors.destroy', [$orientador->id]) }}" method="POST">
+                                <form action="{{ route('orientadores.destroy', [$orientador->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button id="deletarUsuario" type="submit">
+                                    <button id="deletarUsuario" type="submit" class="align-middle">
                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-trash text-red" width="24"
-                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            class="icon icon-tabler icon-tabler-trash text-red-500 hover:brightness-125"
+                                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                            stroke="currentColor" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round">
                                             <desc>Download more icon variants from https://tabler-icons.io/i/trash</desc>
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <line x1="4" y1="7" x2="20" y2="7"></line>
@@ -137,7 +138,7 @@
                                         </svg>
                                     </button>
                                 </form>
-                            </div> --}}
+                            </div>
                         </td>
                     </tr>
                 @endforeach
