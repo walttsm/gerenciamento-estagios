@@ -9,8 +9,12 @@ class Horario_orientacao extends Model
 {
     use HasFactory;
 
-    public $fields = [
+    protected $table = "horario_orientacoes";
+
+    public $fillable = [
         'dia',
-        'hora'
+        'hora',
+        'aluno_id',
+        'orientador_id'
     ];
 }

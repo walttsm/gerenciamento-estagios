@@ -27,7 +27,7 @@ return new class extends Migration
 
             $table->foreign('aluno_id')->references('id')->on('alunos')->onDelete('cascade');
             $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('cascade');
-            $table->foreign('orientacao_id')->references('id')->on('orientacao')->onDelete('cascade');
+            $table->foreign('orientacao_id')->references('id')->on('orientacoes');
         });
     }
 

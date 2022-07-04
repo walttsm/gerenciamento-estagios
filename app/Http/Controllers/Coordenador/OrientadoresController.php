@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Coordenador;
 
 use App\Http\Controllers\Controller;
+use App\Models\Horario_orientacao;
 use App\Models\Orientador;
 use App\Models\User;
 use Exception;
@@ -31,12 +32,13 @@ class OrientadoresController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request);
         $request->validate([
             "nome" => "required",
             "email" => "required",
         ]);
 
-        try {
+        // try {
             $user = User::updateOrCreate(
                 ['email' => $request['email']],
                 [
@@ -55,7 +57,7 @@ class OrientadoresController extends Controller
                     "email" => $request['email']
                 ]);
             } else {
-                if ($orientador->thrashed()) {
+                if ($orientador->trashed()) {
                     $orientador->restore();
                 }
                 $orientador->nome = $request['nome'];
@@ -68,12 +70,27 @@ class OrientadoresController extends Controller
 
             $orientador->save();
 
+            $dias_disponiveis = count($request['dias']);
+            if ($dias_disponiveis != 0) {
+                for ($i = 0; $i < $dias_disponiveis; $i++) {
+                    $orientacao = new Horario_orientacao([
+                        'dia' => $request['dias'][$i],
+                        'hora' => $request['horas'][$i],
+                        'orientador_id' => $orientador->id,
+                    ]);
+
+                    $orientacao->save();
+                }
+            }
+
+
+
             $message = "Orientador criado com sucesso!";
             $type = "success";
-        } catch (Exception $e) {
-            $message = "Erro ao criar orientador." . $e;
-            $type = "error";
-        }
+        // } catch (Exception $e) {
+            // $message = "Erro ao criar orientador." . $e;
+            // $type = "error";
+        // }
 
         return redirect()->route('orientadores.index')->with(['message' => $message, 'type' => $type]);
     }

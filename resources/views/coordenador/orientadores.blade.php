@@ -173,16 +173,16 @@
         function newTime(id) {
             $('#containerHorarios' + id).append(`
                 <div class="my-4 grid grid-cols-3 gap-x-4">
-                    <select name="diaDisponivel">
-                        <option value="segunda">Segunda</option>
-                        <option value="terca">Terça</option>
-                        <option value="quarta">Quarta</option>
-                        <option value="quinta">Quinta</option>
-                        <option value="sexta">Sexta</option>
-                        <option value="sabado">Sábado</option>
+                    <select name="dias[]">
+                        <option value="2">Segunda</option>
+                        <option value="3">Terça</option>
+                        <option value="4">Quarta</option>
+                        <option value="5">Quinta</option>
+                        <option value="6">Sexta</option>
+                        <option value="7">Sábado</option>
                     </select>
 
-                    <input type="time" name="horaDisponível">
+                    <input type="time" name="horas[]">
                     <button onclick="removeTime(this.parentNode)">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="icon icon-tabler icon-tabler-trash text-red-500 hover:brightness-125" width="24"
