@@ -2,23 +2,23 @@
 
     <h1 class="my-8">Editar Orientador</h1>
 
-    <form id="{{ 'editForm' . $orientador['id'] }} " action="{{ route('alunos.update', $orientador['id']) }}" method="POST">
+    <form id="{{ 'editForm' . $orientador['id'] }} " action="{{ route('orientadores.update', $orientador['id']) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="my-8 grid grid-cols-2">
             <div class="mx-auto">
-                <label for="nomeOrientador">Nome</label>
-                <input type="text" name="nomeOrientador" id="nomeOrientador" value="{{ $orientador['nome'] }}">
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" id="nomeInput" value="{{ $orientador['nome'] }}">
             </div>
             <div class="mx-auto">
-                <label for="Curso">Curso</label>
-                <input type="text" name="curso" id="curso" value="{{ $orientador['curso'] }}">
+                <label for="curso">Curso</label>
+                <input type="text" name="curso" id="cursoInput" value="{{ $orientador['curso'] }}">
             </div>
         </div>
         <div class="my-8 grid grid-cols-2">
             <div class="mx-auto">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="inputEmail" value="{{ $orientador['email'] }}">
+                <input type="email" name="email" id="emailInput" value="{{ $orientador['email'] }}">
             </div>
             <div class="mx-auto">
                 <button class="default-button mx-auto">

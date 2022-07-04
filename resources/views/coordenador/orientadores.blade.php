@@ -8,7 +8,7 @@
     <hr>
 
     @if ($message = Session::get('message'))
-        <div class="message-success" id="messageSuccess">
+        <div class={{ "message-" . Session::get('type') }} id="messageSuccess">
             <p>{{ $message }}</p>
             <button type="button" class="self-end" onclick="hideMessage('Success')">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24"
@@ -97,9 +97,7 @@
 
             <tbody>
                 @foreach ($orientadores as $orientador)
-                    {{-- <x-edit-orientador-modal :orientador="$orientador" turma="{{ $orientador->turma->ano }}"
-                        orientador="{{ $orientador->orientador->nome }}" banca1="{{ $orientador->banca1->nome }}"
-                        banca2="{{ $orientador->banca2->nome }}" :orientadores="$orientadores" /> --}}
+                    <x-edit-orientador-modal :orientador="$orientador"/>
                     <tr class="odd:bg-orange-200">
                         <td>{{ $orientador->nome }}</td>
                         <td>{{ $orientador->email }}</td>

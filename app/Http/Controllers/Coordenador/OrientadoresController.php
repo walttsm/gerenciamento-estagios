@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Coordenador;
 use App\Http\Controllers\Controller;
 use App\Models\Orientador;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 
 class OrientadoresController extends Controller
@@ -35,46 +36,46 @@ class OrientadoresController extends Controller
             "email" => "required",
         ]);
 
-        $user = User::updateOrCreate(
-            ['email' => $request['email']],
-            [
-                "name" => $request['nome'],
-                "password" => hash('md5', '12345'),
-            ],
-        );
+        try {
+            $user = User::updateOrCreate(
+                ['email' => $request['email']],
+                [
+                    "name" => $request['nome'],
+                    "password" => hash('md5', '12345'),
+                ],
+            );
 
-        $orientador = Orientador::updateOrCreate(
-            ["email" => $request['email']],
-            [
-                "nome" => $request['nome'],
-                "curso" => $request['curso'],
-                "user_id" => $user->id,
-            ],
-        );
+            $orientador = Orientador::where('email', $request['email'])->first();
 
-        return redirect()->route('orientadores.index')->with(['message' => "Orientador criado com sucesso!"]);
-    }
+            if (!$orientador) {
+                $orientador = new Orientador([
+                    "nome" => $request['nome'],
+                    "curso" => $request['curso'],
+                    "user_id" => $user->id,
+                    "email" => $request['email']
+                ]);
+            } else {
+                if ($orientador->thrashed()) {
+                    $orientador->restore();
+                }
+                $orientador->nome = $request['nome'];
+                $orientador->curso = $request['curso'];
+                $orientador->user_id = $user->id;
+                if ($request['email'] != $orientador->email) {
+                    $orientador->email = $request['email'];
+                }
+            }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+            $orientador->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+            $message = "Orientador criado com sucesso!";
+            $type = "success";
+        } catch (Exception $e) {
+            $message = "Erro ao criar orientador." . $e;
+            $type = "error";
+        }
+
+        return redirect()->route('orientadores.index')->with(['message' => $message, 'type' => $type]);
     }
 
     /**
@@ -87,6 +88,28 @@ class OrientadoresController extends Controller
     public function update(Request $request, $id)
     {
         //
+        try {
+            $request->validate([
+                'nome' => 'required',
+                'email' => 'required | email',
+                'curso' => 'required',
+            ]);
+
+            $orientador = Orientador::find($id);
+
+            $orientador->nome = $request["nome"];
+            $orientador->email = $request["email"];
+            $orientador->curso = $request["curso"];
+
+            $orientador->save();
+            $message = "Orientador editado com sucesso";
+            $type = "success";
+        } catch (Exception $e) {
+            $message = "Erro ao editar orientador, tente novamente!";
+            $type = "error";
+        }
+
+        return redirect()->route('orientadores.index')->with(['message' => $message, 'type' => $type]);
     }
 
     /**
@@ -97,9 +120,16 @@ class OrientadoresController extends Controller
      */
     public function destroy($id)
     {
-        $orientador = Orientador::find($id);
-        $orientador->delete();
+        try {
+            $orientador = Orientador::find($id);
+            $orientador->delete();
+            $message = "Orientador deletado com sucesso!";
+            $type = "success";
+        } catch (Exception $e) {
+            $message = "Erro ao deletar orientador! Tente novamente!";
+            $type = "success";
+        }
 
-        return redirect()->route('orientadores.index')->with(['message' => "Orientador deletado com sucesso!"]);
+        return redirect()->route('orientadores.index')->with(['message' => $message, 'type' => $type]);
     }
 }
