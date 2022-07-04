@@ -20,28 +20,31 @@
                 <input type="email" name="email" id="inputEmail">
             </div>
             <div class="mx-auto">
-                <button class="default-button mx-auto">
+                <button class="default-button mx-auto" onclick="newTime('Add')" type="button">
                     Adicionar horário
                 </button>
             </div>
         </div>
 
         <p class="font-bold text-lg text-slate-500">Horários disponíveis:</p>
+        <div class="grid grid-cols-3 gap-x-3">
+            <p>Dia</p>
+            <p class="col-span-2">Horário</p>
+        </div>
 
-        <div id="containerHorarios" class="grid grid-cols-3 gap-x-3">
-                <p>Dia</p>
-                <p class="col-span-2">Horário</p>
-                    <select name="diaDisponivel" id="inputDia">
-                        <option value="segunda">Segunda</option>
-                        <option value="terca">Terça</option>
-                        <option value="quarta">Quarta</option>
-                        <option value="quinta">Quinta</option>
-                        <option value="sexta">Sexta</option>
-                        <option value="sabado">Sábado</option>
-                    </select>
+        <div id="containerHorariosAdd">
+            <div class="my-4 grid grid-cols-3 gap-x-4">
+                <select name="diaDisponivel">
+                    <option value="segunda">Segunda</option>
+                    <option value="terca">Terça</option>
+                    <option value="quarta">Quarta</option>
+                    <option value="quinta">Quinta</option>
+                    <option value="sexta">Sexta</option>
+                    <option value="sabado">Sábado</option>
+                </select>
 
-                    <input type="time" name="horaDisponível" id="inputHora">
-                <button id="deletarUsuario">
+                <input type="time" name="horaDisponível">
+                <button id="deletarUsuario" type="button" onclick="removeTime(this.parentNode)">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="icon icon-tabler icon-tabler-trash text-red-500 hover:brightness-125" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -56,11 +59,7 @@
                     </svg>
                 </button>
 
-
-            <div>
-
             </div>
-
 
         </div>
 
@@ -71,7 +70,7 @@
         </div>
     </form>
 </div>
-
-
-
 </div>
+
+@push('scripts')
+@endpush
