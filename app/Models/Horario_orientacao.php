@@ -17,4 +17,8 @@ class Horario_orientacao extends Model
         'aluno_id',
         'orientador_id'
     ];
+
+    public function Orientador() {
+        return $this->belongsTo(Orientador::class, 'orientador_id', 'id');
+    }
 }

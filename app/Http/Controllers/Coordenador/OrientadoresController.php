@@ -23,6 +23,12 @@ class OrientadoresController extends Controller
         return response()->view('coordenador.orientadores', ['orientadores' => $orientadores], 200);
     }
 
+    public function show($id)
+    {
+        $orientador = Orientador::find($id);
+        dd($orientador->horarios_orientacao);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -111,6 +117,8 @@ class OrientadoresController extends Controller
                 'email' => 'required | email',
                 'curso' => 'required',
             ]);
+
+            dd($request);
 
             $orientador = Orientador::find($id);
 

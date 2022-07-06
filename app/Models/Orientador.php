@@ -40,4 +40,8 @@ class Orientador extends Model
     public function bancas() {
         return $this->hasMany(Aluno::class);
     }
+
+    public function horarios_orientacao() {
+        return $this->hasMany(Horario_orientacao::class);
+    }
 }
