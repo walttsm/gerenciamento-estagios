@@ -26,7 +26,8 @@ class OrientadoresController extends Controller
     public function show($id)
     {
         $orientador = Orientador::find($id);
-        dd($orientador->horarios_orientacao);
+
+        return View('coordenador.orientador')->with('orientador', $orientador);
     }
 
     /**
@@ -38,64 +39,63 @@ class OrientadoresController extends Controller
     public function store(Request $request)
     {
         //
-        // dd($request);
         $request->validate([
             "nome" => "required",
             "email" => "required",
         ]);
 
         // try {
-            $user = User::updateOrCreate(
-                ['email' => $request['email']],
-                [
-                    "name" => $request['nome'],
-                    "password" => hash('md5', '12345'),
-                ],
-            );
+        $user = User::updateOrCreate(
+            ['email' => $request['email']],
+            [
+                "name" => $request['nome'],
+                "password" => hash('md5', '12345'),
+            ],
+        );
 
-            $orientador = Orientador::where('email', $request['email'])->first();
+        $orientador = Orientador::where('email', $request['email'])->first();
 
-            if (!$orientador) {
-                $orientador = new Orientador([
-                    "nome" => $request['nome'],
-                    "curso" => $request['curso'],
-                    "user_id" => $user->id,
-                    "email" => $request['email']
+        if (!$orientador) {
+            $orientador = new Orientador([
+                "nome" => $request['nome'],
+                "curso" => $request['curso'],
+                "user_id" => $user->id,
+                "email" => $request['email']
+            ]);
+        } else {
+            if ($orientador->trashed()) {
+                $orientador->restore();
+            }
+            $orientador->nome = $request['nome'];
+            $orientador->curso = $request['curso'];
+            $orientador->user_id = $user->id;
+            if ($request['email'] != $orientador->email) {
+                $orientador->email = $request['email'];
+            }
+        }
+
+        $orientador->save();
+
+        $dias_disponiveis = count($request['dias']);
+        if ($dias_disponiveis != 0) {
+            for ($i = 0; $i < $dias_disponiveis; $i++) {
+                $orientacao = new Horario_orientacao([
+                    'dia' => $request['dias'][$i],
+                    'hora' => $request['horas'][$i],
+                    'orientador_id' => $orientador->id,
                 ]);
-            } else {
-                if ($orientador->trashed()) {
-                    $orientador->restore();
-                }
-                $orientador->nome = $request['nome'];
-                $orientador->curso = $request['curso'];
-                $orientador->user_id = $user->id;
-                if ($request['email'] != $orientador->email) {
-                    $orientador->email = $request['email'];
-                }
+
+                $orientacao->save();
             }
-
-            $orientador->save();
-
-            $dias_disponiveis = count($request['dias']);
-            if ($dias_disponiveis != 0) {
-                for ($i = 0; $i < $dias_disponiveis; $i++) {
-                    $orientacao = new Horario_orientacao([
-                        'dia' => $request['dias'][$i],
-                        'hora' => $request['horas'][$i],
-                        'orientador_id' => $orientador->id,
-                    ]);
-
-                    $orientacao->save();
-                }
-            }
+        }
 
 
 
-            $message = "Orientador criado com sucesso!";
-            $type = "success";
+        $message = "Orientador criado com sucesso!";
+        $type = "success";
         // } catch (Exception $e) {
-            // $message = "Erro ao criar orientador." . $e;
-            // $type = "error";
+        // $message = "Erro ao criar orientador." . $e;
+        // $type = "error";
         // }
 
         return redirect()->route('orientadores.index')->with(['message' => $message, 'type' => $type]);
@@ -117,8 +117,6 @@ class OrientadoresController extends Controller
                 'email' => 'required | email',
                 'curso' => 'required',
             ]);
-
-            dd($request);
 
             $orientador = Orientador::find($id);
 

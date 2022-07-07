@@ -8,6 +8,7 @@ use App\Http\Controllers\Coordenador\DeclaracaoController;
 use App\Http\Controllers\Coordenador\AlunosController;
 use App\Http\Controllers\Coordenador\OrientadoresController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Coordenador\OrientacoesController;
 use App\Http\Controllers\Coordenador\TurmaController;
 
 /*
@@ -29,7 +30,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/rpodpage', [RpodController::class, "listarRpods"]);
 
@@ -51,14 +52,14 @@ Route::get('/avisos', function () {
 
 
 // ROTAS ALUNO
-Route::prefix('/aluno')->middleware('auth')->controller(AlunoController::class)->group(function() {
+Route::prefix('/aluno')->middleware('auth')->controller(AlunoController::class)->group(function () {
     Route::get('/rpodpage', function () {
         return view('aluno/rpodpage');
     });
 });
 
 // ROTAS ORIENTADOR
-Route::prefix('/orientador')->middleware('auth')->controller(OrientadorController::class)->group(function() {
+Route::prefix('/orientador')->middleware('auth')->controller(OrientadorController::class)->group(function () {
     Route::get('/rpods', function () {
         return view('orientador.rpods');
     })->name('orientador_rpods');
@@ -79,6 +80,7 @@ Route::prefix('/coordenador')->middleware('auth')->controller(DeclaracaoControll
     Route::resources([
         'alunos' => AlunosController::class,
         'orientadores' => OrientadoresController::class,
+        'orientacoes' => OrientacoesController::class,
     ]);
 
     Route::post('/turma', [TurmaController::class, 'store'])->name('turma.store');

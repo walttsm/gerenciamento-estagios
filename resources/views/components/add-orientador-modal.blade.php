@@ -19,20 +19,6 @@
                 <label for="email">Email</label>
                 <input type="email" name="email" id="inputEmail">
             </div>
-            <div class="mx-auto">
-                <button class="default-button mx-auto" onclick="newTime('Add')" type="button">
-                    Adicionar horário
-                </button>
-            </div>
-        </div>
-
-        <p class="font-bold text-lg text-slate-500">Horários disponíveis:</p>
-        <div class="grid grid-cols-3 gap-x-3">
-            <p>Dia</p>
-            <p class="col-span-2">Horário</p>
-        </div>
-
-        <div id="containerHorariosAdd">
         </div>
 
         <div id="buttons" class="my-8 flex justify-end">
