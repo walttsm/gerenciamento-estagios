@@ -10,6 +10,7 @@ use App\Http\Controllers\Coordenador\OrientadoresController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Coordenador\OrientacoesController;
 use App\Http\Controllers\Coordenador\TurmaController;
+use App\Http\Controllers\Orientador\RegistroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,7 @@ Route::prefix('/coordenador')->middleware('auth')->controller(DeclaracaoControll
         'orientacoes' => OrientacoesController::class,
     ]);
 
+    Route::get('{orientador_id}/registros', [RegistroController::class, 'index'])->name('registrosCoord');
     Route::post('/turma', [TurmaController::class, 'store'])->name('turma.store');
 
     // Rotas de geração de declarações

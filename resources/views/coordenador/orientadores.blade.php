@@ -60,23 +60,12 @@
                 @foreach ($orientadores as $orientador)
                     <x-edit-orientador-modal :orientador="$orientador" />
                     <tr class="odd:bg-orange-200">
-                        <td>{{ $orientador->nome }}</td>
+                        <td><a href="{{ route('orientadores.show', $orientador->id) }}"> {{ $orientador->nome }} </a></td>
                         <td>{{ $orientador->email }}</td>
                         <td>{{ $orientador->curso }}</td>
                         <td class="flex justify-center">
-                            <a id="editarOrientacoes" href="{{ route('orientadores.show', $orientador->id) }}"
-                                title="Editar Orientações">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="icon icon-tabler icon-tabler-clock text-orange-600 hover:brightness-125"
-                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <circle cx="12" cy="12" r="9"></circle>
-                                    <polyline points="12 7 12 12 15 15"></polyline>
-                                </svg>
-                            </a>
                             <button id="editarUsuario" type="button" title="Editar Orientador"
-                                onclick="openModal('#{{ '#editModal' . $orientador->id }}')">
+                                onclick="openModal('#{{ 'editModal' . $orientador->id }}')">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-edit text-orange-600 hover:brightness-125"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"

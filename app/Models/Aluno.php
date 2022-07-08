@@ -60,4 +60,8 @@ class Aluno extends Model
     public function banca2() {
         return $this->belongsTo(Orientador::class, 'banca2_id');
     }
+
+    public function registros() {
+        return $this->hasMany(Registro::class);
+    }
 }

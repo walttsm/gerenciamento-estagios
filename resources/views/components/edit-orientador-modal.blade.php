@@ -23,12 +23,6 @@
             </div>
         </div>
 
-        <p class="font-bold text-lg text-slate-500">Horários disponíveis:</p>
-        <div class="grid grid-cols-3 gap-x-3">
-            <p>Dia</p>
-            <p class="col-span-2">Horário</p>
-        </div>
-
         <div id="buttons" class="my-8 flex justify-end">
             <button type="button" class="cancel-button mx-4"
                 onclick="closeModal('{{ '#editModal' . $orientador['id'] }}')">Descartar</button>

@@ -29,6 +29,11 @@ class Orientador extends Model
         'email',
     ];
 
+    protected $hidden = [
+        'id',
+        'permissao'
+    ];
+
     public function user() {
         return $this->hasOne(User::class);
     }
@@ -43,5 +48,9 @@ class Orientador extends Model
 
     public function horarios_orientacao() {
         return $this->hasMany(Horario_orientacao::class);
+    }
+
+    public function registros() {
+        return $this->hasMany(Registro::class);
     }
 }
