@@ -45,7 +45,6 @@ class OrientacoesController extends Controller
             'dia' => 'required',
             'hora' => 'required',
             'orientador_id' => 'required',
-            'deleteHorario' => 'required',
         ]);
 
         // dd($request);
