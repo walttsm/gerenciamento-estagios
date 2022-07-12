@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             TurmaSeeder::class,
             OrientadorSeeder::class,
             AlunoSeeder::class,
+            OrientacoesSeeder::class,
             RegistroSeeder::class,
             RPODSeeder::class,
         ]);

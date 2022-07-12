@@ -64,4 +64,8 @@ class Aluno extends Model
     public function registros() {
         return $this->hasMany(Registro::class);
     }
+
+    public function horario_orientacao() {
+        return $this->hasOne(Horario_orientacao::class. 'aluno_id');
+    }
 }
