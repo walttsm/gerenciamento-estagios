@@ -39,9 +39,14 @@
                                 'form' => 'formHorariosEdit' . $orientador['id'],
                                 'class' => 'mx-4',
                             ]) !!}
-                            {!! Form::select('aluno[]', array_combine($alunos, $alunos), $horario->aluno ? $horario->aluno->nome_aluno : '', [
-                                'id' => 'nome' . $horario->id,
-                            ]) !!}
+                            {!! Form::select(
+                                'aluno[]',
+                                array_combine($alunos, $alunos),
+                                $horario->aluno ? $horario->aluno->nome_aluno : '',
+                                [
+                                    'id' => 'nome' . $horario->id,
+                                ],
+                            ) !!}
                             <button id="deletarHorario" type="button" title="Deletar Horário" class="align-middle w-6 mx-4"
                                 onclick=" /*document.getElementById('#{{ 'deleteInput' . $horario->id }}').value = 'true';*/ removeTime(this.parentNode);">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -63,14 +68,37 @@
             </div>
 
             <div id="buttons" class="my-8 flex justify-center">
-                <button class="default-button add_button" type="button"
+                <button class="default-button add_button flex" type="button"
                     onclick="newTime('#{{ 'horarios' . $orientador->id }}')">
-                    Adicionar horário
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span class="ml-1">
+                        Adicionar horário
+                    </span>
                 </button>
-                <button type="submit" class="default-button mx-4">Salvar</button>
+                <button type="submit" class="default-button mx-4 flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-floppy"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"></path>
+                        <circle cx="12" cy="14" r="2"></circle>
+                        <polyline points="14 4 14 8 8 8 8 4"></polyline>
+                    </svg>
+                    <span class="ml-2">
+                        Salvar
+                    </span>
+                </button>
             </div>
 
         </form>
+
+        <h2 class="mx-auto">Orientações semanais:</h2>
 
         <x-calendario :horarios="$orientador->horarios_orientacao" />
     </div>
