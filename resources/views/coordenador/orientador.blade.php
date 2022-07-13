@@ -113,9 +113,7 @@
                     'form' => 'formHorariosEdit' . $orientador['id'],
                     'class' => 'mx-4',
                 ]) !!}
-                {!! Form::select('aluno[]', array_combine($alunos, $alunos), null, [
-                    'id' => 'nome' . $horario->id,
-                ]) !!}
+                {!! Form::select('aluno[]', array_combine($alunos, $alunos), null, []) !!}
 
                 <button onclick="removeTime(this.parentNode)" class="align-middle w-6 mx-4">
                     <svg xmlns="http://www.w3.org/2000/svg"
