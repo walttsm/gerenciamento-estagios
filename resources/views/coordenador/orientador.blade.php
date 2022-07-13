@@ -7,11 +7,12 @@
     @include('layouts.messages')
 
     <div class="mx-auto flex flex-col item-center justify-center">
-        <h2 class="mx-auto">Horários disponíveis:</h2>
+        <h2 class="mx-auto">Horários:</h2>
 
         <div class="mx-auto grid grid-cols-3 gap-x-3">
-            <label for="dia[]">Dia</label>
-            <label for="hora[]" class="col-span-2">Horário</label>
+            <p>Dia</p>
+            <p>Horário</p>
+            <p>Aluno</p>
         </div>
 
         <form id="{{ 'formHorariosEdit' . $orientador['id'] }}" action="{{ route('orientacoes.store') }}" method="POST"
@@ -24,11 +25,23 @@
             <div id="{{ 'horarios' . $orientador['id'] }}">
                 @if (count($orientador->horarios_orientacao))
                     @foreach ($orientador->horarios_orientacao as $horario)
+                        {{-- {{ dd($alunos) }} --}}
                         <div class="mx-auto my-4 flex justify-evenly">
                             {!! Form::hidden('id[]', $horario->id, ['form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4']) !!}
-                            {!! Form::select('dia[]', ['2' => 'segunda', '3' => 'terça', '4' => 'quarta', '5' => 'quinta', '6' => 'sexta', '7' => 'sabado'], $horario->dia, ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4']) !!}
-                            {!! Form::time('hora[]', $horario->hora, ['placeholder' => 'Hora', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4']) !!}
-                            {{-- {!! Form::text('deleteHorario', 'false', ['id' => 'deleteInput' . $horario->id, 'hidden' => 'hidden']) !!} --}}
+                            {!! Form::select(
+                                'dia[]',
+                                ['2' => 'segunda', '3' => 'terça', '4' => 'quarta', '5' => 'quinta', '6' => 'sexta', '7' => 'sabado'],
+                                $horario->dia,
+                                ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4'],
+                            ) !!}
+                            {!! Form::time('hora[]', $horario->hora, [
+                                'placeholder' => 'Hora',
+                                'form' => 'formHorariosEdit' . $orientador['id'],
+                                'class' => 'mx-4',
+                            ]) !!}
+                            {!! Form::select('aluno[]', array_combine($alunos, $alunos), $horario->aluno ? $horario->aluno->nome_aluno : '', [
+                                'id' => 'nome' . $horario->id,
+                            ]) !!}
                             <button id="deletarHorario" type="button" title="Deletar Horário" class="align-middle w-6 mx-4"
                                 onclick=" /*document.getElementById('#{{ 'deleteInput' . $horario->id }}').value = 'true';*/ removeTime(this.parentNode);">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -59,6 +72,7 @@
 
         </form>
 
+        <x-calendario :horarios="$orientador->horarios_orientacao" />
     </div>
 
     <div class="align-middle mx-12 my-8 text-2xl font-bold">
@@ -66,16 +80,18 @@
     </div>
 
     <div class="mx-12">
-        @foreach ($orientador->registros as $registro)
-            <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                <h3>Registro</h3>
-                <p>Aluno: {{ $registro->aluno->nome_aluno }}</p>
-                <p>Data: {{ $registro->data_orientacao }}</p>
-                <p>Assunto: {{ $registro->assunto }}</p>
-                <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
-                <p>Observações: {{ $registro->observacao }}</p>
-                <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
-            </div>
+        @foreach ($orientador->alunos as $aluno)
+            <h3>Aluno: {{ $aluno->nome_aluno }}</h3>
+            @foreach ($aluno->registros as $registro)
+                <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                    <h3>Registro</h3>
+                    <p>Data: {{ $registro->data_orientacao }}</p>
+                    <p>Assunto: {{ $registro->assunto }}</p>
+                    <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
+                    <p>Observações: {{ $registro->observacao }}</p>
+                    <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
+                </div>
+            @endforeach
         @endforeach
     </div>
 @endsection
@@ -86,8 +102,20 @@
             $(id).append(`
             <div class="mx-auto my-4 flex justify-evenly">
                 {!! Form::hidden('id[]', null, ['form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4']) !!}
-                {!! Form::select('dia[]', ['2' => 'segunda', '3' => 'terça', '4' => 'quarta', '5' => 'quinta', '6' => 'sexta', '7' => 'sabado'], null, ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4']) !!}
-                {!! Form::time('hora[]', null, ['placeholder' => 'Hora', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4']) !!}
+                {!! Form::select(
+                    'dia[]',
+                    ['2' => 'segunda', '3' => 'terça', '4' => 'quarta', '5' => 'quinta', '6' => 'sexta', '7' => 'sabado'],
+                    null,
+                    ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4'],
+                ) !!}
+                {!! Form::time('hora[]', null, [
+                    'placeholder' => 'Hora',
+                    'form' => 'formHorariosEdit' . $orientador['id'],
+                    'class' => 'mx-4',
+                ]) !!}
+                {!! Form::select('aluno[]', array_combine($alunos, $alunos), null, [
+                    'id' => 'nome' . $horario->id,
+                ]) !!}
 
                 <button onclick="removeTime(this.parentNode)" class="align-middle w-6 mx-4">
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +142,10 @@
         function setForDelete(id) {
             var e = document.getElementById(id);
             e.value = 'true';
+        }
+
+        function hideMessage(id) {
+            $('#message' + id).addClass('hidden');
         }
     </script>
 @endpush

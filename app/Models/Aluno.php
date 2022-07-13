@@ -18,7 +18,6 @@ class Aluno extends Model
     public $timestamps = false;
 
     public $fillable = [
-        'id',
         'nome_aluno',
         'curso',
         'matricula',
@@ -26,9 +25,13 @@ class Aluno extends Model
         'nome_trabalho',
         'turma_id',
         'orientador_id',
-        'user_id',
         'banca1_id',
         'banca2_id'
+    ];
+
+    protected $hidden = [
+        'id',
+        'user_id',
     ];
 
     public $sortable = [

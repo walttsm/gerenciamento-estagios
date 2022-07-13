@@ -74,6 +74,10 @@
     .modal {
         @apply rounded-lg bg-orange-100 fixed z-10 inset-0 overflow-y-auto w-8/12 h-fit mx-auto my-auto px-16 border-4 border-orange-600;
     }
+
+    .orientacao-card {
+        @apply bg-orange-400 text-slate-50 font-bold rounded-md my-2 p-2 ;
+    }
 }
 
 @layer utilities {

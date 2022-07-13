@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Coordenador;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aluno;
 use App\Models\Horario_orientacao;
 use App\Models\Orientador;
 use Exception;
@@ -45,6 +46,7 @@ class OrientacoesController extends Controller
             'dia' => 'required',
             'hora' => 'required',
             'orientador_id' => 'required',
+            'aluno' => 'required',
         ]);
 
         // dd($request);
@@ -58,16 +60,20 @@ class OrientacoesController extends Controller
             }
 
             for ($i = 0; $i < count($request['dia']); $i++) {
+
                 $dado = [
                     'id' => $request['id'][$i],
                     'dia' => $request['dia'][$i],
-                    'hora' => $request['hora'][$i]
+                    'hora' => $request['hora'][$i],
+                    'nome_aluno' => $request['aluno'][$i],
                 ];
+                $aluno = Aluno::where('nome_aluno', $dado['nome_aluno'])->first();
                 $orientacao = Horario_orientacao::Create(
                     [
                         'dia' => $dado['dia'],
                         'hora' => $dado['hora'],
                         'orientador_id' => $request['orientador_id'],
+                        'aluno_id' => $aluno->id,
                     ]
                 );
             }

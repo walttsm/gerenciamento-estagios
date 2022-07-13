@@ -28,7 +28,7 @@ class OrientacoesSeeder extends Seeder
             foreach($orientador->alunos as $aluno) {
                 Horario_orientacao::create([
                     'dia' => rand(2, 7),
-                    'hora' => $faker->time('H:i'),
+                    'hora' => new DateTime(rand(8, 23) . ':' .   rand(0,59)),
                     'aluno_id' => $aluno->id,
                     'orientador_id' => $orientador->id,
                 ]);

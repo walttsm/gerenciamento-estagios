@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Coordenador;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aluno;
 use App\Models\Horario_orientacao;
 use App\Models\Orientador;
 use App\Models\User;
@@ -26,8 +27,16 @@ class OrientadoresController extends Controller
     public function show($id)
     {
         $orientador = Orientador::find($id);
+        $alunos = $orientador->alunos;
 
-        return View('coordenador.orientador')->with('orientador', $orientador);
+        $orientador->horarios_orientacao = $orientador->horarios_orientacao->sortBy(['dia', 'hora']);
+
+        $nomes = array();
+        foreach ($alunos as $aluno) {
+            array_push($nomes, $aluno->nome_aluno);
+        }
+
+        return View('coordenador.orientador')->with(['orientador' => $orientador, 'alunos' => $nomes]);
     }
 
     /**
