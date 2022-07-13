@@ -38,6 +38,22 @@ class AlunosController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+        $aluno = Aluno::find($id);
+
+        $aluno->rpods = $aluno->rpods->sortBy('mes');
+
+        return view('coordenador.aluno', ['aluno' => $aluno]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

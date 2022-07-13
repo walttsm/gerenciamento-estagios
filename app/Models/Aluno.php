@@ -71,4 +71,8 @@ class Aluno extends Model
     public function horario_orientacao() {
         return $this->hasOne(Horario_orientacao::class. 'aluno_id');
     }
+
+    public function rpods() {
+        return $this->hasMany(Rpod::class, 'aluno_id');
+    }
 }

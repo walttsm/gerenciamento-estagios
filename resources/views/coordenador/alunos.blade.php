@@ -115,7 +115,7 @@
                         orientador="{{ $aluno->orientador->nome }}" banca1="{{ $aluno->banca1->nome }}"
                         banca2="{{ $aluno->banca2->nome }}" :orientadores="$orientadores" />
                     <tr class="odd:bg-orange-200">
-                        <td>{{ $aluno->nome_aluno }}</td>
+                        <td><a href="{{ route('alunos.show', $aluno->id) }}">{{ $aluno->nome_aluno }}</a></td>
                         <td>{{ $aluno->turma->ano }}</td>
                         <td>{{ $aluno->curso }}</td>
                         <td>{{ $aluno->orientador->nome }}</td>
