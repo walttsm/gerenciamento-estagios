@@ -1,7 +1,7 @@
 @extends('layouts.common')
 
 @section('content')
-    <h1 class=" mx-8 my-12 text-3xl font-bold">Gerar declarações</h1>
+    <h1 class="mx-8 my-12 text-3xl font-bold">Gerar declarações</h1>
     <hr>
 
     <form action="" method="post" id="selecao_alunos">
@@ -38,7 +38,7 @@
                     <th>@sortablelink('curso', 'Curso')</th>
                     <th>Atividades</th>
                     <th>Horas</th>
-                    <th>Orientador</th>
+                    <th>@sortablelink('orientador_id', 'Orientador')</th>
                     </th>
                 </thead>
                 <tbody>
@@ -52,7 +52,7 @@
                             <td>{{ $aluno->turma->ano }}</td>
                             <td>{{ $aluno->curso }}</td>
                             <td>ok</td>
-                            <td>0/80</td>
+                            <td>{{ $aluno->rpods->sum('horas_mes')}}/200</td>
                             <td>{{ $aluno->orientador->nome }}</td>
                             <td>
                                 <a href="/coordenador/modelo_declaracao/{{ $aluno->id }}" class="text-white">

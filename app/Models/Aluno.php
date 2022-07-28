@@ -39,6 +39,7 @@ class Aluno extends Model
         'nome_aluno',
         'turma_id',
         'curso',
+        'orientador_id',
     ];
 
     public function turma()

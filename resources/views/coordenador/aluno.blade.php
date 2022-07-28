@@ -1,7 +1,12 @@
 @extends('layouts.common')
 
 @section('content')
-    <div class="mt-8">
+    <div class="mx-8">
+        <div class="align-middle my-12 text-3xl font-bold">
+            <h1>
+                {{ $aluno->nome_aluno }}
+            </h1>
+        </div>
         <h2>RPODS</h2>
         <p class="text-lg">Total de horas realizadas: <b>{{ $aluno->rpods->sum('horas_mes') }} horas</b></p>
         <div class="grid grid-cols-6 gap-x-4">
@@ -30,7 +35,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="mx-8 mt-8">
         <h2>Orientações</h2>
         @foreach ($aluno->registros as $registro)
             <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">

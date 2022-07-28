@@ -878,9 +878,6 @@ input[type="checkbox"]:focus{
 .m-1{
   margin: 0.25rem;
 }
-.m-2{
-  margin: 0.5rem;
-}
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -1171,23 +1168,17 @@ input[type="checkbox"]:focus{
 .list-disc{
   list-style-type: disc;
 }
-.grid-flow-row{
-  grid-auto-flow: row;
-}
 .grid-cols-1{
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 .grid-cols-3{
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
-.grid-cols-2{
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
 .grid-cols-6{
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
-.flex-row{
-  flex-direction: row;
+.grid-cols-2{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .flex-col{
   flex-direction: column;
