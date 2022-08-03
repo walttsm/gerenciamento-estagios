@@ -32,7 +32,7 @@ class RegistroSeeder extends Seeder
                     Registro::create([
                         'data_orientacao' => $faker->dateTimeThisYear(),
                         'assunto' => $faker->paragraph(4),
-                        'prox_assunto' => $faker->paragraph(3),
+                        'prox_assunto' => $faker->paragraph(2),
                         'observacao' => $prob_falta < 0.4 ? 'Aluno Doente' : '',
                         'presenca' => $prob_falta < 0.4 ? true : false,
                         'orientador_id' => $orientador->id,

@@ -20,9 +20,7 @@ class OrientadorSeeder extends Seeder
     {
         //
         for ($i = 0; $i < 10; $i++) {
-            $user = User::factory()->createOne([
-                'permission' => 1,
-            ]);
+            $user = User::factory()->createOne(['permissao' => 2]);
 
             $cursos = ['CC', 'ES'];
             Orientador::create([

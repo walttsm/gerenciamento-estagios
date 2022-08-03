@@ -33,7 +33,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/rpodpage', [RpodController::class, "listarRpods"]);
+// Route::get('/rpodpage', [RpodController::class, "listarRpods"]);
 
 Route::post('/rpodpage', [RpodController::class, "criarRpods"]);
 Route::get('/rpodpage/adicionar', [RpodController::class, "create"]);
@@ -53,10 +53,8 @@ Route::get('/avisos', function () {
 
 
 // ROTAS ALUNO
-Route::prefix('/aluno')->middleware('auth')->controller(AlunoController::class)->group(function () {
-    Route::get('/rpodpage', function () {
-        return view('aluno/rpodpage');
-    });
+Route::prefix('/aluno')->middleware(['auth', 'permissao.acesso'])->controller(AlunoController::class)->group(function () {
+    Route::get('/rpodpage', [RpodController::class, "listarRpods"]);
 });
 
 // ROTAS ORIENTADOR
@@ -76,7 +74,7 @@ Route::prefix('/orientador')->middleware('auth')->controller(OrientadorControlle
 
 
 // ROTAS COORDENADOR
-Route::prefix('/coordenador')->middleware('auth')->controller(DeclaracaoController::class)->group(function () {
+Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(function () {
 
     Route::resources([
         'alunos' => AlunosController::class,
@@ -85,11 +83,12 @@ Route::prefix('/coordenador')->middleware('auth')->controller(DeclaracaoControll
     ]);
 
     Route::get('{orientador_id}/registros', [RegistroController::class, 'index'])->name('registrosCoord');
+
     Route::post('/turma', [TurmaController::class, 'store'])->name('turma.store');
 
     // Rotas de geração de declarações
-    Route::get('declaracoes', 'create')->name('declaracoes');
-    Route::post('declaracoes', 'gerar_declaracoes');
+    Route::get('declaracoes', [DeclaracaoController::class, 'create'])->name('declaracoes');
+    Route::post('declaracoes', [DeclaracaoController::class, 'gerar_declaracoes']);
     Route::view('modelo_declaracao', 'coordenador.modelo.declaracao_modelo');
-    Route::get('modelo_declaracao/{aluno}', 'gerar_declaracao')->name('gerar_declaracao');
+    Route::get('modelo_declaracao/{aluno}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
 });
