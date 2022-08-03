@@ -21,16 +21,16 @@ class PermissionsHandler
 
         $req_author = Auth::user();
 
-        if ($req_author->permission == 1) {
-            if (strpos($url_string, 'aluno')) {
+        if ($req_author->permissao === 1) {
+            if (strpos($url_string, 'aluno/')) {
                 return $next($request);
             }
-        } else if ($req_author->permission == 2) {
-            if (strpos($url_string, 'orientador')) {
+        } else if ($req_author->permissao === 2) {
+            if (strpos($url_string, 'orientador/')) {
                 return $next($request);
             }
         } else {
-            if (strpos($url_string, 'coordenador') or strpos($url_string, 'orientador')) {
+            if (strpos($url_string, 'coordenador/') or strpos($url_string, 'orientador/')) {
                 return $next($request);
             }
         }

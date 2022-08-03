@@ -58,7 +58,7 @@ Route::prefix('/aluno')->middleware(['auth', 'permissao.acesso'])->controller(Al
 });
 
 // ROTAS ORIENTADOR
-Route::prefix('/orientador')->middleware('auth')->controller(OrientadorController::class)->group(function () {
+Route::prefix('/orientador')->middleware(['auth', 'permissao.acesso'])->controller(OrientadorController::class)->group(function () {
     Route::get('/rpods', function () {
         return view('orientador.rpods');
     })->name('orientador_rpods');
