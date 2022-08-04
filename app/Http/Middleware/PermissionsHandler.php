@@ -35,6 +35,6 @@ class PermissionsHandler
             }
         }
 
-        return abort(401, 'No authorization');
+        return abort(403, 'No authorization');
     }
 }
