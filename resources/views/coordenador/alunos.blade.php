@@ -49,6 +49,7 @@
     <div>
         <div class="p-4 align-middle flex w-full justify-between">
             <form action="{{ route('alunos.index') }}" method="GET">
+                @csrf
                 <span id="filters">
                     <input type="text" placeholder="Nome" name="filtro_nome"
                         class="bg-white max-w-2xl h-10 mx-8 my-auto">

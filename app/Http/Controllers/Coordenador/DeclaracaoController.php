@@ -11,6 +11,7 @@ use ZipArchive;
 use App\Http\Controllers\Controller;
 
 use App\Models\Aluno;
+use App\Models\Turma;
 
 class DeclaracaoController extends Controller
 {
@@ -20,11 +21,43 @@ class DeclaracaoController extends Controller
      */
     public function create(Request $request)
     {
-        $alunos = Aluno::sortable(['turma_id' => 'desc'])->select('*')->get();
+
+        $filtro_nome = $request['filtro_nome'];
+        $filtro_turma = $request['filtro_turma'];
+
+
+        if ($filtro_turma) {
+            $turma = Turma::where('ano', $filtro_turma)->get()->first();
+        }
+
+        if ($filtro_nome and !$filtro_turma) {
+            $alunos = Aluno::sortable('nome_aluno')->select('*')->where([
+                ['nome_aluno', 'LIKE', '%' . $filtro_nome . '%']
+            ])->get();
+        } elseif ($filtro_turma and !$filtro_nome) {
+            $alunos = Aluno::sortable('nome_aluno')->select('*')->where([
+                ['turma_id', 'LIKE', '%' . $turma->id . '%']
+            ])->get();
+        } elseif ($filtro_nome and $filtro_turma) {
+            $alunos = Aluno::sortable('nome_aluno')->select('*')->where([
+                ['nome_aluno', 'LIKE', '%' .  $filtro_nome . '%'],
+                ['turma_id', '=', $turma->id]
+            ])->get();
+        } else {
+            $alunos = Aluno::sortable('nome_aluno')->select('*')->get();
+        }
+
+
+
+        // $alunos = Aluno::sortable(['turma_id' => 'desc'])->select('*')->get();
 
         return view(
             'coordenador.declaracoes',
-            ['alunos' => $alunos]
+            [
+                'alunos' => $alunos,
+                'filtro_nome' => $filtro_nome,
+                'filtro_turma' => $filtro_turma
+            ]
         );
     }
 

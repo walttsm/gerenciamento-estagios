@@ -4,30 +4,44 @@
     <h1 class="mx-8 my-12 text-3xl font-bold">Gerar declarações</h1>
     <hr>
 
-    <form action="" method="post" id="selecao_alunos">
-        @csrf
-        <div class="p-4 align-middle flex justify-between w-full">
-            <div>
-                <input class="bg-white min-w-[2rem] max-w-xs h-10 mx-8 my-auto" type="text" placeholder="Nome"
-                    name="filtro-nome" id="filtro-nome" onchange="filtro_nome($alunos, $)" />
-                <input class="bg-white mx-4 min-w-[2rem] max-w-xs h-10 my-auto" type="text" placeholder="Turma"
-                    name="filtro-turma" id="filtro-turma" />
-            </div>
-            <div>
-                <button type="submit" class="inline-flex gerar default-button float-right font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24"
+    <div class="p-4 align-middle flex justify-between w-full">
+        <form action="{{ route('declaracoes') }}" method="GET">
+            <span id="filters">
+                <input type="text" placeholder="Nome" name="filtro_nome" class="bg-white max-w-2xl h-10 mx-8 my-auto"
+                    value="{{ $filtro_nome ? $filtro_nome : '' }}">
+                <input type="text" placeholder="Turma" name="filtro_turma" class="bg-white max-w-2xl h-10 mx-8 my-auto"
+                value="{{ $filtro_turma ? $filtro_turma : '' }}">
+                <button type="submit" class="default-button rounded-full w-fit p-2 text-white align-middle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
-                        <desc>Download more icon variants from https://tabler-icons.io/i/check</desc>
+                        <desc>Download more icon variants from https://tabler-icons.io/i/search</desc>
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M5 12l5 5l10 -10"></path>
+                        <circle cx="10" cy="10" r="7"></circle>
+                        <line x1="21" y1="21" x2="15" y2="15"></line>
                     </svg>
-                    <span class="ml-2">
-                        Gerar declarações
-                    </span>
                 </button>
-            </div>
+            </span>
+        </form>
+        <div>
+            <button type="submit" class="inline-flex gerar default-button float-right font-bold" form="selecao_alunos">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24"
+                    height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <desc>Download more icon variants from https://tabler-icons.io/i/check</desc>
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M5 12l5 5l10 -10"></path>
+                </svg>
+                <span class="ml-2">
+                    Gerar declarações
+                </span>
+            </button>
         </div>
+    </div>
+
+    <form action="" method="post" id="selecao_alunos">
+        @csrf
+
 
         <div x-data="selectAllData()">
             <table width=100% class="text-center" center>
@@ -41,7 +55,7 @@
                     <th>@sortablelink('orientador_id', 'Orientador')</th>
                     </th>
                 </thead>
-                <tbody>
+                <tbody id="table-body">
                     @foreach ($alunos as $aluno)
                         <tr class="odd:bg-orange-200">
                             <td>
@@ -52,7 +66,7 @@
                             <td>{{ $aluno->turma->ano }}</td>
                             <td>{{ $aluno->curso }}</td>
                             <td>ok</td>
-                            <td>{{ $aluno->rpods->sum('horas_mes')}}/200</td>
+                            <td>{{ $aluno->rpods->sum('horas_mes') }}/200</td>
                             <td>{{ $aluno->orientador->nome }}</td>
                             <td>
                                 <a href="/coordenador/modelo_declaracao/{{ $aluno->id }}" class="text-white">
