@@ -17,17 +17,22 @@ class DeclaracaoController extends Controller
 {
     //
     /**
-     * Display the view
+     * Mostra a view de geração de declarações.
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\
      */
     public function create(Request $request)
     {
-
         $filtro_nome = $request['filtro_nome'];
-        $filtro_turma = $request['filtro_turma'];
 
+        if (!$request['filtro_turma']) {
+            $filtro_turma = date('Y');
+        } else {
+            $filtro_turma = $request['filtro_turma'];
+        }
+        $turma = Turma::where('ano', $filtro_turma)->get()->first();
 
-        if ($filtro_turma) {
-            $turma = Turma::where('ano', $filtro_turma)->get()->first();
+        if ($filtro_turma == 'Todos os alunos') {
+            $filtro_turma = null;
         }
 
         if ($filtro_nome and !$filtro_turma) {
@@ -47,22 +52,26 @@ class DeclaracaoController extends Controller
             $alunos = Aluno::sortable('nome_aluno')->select('*')->get();
         }
 
+        $turmas = array_map(function ($item) {
+            return $item['ano'];
+        }, Turma::all('ano')->toArray());
+        arsort($turmas);
+        array_unshift($turmas, 'Todos os alunos');
 
-
-        // $alunos = Aluno::sortable(['turma_id' => 'desc'])->select('*')->get();
-
-        return view(
+        return View(
             'coordenador.declaracoes',
             [
-                'alunos' => $alunos,
                 'filtro_nome' => $filtro_nome,
-                'filtro_turma' => $filtro_turma
+                'filtro_turma' => $filtro_turma,
+                'alunos' => $alunos,
+                'turmas' => $turmas,
             ]
         );
     }
 
     /**
-     * Generate the selected students documents
+     * Esta função gera as declarações dos alunos selecionados pelo coordenador na tabela.
+     * @return Illuminate\Contracts\Routing\ResponseFactory::download Zip com as declarações geradas para download.
      */
     public function gerar_declaracoes(Request $request)
     {
@@ -107,7 +116,8 @@ class DeclaracaoController extends Controller
     }
 
     /**
-     * Generate a single declaration
+     * Gera a declaração de um aluno.
+     * @return Illuminate\Contracts\Routing\ResponseFactory::download PDF da declaração para download.
      */
     public function gerar_declaracao(Aluno $aluno)
     {
