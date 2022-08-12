@@ -27,12 +27,9 @@ class DeclaracaoController extends Controller
         if (!$request['filtro_turma']) {
             $filtro_turma = date('Y');
         } else {
-            $filtro_turma = $request['filtro_turma'];
-        }
-
-
-        if ($filtro_turma == 'Todos os alunos') {
-            $filtro_turma = null;
+            $filtro_turma = ($request['filtro_turma'] == 'Todos os alunos') ?
+                $filtro_turma = null :
+                $request['filtro_turma'];
         }
 
         $alunos = Aluno::sortable('nome_aluno')->select('*')

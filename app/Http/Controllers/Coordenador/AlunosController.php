@@ -20,21 +20,45 @@ class AlunosController extends Controller
      */
     public function index(Request $request)
     {
-        $orientadores = Orientador::all('nome');
-        $nomes = array();
-        foreach ($orientadores as $orientador) {
-            array_push($nomes, $orientador->nome);
-        }
-        if ($request['filtro_nome']) {
-            $filtro_nome = $request['filtro_nome'];
-            $alunos = Aluno::sortable('nome_aluno')->select('*')->where([
-                ['nome_aluno', 'LIKE', '%' . $filtro_nome . '%']
-            ])->get();
+        $filtro_nome = $request['filtro_nome'];
+
+        if (!$request['filtro_turma']) {
+            $filtro_turma = date('Y');
         } else {
-            $alunos = Aluno::sortable('nome_aluno')->select('*')->get();
+            $filtro_turma = ($request['filtro_turma'] == 'Todos os alunos') ?
+                $filtro_turma = null :
+                $request['filtro_turma'];
         }
 
-        return view('coordenador.alunos', ['alunos' => $alunos, 'orientadores' => $nomes]);
+        $orientadores = array_map(function ($item) {
+            return $item['nome'];
+        }, Orientador::select('nome')->orderBy('nome', 'asc')->get()->toArray());
+
+        $alunos = Aluno::sortable('nome_aluno')->select('*')
+            ->when($filtro_nome, function ($query, $filtro_nome) {
+                $query->where('nome_aluno', 'LIKE', '%' . $filtro_nome . '%');
+            })->when($filtro_turma, function ($query, $filtro_turma) {
+                $turma = Turma::where('ano', $filtro_turma)->get()->first();
+                $query->where([
+                    ['turma_id', 'LIKE', '%' . $turma->id . '%']
+                ]);
+            })->get();
+
+        $turmas = array_map(function ($item) {
+            return $item['ano'];
+        }, Turma::select('ano')->orderBy('ano', 'desc')->get()->toArray());
+        array_unshift($turmas, 'Todos os alunos');
+
+        return view(
+            'coordenador.alunos',
+            [
+                'filtro_nome' => $filtro_nome,
+                'filtro_turma' => $filtro_turma,
+                'alunos' => $alunos,
+                'orientadores' => $orientadores,
+                'turmas' => $turmas
+            ]
+        );
     }
 
     /**

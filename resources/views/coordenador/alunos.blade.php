@@ -45,15 +45,14 @@
         </div>
     @endif
 
-
     <div>
         <div class="p-4 align-middle flex w-full justify-between">
             <form action="{{ route('alunos.index') }}" method="GET">
-                @csrf
                 <span id="filters">
                     <input type="text" placeholder="Nome" name="filtro_nome"
-                        class="bg-white max-w-2xl h-10 mx-8 my-auto">
-                    <button type="submit" class="default-button rounded-full w-fit p-2 text-white align-middle">
+                        value="{{ $filtro_nome ? $filtro_nome : '' }}" class="bg-white max-w-2xl h-10 mx-8 my-auto">
+                    {!! Form::select('filtro_turma', array_combine($turmas, $turmas), $filtro_turma, ['class' => '']) !!}
+                    <button type="submit" class="default-button rounded-full w-fit ml-8 p-2 text-white align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
