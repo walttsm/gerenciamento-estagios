@@ -103,22 +103,71 @@
         <x-calendario :horarios="$orientador->horarios_orientacao" />
     </div>
 
-    <div class="align-middle mx-12 my-8 text-2xl font-bold">
-        <h2>Registros de orientação</h2>
+    <div class="flex align-middle mx-12 my-8">
+        <h2 class='font-bold mr-8'>Registros de orientação</h2>
+        <form action="{{ route('orientadores.show', $orientador->id) }}" method="get">
+            {!! Form::select(
+                'filtro_registros',
+                ['Todos', 'Presenças', 'Faltas'],
+                $filtro_registros ? $filtro_registros : 0,
+                ['class' => ''],
+            ) !!}
+            <button type="submit" class="default-button rounded-full w-fit ml-8 p-2 text-white align-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
+                    height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <desc>Download more icon variants from https://tabler-icons.io/i/search</desc>
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <circle cx="10" cy="10" r="7"></circle>
+                    <line x1="21" y1="21" x2="15" y2="15"></line>
+                </svg>
+            </button>
+        </form>
     </div>
 
     <div class="mx-12">
         @foreach ($orientador->alunos as $aluno)
-            <h3>Aluno: {{ $aluno->nome_aluno }}</h3>
+            <a href="{{ route('alunos.show', $aluno->id) }}">
+                <h3 class="hover:underline hover:cursor-pointer">Aluno: {{ $aluno->nome_aluno }}</h3>
+            </a>
             @foreach ($aluno->registros as $registro)
-                <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                    <h3>Registro</h3>
-                    <p>Data: {{ $registro->data_orientacao }}</p>
-                    <p>Assunto: {{ $registro->assunto }}</p>
-                    <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
-                    <p>Observações: {{ $registro->observacao }}</p>
-                    <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
-                </div>
+                @switch($filtro_registros)
+                    @case(1)
+                        @if ($registro->presenca == 1)
+                            <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                                <h3>Registro</h3>
+                                <p>Data: {{ $registro->data_orientacao }}</p>
+                                <p>Assunto: {{ $registro->assunto }}</p>
+                                <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
+                                <p>Observações: {{ $registro->observacao }}</p>
+                                <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
+                            </div>
+                        @endif
+                    @break
+
+                    @case(2)
+                        @if ($registro->presenca == 0)
+                            <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                                <h3>Registro</h3>
+                                <p>Data: {{ $registro->data_orientacao }}</p>
+                                <p>Assunto: {{ $registro->assunto }}</p>
+                                <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
+                                <p>Observações: {{ $registro->observacao }}</p>
+                                <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
+                            </div>
+                        @endif
+                    @break
+
+                    @default
+                        <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                            <h3>Registro</h3>
+                            <p>Data: {{ $registro->data_orientacao }}</p>
+                            <p>Assunto: {{ $registro->assunto }}</p>
+                            <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
+                            <p>Observações: {{ $registro->observacao }}</p>
+                            <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
+                        </div>
+                @endswitch
             @endforeach
         @endforeach
     </div>

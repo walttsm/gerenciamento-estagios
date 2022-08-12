@@ -12,7 +12,8 @@
         <div class="p-4 align-middle flex w-full justify-between">
             <form action="{{ route('orientadores.index') }}" method="GET">
                 <span id="filters">
-                    <input type="text" placeholder="Nome" name="filtro_nome" class="bg-white max-w-2xl h-10 mx-8 my-auto">
+                    <input type="text" placeholder="Nome" name="filtro_nome" value="{{ $filtro_nome ? $filtro_nome : '' }}"
+                        class="bg-white max-w-2xl h-10 mx-8 my-auto">
                     <button type="submit" class="default-button rounded-full w-fit p-2 text-white align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"

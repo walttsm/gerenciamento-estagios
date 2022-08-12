@@ -13,113 +13,137 @@ use Illuminate\Http\Request;
 class OrientadoresController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Mostra a página de listagem dos orientadores.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orientadores = Orientador::sortable()->get();
+        $filtro_nome = $request['filtro_nome'];
+        $orientadores = Orientador::sortable('nome')->when($filtro_nome, function ($query, $filtro_nome) {
+            $query->where('nome', 'LIKE', '%' . $filtro_nome . '%');
+        })->get();
 
-        return response()->view('coordenador.orientadores', ['orientadores' => $orientadores], 200);
+        return response()->view(
+            'coordenador.orientadores',
+            [
+                'orientadores' => $orientadores,
+                'filtro_nome' => $filtro_nome
+            ],
+            200
+        );
     }
 
-    public function show($id)
+    /**
+     * Mostra a página de um orientador com suas orientações semanais e registros de orientação.
+     *
+     * @param int $id -> Id do orientador a ser acessado.
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function show(Request $request, $id)
     {
+        $filtro_registros = $request['filtro_registros'] ? $request['filtro_registros'] : 'Todos';
         $orientador = Orientador::find($id);
         $alunos = $orientador->alunos;
 
         $orientador->horarios_orientacao = $orientador->horarios_orientacao->sortBy(['dia', 'hora']);
 
-        $nomes = array();
-        foreach ($alunos as $aluno) {
-            array_push($nomes, $aluno->nome_aluno);
-        }
+        $alunos = array_map(function ($item) {
+            return $item['nome_aluno'];
+        }, $orientador->alunos->toArray());
 
-        return View('coordenador.orientador')->with(['orientador' => $orientador, 'alunos' => $nomes]);
+        return response(View(
+            'coordenador.orientador',
+            [
+                'orientador' => $orientador,
+                'alunos' => $alunos,
+                'filtro_registros' => $filtro_registros
+            ]
+        ));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Salva um novo Orientador no banco de dados.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
         $request->validate([
             "nome" => "required",
             "email" => "required",
         ]);
 
-        // try {
-        $user = User::updateOrCreate(
-            ['email' => $request['email']],
-            [
-                "name" => $request['nome'],
-                "password" => hash('md5', '12345'),
-            ],
-        );
+        try {
+            $user = User::updateOrCreate(
+                ['email' => $request['email']],
+                [
+                    "name" => $request['nome'],
+                    "password" => hash('md5', '12345'),
+                ],
+            );
 
-        $orientador = Orientador::where('email', $request['email'])->first();
+            $orientador = Orientador::where('email', $request['email'])->first();
 
-        if (!$orientador) {
-            $orientador = new Orientador([
-                "nome" => $request['nome'],
-                "curso" => $request['curso'],
-                "user_id" => $user->id,
-                "email" => $request['email']
-            ]);
-        } else {
-            if ($orientador->trashed()) {
-                $orientador->restore();
-            }
-            $orientador->nome = $request['nome'];
-            $orientador->curso = $request['curso'];
-            $orientador->user_id = $user->id;
-            if ($request['email'] != $orientador->email) {
-                $orientador->email = $request['email'];
-            }
-        }
-
-        $orientador->save();
-
-        $dias_disponiveis = count($request['dias']);
-        if ($dias_disponiveis != 0) {
-            for ($i = 0; $i < $dias_disponiveis; $i++) {
-                $orientacao = new Horario_orientacao([
-                    'dia' => $request['dias'][$i],
-                    'hora' => $request['horas'][$i],
-                    'orientador_id' => $orientador->id,
+            if (!$orientador) {
+                $orientador = new Orientador([
+                    "nome" => $request['nome'],
+                    "curso" => $request['curso'],
+                    "user_id" => $user->id,
+                    "email" => $request['email']
                 ]);
-
-                $orientacao->save();
+            } else {
+                if ($orientador->trashed()) {
+                    $orientador->restore();
+                }
+                $orientador->nome = $request['nome'];
+                $orientador->curso = $request['curso'];
+                $orientador->user_id = $user->id;
+                if ($request['email'] != $orientador->email) {
+                    $orientador->email = $request['email'];
+                }
             }
+
+            $orientador->save();
+
+            $dias_disponiveis = count($request['dias']);
+            if ($dias_disponiveis != 0) {
+                for ($i = 0; $i < $dias_disponiveis; $i++) {
+                    $orientacao = new Horario_orientacao([
+                        'dia' => $request['dias'][$i],
+                        'hora' => $request['horas'][$i],
+                        'orientador_id' => $orientador->id,
+                    ]);
+
+                    $orientacao->save();
+                }
+            }
+
+
+
+            $message = "Orientador criado com sucesso!";
+            $type = "success";
+        } catch (Exception $e) {
+            $message = "Erro ao criar orientador." . $e;
+            $type = "error";
         }
-
-
-
-        $message = "Orientador criado com sucesso!";
-        $type = "success";
-        // } catch (Exception $e) {
-        // $message = "Erro ao criar orientador." . $e;
-        // $type = "error";
-        // }
 
         return redirect()->route('orientadores.index')->with(['message' => $message, 'type' => $type]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza o orientador no banco de dados após edição
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $id -> Id do orientador sendo editado.
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
         try {
             $request->validate([
                 'nome' => 'required',
@@ -145,9 +169,9 @@ class OrientadoresController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Apaga o orientador da base de dados.
      *
-     * @param  int  $id
+     * @param  int  $id -> Id do orientador.
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
