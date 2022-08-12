@@ -984,6 +984,12 @@ input[type="checkbox"]:focus{
 .mt-1{
   margin-top: 0.25rem;
 }
+.mt-40{
+  margin-top: 10rem;
+}
+.mb-20{
+  margin-bottom: 5rem;
+}
 .-mr-2{
   margin-right: -0.5rem;
 }
@@ -992,12 +998,6 @@ input[type="checkbox"]:focus{
 }
 .mb-8{
   margin-bottom: 2rem;
-}
-.mt-40{
-  margin-top: 10rem;
-}
-.mb-20{
-  margin-bottom: 5rem;
 }
 .box-border{
   box-sizing: border-box;

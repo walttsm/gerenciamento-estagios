@@ -29,33 +29,27 @@ class DeclaracaoController extends Controller
         } else {
             $filtro_turma = $request['filtro_turma'];
         }
-        $turma = Turma::where('ano', $filtro_turma)->get()->first();
+
 
         if ($filtro_turma == 'Todos os alunos') {
             $filtro_turma = null;
         }
 
-        if ($filtro_nome and !$filtro_turma) {
-            $alunos = Aluno::sortable('nome_aluno')->select('*')->where([
-                ['nome_aluno', 'LIKE', '%' . $filtro_nome . '%']
-            ])->get();
-        } elseif ($filtro_turma and !$filtro_nome) {
-            $alunos = Aluno::sortable('nome_aluno')->select('*')->where([
-                ['turma_id', 'LIKE', '%' . $turma->id . '%']
-            ])->get();
-        } elseif ($filtro_nome and $filtro_turma) {
-            $alunos = Aluno::sortable('nome_aluno')->select('*')->where([
-                ['nome_aluno', 'LIKE', '%' .  $filtro_nome . '%'],
-                ['turma_id', '=', $turma->id]
-            ])->get();
-        } else {
-            $alunos = Aluno::sortable('nome_aluno')->select('*')->get();
-        }
+        $alunos = Aluno::sortable('nome_aluno')->select('*')
+            ->when($filtro_turma, function ($query, $filtro_turma) {
+                $turma = Turma::where('ano', $filtro_turma)->get()->first();
+                $query->where([
+                    ['turma_id', 'LIKE', '%' . $turma->id . '%']
+                ]);
+            })->when($filtro_nome, function ($query, $filtro_nome) {
+                $query->where([
+                    ['nome_aluno', 'LIKE', '%' . $filtro_nome . '%']
+                ]);
+            })->get();
 
         $turmas = array_map(function ($item) {
             return $item['ano'];
-        }, Turma::all('ano')->toArray());
-        arsort($turmas);
+        }, Turma::select('ano')->orderBy('ano', 'desc')->get()->toArray());
         array_unshift($turmas, 'Todos os alunos');
 
         return View(
