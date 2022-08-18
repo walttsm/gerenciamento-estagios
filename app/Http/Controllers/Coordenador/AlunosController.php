@@ -65,12 +65,14 @@ class AlunosController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param @param \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //
+        $filtro_registros = $request['filtro_registros'] ? $request['filtro_registros'] : 'Todos';
         $aluno = Aluno::find($id);
 
         $aluno->rpods = $aluno->rpods->sortBy('mes');
@@ -80,7 +82,7 @@ class AlunosController extends Controller
             ->where('aluno_id', $aluno->id)
             ->where('presenca', 0)->get()->count();
 
-        return view('coordenador.aluno', ['aluno' => $aluno, 'faltas' => $faltas]);
+        return view('coordenador.aluno', ['aluno' => $aluno, 'faltas' => $faltas, 'filtro_registros' => $filtro_registros]);
     }
 
     /**
