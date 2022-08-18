@@ -103,7 +103,7 @@
         <x-calendario :horarios="$orientador->horarios_orientacao" />
     </div>
 
-    <div class="flex align-middle mx-12 my-8">
+    <div class="flex align-middle mx-12 mt-8">
         <h2 class='font-bold mr-8'>Registros de orientação</h2>
         <form action="{{ route('orientadores.show', $orientador->id) }}" method="get">
             {!! Form::select(
@@ -127,62 +127,71 @@
 
     <div class="mx-12">
         @foreach ($orientador->alunos as $aluno)
-            <a href="{{ route('alunos.show', $aluno->id) }}">
-                <h3 class="hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors">Aluno: {{ $aluno->nome_aluno }}</h3>
-            </a>
+            <div class="mb-4">
+                <a href="{{ route('alunos.show', $aluno->id) }}">
+                    <h3 class="hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors">Aluno:
+                        {{ $aluno->nome_aluno }}</h3>
+                </a>
 
-            @if (count($aluno->registros) == 0)
-                Não há registros de orientação cadastrados para esse aluno.
-            @else
-                <div x-data="{ expanded: false }">
-                    <div class="flex align-middle">
-                        <p class="mr-4 text-center">{{ count($aluno->registros) == 1 ? '1 registro' : count($aluno->registros) . ' registros' }} </p>
-                        <p class="mr-4 text-center">{{ $faltas[$aluno->id] == 1 ? '1 falta' : $faltas[$aluno->id] . ' faltas.' }}</p>
-                        <button @click="expanded=!expanded" class=" h4 hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors">Ver registros</button>
-                    </div>
-                    <div x-show="expanded" x-collapse.duration.1000ms>
-                        @foreach ($aluno->registros as $registro)
-                            @switch($filtro_registros)
-                                @case(1)
-                                    @if ($registro->presenca == 1)
+                @if (count($aluno->registros) == 0)
+                    Não há registros de orientação cadastrados para esse aluno.
+                @else
+                    <div x-data="{ expanded: false }">
+                        <div class="flex items-center">
+                            <p class="mr-4 text-center font-bold">
+                                {{ count($aluno->registros) == 1 ? '1 registro' : count($aluno->registros) . ' registros' }}
+                            </p>
+                            <p class="mr-4 text-center font-bold">
+                                {{ $faltas[$aluno->id] == 1 ? '1 falta' : $faltas[$aluno->id] . ' faltas.' }}</p>
+                            <button @click="expanded=!expanded"
+                                class=" h4 hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors">Ver
+                                registros</button>
+                        </div>
+                        <div x-show="expanded" x-collapse.duration.1000ms>
+                            @foreach ($aluno->registros as $registro)
+                                @switch($filtro_registros)
+                                    @case(1)
+                                        @if ($registro->presenca == 1)
+                                            <div
+                                                class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                                                <h3>Data: {{ date('d/m/Y  H:i:s', strtotime($registro->data_orientacao)) }}</h3>
+                                                <p>Assunto: {{ $registro->assunto }}</p>
+                                                <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
+                                                <p>Observações: {{ $registro->observacao }}</p>
+                                                <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
+                                            </div>
+                                        @endif
+                                    @break
+
+                                    @case(2)
+                                        @if ($registro->presenca == 0)
+                                            <div
+                                                class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                                                <h3>Data: {{ date('d/m/Y  H:i:s', strtotime($registro->data_orientacao)) }}</h3>
+                                                <p>Assunto: {{ $registro->assunto }}</p>
+                                                <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
+                                                <p>Observações: {{ $registro->observacao }}</p>
+                                                <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
+                                            </div>
+                                        @endif
+                                    @break
+
+                                    @default
                                         <div
                                             class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                                            {{ date('d/m/Y H:i:s', strtotime($registro->data_orientacao)) }}
+                                            <h3>Data: {{ date('d/m/Y  H:i:s', strtotime($registro->data_orientacao)) }}</h3>
                                             <p>Assunto: {{ $registro->assunto }}</p>
                                             <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
                                             <p>Observações: {{ $registro->observacao }}</p>
                                             <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
                                         </div>
-                                    @endif
-                                @break
-
-                                @case(2)
-                                    @if ($registro->presenca == 0)
-                                        <div
-                                            class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                                            {{ date('d/m/Y H:i:s', strtotime($registro->data_orientacao)) }}
-                                            <p>Assunto: {{ $registro->assunto }}</p>
-                                            <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
-                                            <p>Observações: {{ $registro->observacao }}</p>
-                                            <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
-                                        </div>
-                                    @endif
-                                @break
-
-                                @default
-                                    <div
-                                        class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                                        {{ date('d/m/Y H:i:s', strtotime($registro->data_orientacao)) }}
-                                        <p>Assunto: {{ $registro->assunto }}</p>
-                                        <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
-                                        <p>Observações: {{ $registro->observacao }}</p>
-                                        <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
-                                    </div>
-                            @endswitch
-                        @endforeach
+                                @endswitch
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
+
+            </div>
         @endforeach
     </div>
 @endsection

@@ -69,7 +69,7 @@
             @switch($filtro_registros)
                 @case(1)
                     @if ($registro->presenca == 1)
-                        <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                        <div class="h3 bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
                             <h3>Data: {{ date('d/m/Y  H:i:s', strtotime($registro->data_orientacao)) }}</h3>
                             <p>Assunto: {{ $registro->assunto }}</p>
                             <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
@@ -81,7 +81,7 @@
 
                 @case(2)
                     @if ($registro->presenca == 0)
-                        <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                        <div class="h3 bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
                             <h3>Data: {{ date('d/m/Y H:i:s', strtotime($registro->data_orientacao)) }}</h3>
                             <p>Assunto: {{ $registro->assunto }}</p>
                             <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
@@ -92,7 +92,7 @@
                 @break
 
                 @default
-                    <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                    <div class="h3 bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
                         <h3>Data: {{ date('d/m/Y  H:i:s', strtotime($registro->data_orientacao)) }}</h3>
                         <p>Assunto: {{ $registro->assunto }}</p>
                         <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
