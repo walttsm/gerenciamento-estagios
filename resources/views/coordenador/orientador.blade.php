@@ -128,13 +128,18 @@
     <div class="mx-12">
         @foreach ($orientador->alunos as $aluno)
             <a href="{{ route('alunos.show', $aluno->id) }}">
-                <h3 class="hover:underline hover:cursor-pointer">Aluno: {{ $aluno->nome_aluno }}</h3>
+                <h3 class="hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors">Aluno: {{ $aluno->nome_aluno }}</h3>
             </a>
+
             @if (count($aluno->registros) == 0)
                 Não há registros de orientação cadastrados para esse aluno.
             @else
                 <div x-data="{ expanded: false }">
-                    <button @click="expanded=!expanded" class="default-button">Ver registros</button>
+                    <div class="flex align-middle">
+                        <p class="mr-4 text-center">{{ count($aluno->registros) == 1 ? '1 registro' : count($aluno->registros) . ' registros' }} </p>
+                        <p class="mr-4 text-center">{{ $faltas[$aluno->id] == 1 ? '1 falta' : $faltas[$aluno->id] . ' faltas.' }}</p>
+                        <button @click="expanded=!expanded" class=" h4 hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors">Ver registros</button>
+                    </div>
                     <div x-show="expanded" x-collapse.duration.1000ms>
                         @foreach ($aluno->registros as $registro)
                             @switch($filtro_registros)
@@ -142,8 +147,7 @@
                                     @if ($registro->presenca == 1)
                                         <div
                                             class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                                            <h3>Registro</h3>
-                                            <p>Data: {{ $registro->data_orientacao }}</p>
+                                            <h3>Data: {{ $registro->data_orientacao }}</h3>
                                             <p>Assunto: {{ $registro->assunto }}</p>
                                             <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
                                             <p>Observações: {{ $registro->observacao }}</p>
@@ -156,8 +160,7 @@
                                     @if ($registro->presenca == 0)
                                         <div
                                             class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                                            <h3>Registro</h3>
-                                            <p>Data: {{ $registro->data_orientacao }}</p>
+                                            <h3>Data: {{ $registro->data_orientacao }}</h3>
                                             <p>Assunto: {{ $registro->assunto }}</p>
                                             <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
                                             <p>Observações: {{ $registro->observacao }}</p>
@@ -169,8 +172,7 @@
                                 @default
                                     <div
                                         class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                                        <h3>Registro</h3>
-                                        <p>Data: {{ $registro->data_orientacao }}</p>
+                                        <h3>Data: {{ $registro->data_orientacao }}</h3>
                                         <p>Assunto: {{ $registro->assunto }}</p>
                                         <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
                                         <p>Observações: {{ $registro->observacao }}</p>

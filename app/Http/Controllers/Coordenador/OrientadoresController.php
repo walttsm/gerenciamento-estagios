@@ -7,6 +7,7 @@ use App\Models\Aluno;
 use App\Models\Horario_orientacao;
 use App\Models\Orientador;
 use App\Models\User;
+use App\Models\Registro;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -55,12 +56,22 @@ class OrientadoresController extends Controller
             return $item['nome_aluno'];
         }, $orientador->alunos->toArray());
 
+        $faltas = array();
+
+        foreach ($orientador->alunos as $aluno) {
+            $n = Registro::select('*')
+            ->where('aluno_id', $aluno->id)
+            ->where('presenca', 0)->get()->count();
+            $faltas[$aluno->id] = $n;
+        }
+
         return response(View(
             'coordenador.orientador',
             [
                 'orientador' => $orientador,
                 'alunos' => $alunos,
-                'filtro_registros' => $filtro_registros
+                'filtro_registros' => $filtro_registros,
+                'faltas' => $faltas,
             ]
         ));
     }
