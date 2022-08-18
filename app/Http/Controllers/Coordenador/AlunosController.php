@@ -7,6 +7,7 @@ use App\Models\Aluno;
 use App\Models\Orientador;
 use App\Models\Turma;
 use App\Models\User;
+use App\Models\Registro;
 use Exception;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
@@ -73,8 +74,13 @@ class AlunosController extends Controller
         $aluno = Aluno::find($id);
 
         $aluno->rpods = $aluno->rpods->sortBy('mes');
+        $aluno->registros = $aluno->registros->sortBy([['data_orientacao', 'desc']]);
 
-        return view('coordenador.aluno', ['aluno' => $aluno]);
+        $faltas = Registro::select('*')
+            ->where('aluno_id', $aluno->id)
+            ->where('presenca', 0)->get()->count();
+
+        return view('coordenador.aluno', ['aluno' => $aluno, 'faltas' => $faltas]);
     }
 
     /**

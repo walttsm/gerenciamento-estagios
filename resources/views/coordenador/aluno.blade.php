@@ -16,7 +16,7 @@
                     <h3>RPOD {{ $rpod->mes }}</h3>
                     <b class="mt-2">{{ $rpod->horas_mes }} horas</b>
                     <p class="mt-2">{{ $rpod->rpod_title ? $rpod->rpod_title : 'Título não definido' }}</p>
-                    <a href="{{ route('rpodpage.download', $rpod->id) }}" class="mt-4">
+                    <a href="{{ route('rpodpage.download', $rpod->id) }}" class="mt-4 md:text-xs">
                         <button type="button" class="flex default-button rounded text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 icon icon-tabler icon-tabler-file-download"
                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -37,10 +37,13 @@
 
     <div class="mx-8 mt-8">
         <h2>Orientações</h2>
+        <div>
+            <p class="text-lg">Número de orientações: <b>{{ count($aluno->registros) . ' orientações' }}</b></p>
+            <p class="text-lg">Faltas em orientações: <b>{{ $faltas == 1 ? '1 falta' : $faltas . ' faltas' }}</b></p>
+        </div>
         @foreach ($aluno->registros as $registro)
             <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                <h3>Registro</h3>
-                <p>Data: {{ $registro->data_orientacao }}</p>
+                <h3>Data: {{ date('d/m/Y', strtotime($registro->data_orientacao)) }}</h3>
                 <p>Assunto: {{ $registro->assunto }}</p>
                 <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
                 <p>Observações: {{ $registro->observacao }}</p>
