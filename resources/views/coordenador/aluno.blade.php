@@ -39,7 +39,7 @@
 
     <div class="mx-8 mt-8">
         <h2>Orientações</h2>
-        <div class="flex items-center">
+        <div class="flex items-center justify-around">
             <div>
                 <p class="text-lg">Número de orientações: <b>{{ count($aluno->registros) . ' orientações' }}</b></p>
                 <p class="text-lg">Faltas em orientações: <b>{{ $faltas == 1 ? '1 falta' : $faltas . ' faltas' }}</b></p>
@@ -52,6 +52,10 @@
                         $filtro_registros ? $filtro_registros : 0,
                         ['class' => ''],
                     ) !!}
+                    {!! Form::label('filtro_data_inicio', 'Data de Inicio:', ['class' => '']) !!}
+                    {!! Form::date('filtro_data_inicio', $filtro_data_inicio ? $filtro_data_inicio : null, ['class' => '']) !!}
+                    {!! Form::label('filtro_data_fim', 'Data de Fim:', ['class' => '']) !!}
+                    {!! Form::date('filtro_data_fim', $filtro_data_fim ? $filtro_data_fim : null, ['class' => '']) !!}
                     <button type="submit" class="default-button rounded-full w-fit ml-8 p-2 text-white align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -65,11 +69,11 @@
                 </form>
             </div>
         </div>
-        @foreach ($aluno->registros as $registro)
+        @foreach ($registros as $registro)
             @switch($filtro_registros)
                 @case(1)
                     @if ($registro->presenca == 1)
-                        <div class="h3 bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                        <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
                             <h3>Data: {{ date('d/m/Y  H:i:s', strtotime($registro->data_orientacao)) }}</h3>
                             <p>Assunto: {{ $registro->assunto }}</p>
                             <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
@@ -81,7 +85,7 @@
 
                 @case(2)
                     @if ($registro->presenca == 0)
-                        <div class="h3 bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                        <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
                             <h3>Data: {{ date('d/m/Y H:i:s', strtotime($registro->data_orientacao)) }}</h3>
                             <p>Assunto: {{ $registro->assunto }}</p>
                             <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
@@ -92,7 +96,7 @@
                 @break
 
                 @default
-                    <div class="h3 bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                    <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
                         <h3>Data: {{ date('d/m/Y  H:i:s', strtotime($registro->data_orientacao)) }}</h3>
                         <p>Assunto: {{ $registro->assunto }}</p>
                         <p>Próxima orientação: {{ $registro->prox_assunto }}</p>

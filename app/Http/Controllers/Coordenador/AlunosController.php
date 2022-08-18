@@ -72,17 +72,33 @@ class AlunosController extends Controller
     public function show(Request $request, $id)
     {
         //
+        $filtro_data_inicio = $request['filtro_data_inicio'] ? $request['filtro_data_inicio'] : null;
+        $filtro_data_fim = $request['filtro_data_fim'] ? $request['filtro_data_fim'] : null;
         $filtro_registros = $request['filtro_registros'] ? $request['filtro_registros'] : 'Todos';
         $aluno = Aluno::find($id);
 
         $aluno->rpods = $aluno->rpods->sortBy('mes');
-        $aluno->registros = $aluno->registros->sortBy([['data_orientacao', 'desc']]);
+        $registros = Registro::select('*')->where('aluno_id', '=', $aluno->id)->when($filtro_data_inicio, function ($query, $filtro_data_inicio) {
+            $query->where('data_orientacao', '>=', $filtro_data_inicio);
+        })->when($filtro_data_fim, function ($query, $filtro_data_fim) {
+            $query->where('data_orientacao', '<=', $filtro_data_fim);
+        })->get()->sortBy([['data_orientacao', 'desc']]);
 
         $faltas = Registro::select('*')
             ->where('aluno_id', $aluno->id)
             ->where('presenca', 0)->get()->count();
 
-        return view('coordenador.aluno', ['aluno' => $aluno, 'faltas' => $faltas, 'filtro_registros' => $filtro_registros]);
+        return view(
+            'coordenador.aluno',
+            [
+                'aluno' => $aluno,
+                'faltas' => $faltas,
+                'registros' => $registros,
+                'filtro_registros' => $filtro_registros,
+                'filtro_data_inicio' => $filtro_data_inicio,
+                'filtro_data_fim' => $filtro_data_fim
+            ]
+        );
     }
 
     /**
