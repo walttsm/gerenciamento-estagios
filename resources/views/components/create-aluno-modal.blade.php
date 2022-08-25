@@ -11,7 +11,8 @@
             </div>
             <div class="mx-auto">
                 <label for="turma">Turma</label>
-                <input type="number" min="2000" max="{{ date('Y') }}" value="{{ date('Y') }}" name="turma" id="turma">
+                <input type="number" min="2000" max="{{ date('Y') }}" value="{{ date('Y') }}"
+                    name="turma" id="turma">
             </div>
             <div class="mx-auto">
                 <label for="Curso">Curso</label>
@@ -34,8 +35,8 @@
         </div>
         <div class="my-8 flex justify-between items-center">
             <div class="mx-auto">
-                {!! Form::label("orientador", "Orientador") !!}
-                {!! Form::select("orientador", array_combine($orientadores, $orientadores), null, ['class'     => 'form-control']) !!}
+                {!! Form::label('orientador', 'Orientador') !!}
+                {!! Form::select('orientador', array_combine($orientadores, $orientadores), null, ['class' => 'form-control']) !!}
             </div>
             <div class="mx-auto">
                 {{-- <label for="banca1">Banca 1</label>
@@ -50,13 +51,10 @@
                 {!! Form::select('banca2', array_combine($orientadores, $orientadores), null, ['class' => 'form-control']) !!}
             </div>
         </div>
-        <div class="my-8 flex justify-between">
-
-        </div>
 
         <div id="buttons" class="my-8 flex justify-end">
-            <button type="button" class="cancel-button closeAlunoModal mx-4" onclick="document.getElementById('createForm').reset()">Descartar</button>
-            {{-- <button type="reset"  class="default-button mx-4">Salvar/add outro</button> --}}
+            <button type="button" class="cancel-button mx-4"
+                onclick="document.getElementById('createForm').reset(); closeModal('#createModal')">Descartar</button>
             <button type="submit" class="default-button mx-4">Salvar</button>
         </div>
     </form>

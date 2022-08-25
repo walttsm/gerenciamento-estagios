@@ -37,7 +37,9 @@
         <div class="my-8 flex justify-between items-center">
             <div class="mx-auto">
                 {!! Form::label('orientador', 'Orientador') !!}
-                {!! Form::select('orientador', array_combine($orientadores, $orientadores), $orientador, ['class' => 'form-control']) !!}
+                {!! Form::select('orientador', array_combine($orientadores, $orientadores), $orientador, [
+                    'class' => 'form-control',
+                ]) !!}
             </div>
             <div class="mx-auto">
                 {{-- <label for="banca1">Banca 1</label>
@@ -58,7 +60,7 @@
 
         <div id="buttons" class="my-8 flex justify-end">
             <button type="button" class="cancel-button mx-4"
-                onclick="closeModal({{ $aluno['id'] }})">Descartar</button>
+                onclick="closeModal({{ 'editModal' . $aluno['id'] }})">Descartar</button>
             {{-- <button type="reset"  class="default-button mx-4">Salvar/add outro</button> --}}
             <button type="submit" class="default-button mx-4">Salvar</button>
         </div>

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 /*
-! tailwindcss v3.1.4 | MIT License | https://tailwindcss.com
+! tailwindcss v3.1.8 | MIT License | https://tailwindcss.com
 */
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -972,6 +972,12 @@ input[type="checkbox"]:focus{
 .mr-8{
   margin-right: 2rem;
 }
+.mb-4{
+  margin-bottom: 1rem;
+}
+.mr-4{
+  margin-right: 1rem;
+}
 .mt-3{
   margin-top: 0.75rem;
 }
@@ -980,9 +986,6 @@ input[type="checkbox"]:focus{
 }
 .mr-1{
   margin-right: 0.25rem;
-}
-.mb-4{
-  margin-bottom: 1rem;
 }
 .mt-1{
   margin-top: 0.25rem;
@@ -1001,9 +1004,6 @@ input[type="checkbox"]:focus{
 }
 .mb-8{
   margin-bottom: 2rem;
-}
-.mr-4{
-  margin-right: 1rem;
 }
 .box-border{
   box-sizing: border-box;
@@ -1155,9 +1155,6 @@ input[type="checkbox"]:focus{
 }
 .cursor-default{
   cursor: default;
-}
-.cursor-pointer{
-  cursor: pointer;
 }
 .list-inside{
   list-style-position: inside;
@@ -1343,17 +1340,9 @@ input[type="checkbox"]:focus{
   --tw-bg-opacity: 1;
   background-color: rgb(249 115 22 / var(--tw-bg-opacity));
 }
-.bg-orange-400{
-  --tw-bg-opacity: 1;
-  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
-}
 .bg-indigo-50{
   --tw-bg-opacity: 1;
   background-color: rgb(238 242 255 / var(--tw-bg-opacity));
-}
-.bg-slate-400{
-  --tw-bg-opacity: 1;
-  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
 }
 .fill-current{
   fill: currentColor;
@@ -1552,14 +1541,6 @@ input[type="checkbox"]:focus{
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
-.text-slate-400{
-  --tw-text-opacity: 1;
-  color: rgb(148 163 184 / var(--tw-text-opacity));
-}
-.text-slate-500{
-  --tw-text-opacity: 1;
-  color: rgb(100 116 139 / var(--tw-text-opacity));
-}
 .underline{
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -1684,6 +1665,10 @@ input[type="checkbox"]:focus{
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
+.hover\:text-orange-500:hover{
+  --tw-text-opacity: 1;
+  color: rgb(249 115 22 / var(--tw-text-opacity));
+}
 .hover\:text-orange-900:hover{
   --tw-text-opacity: 1;
   color: rgb(124 45 18 / var(--tw-text-opacity));
@@ -1699,10 +1684,6 @@ input[type="checkbox"]:focus{
 .hover\:text-gray-700:hover{
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-.hover\:text-orange-500:hover{
-  --tw-text-opacity: 1;
-  color: rgb(249 115 22 / var(--tw-text-opacity));
 }
 .hover\:underline:hover{
   -webkit-text-decoration-line: underline;
@@ -1856,10 +1837,6 @@ input[type="checkbox"]:focus{
   .md\:mx-16{
     margin-left: 4rem;
     margin-right: 4rem;
-  }
-  .md\:text-sm{
-    font-size: 0.875rem;
-    line-height: 1.25rem;
   }
   .md\:text-xs{
     font-size: 0.75rem;

@@ -3,7 +3,6 @@
 @section('content')
     <div class="align-middle mx-8 my-12 text-3xl font-bold">
         <h1>Alunos</h1>
-
     </div>
     <hr>
 
@@ -66,7 +65,13 @@
             </form>
 
             <div>
-                <button type="button" class="default-button openTurmaModal mx-4 min-w-fit inline-flex">
+                <button type="button" class="default-button mx-4 min-w-fit inline-flex"
+                    onclick="openModal('#upload_csv_modal')">
+                    <span class="ml-2 font-bold">
+                        Adicionar via CSV
+                    </span>
+                </button>
+                <button type="button" class="default-button mx-4 min-w-fit inline-flex" onclick="openModal('#turmaModal')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -79,7 +84,8 @@
                         Nova turma
                     </span>
                 </button>
-                <button type="button" class="default-button openAlunoModal mx-4 min-w-fit inline-flex">
+                <button type="button" class="default-button mx-4 min-w-fit inline-flex"
+                    onclick="openModal('#createModal')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -95,6 +101,7 @@
             </div>
         </div>
 
+        <x-csv_upload_form />
         <x-add-turma-modal />
         <x-create-aluno-modal :orientadores="$orientadores" />
 
@@ -120,7 +127,8 @@
                         <td>{{ $aluno->curso }}</td>
                         <td>{{ $aluno->orientador->nome }}</td>
                         <td class="flex justify-center items-center">
-                            <button id="editarUsuario" type="button" onclick="openModal({{ $aluno->id }})">
+                            <button id="editarUsuario" type="button"
+                                onclick="openModal({{ 'editModal' . $aluno->id }})">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-edit text-orange-600 hover:brightness-125"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -162,28 +170,12 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('.openAlunoModal').on('click', function(e) {
-                $('#createModal').removeClass('hidden');
-            });
-            $('.closeAlunoModal').on('click', function(e) {
-                $('#createModal').addClass('hidden');
-            });
-            $('.openTurmaModal').on('click', function(e) {
-                $('#turmaModal').removeClass('hidden');
-            });
-            $('.closeTurmaModal').on('click', function(e) {
-                $('#turmaModal').addClass('hidden');
-            });
-        });
-    </script>
-    <script type="text/javascript">
         function openModal(id) {
-            $('#editModal' + id).removeClass('hidden');
+            $(id).removeClass('hidden');
         }
 
         function closeModal(id) {
-            $('#editModal' + id).addClass('hidden');
+            $(id).addClass('hidden');
         }
 
         function hideMessage(id) {

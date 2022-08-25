@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Coordenador\OrientacoesController;
 use App\Http\Controllers\Coordenador\TurmaController;
 use App\Http\Controllers\Orientador\RegistroController;
+use App\Http\Controllers\Coordenador\CSVController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,4 +92,8 @@ Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(f
     Route::post('declaracoes', [DeclaracaoController::class, 'gerar_declaracoes']);
     Route::view('modelo_declaracao', 'coordenador.modelo.declaracao_modelo');
     Route::get('modelo_declaracao/{aluno}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
+
+    Route::prefix('/csv')->group(function () {
+        Route::post('/alunos', [CSVController::class, 'cadastrar_alunos'])->name('alunos_csv');
+    });
 });
