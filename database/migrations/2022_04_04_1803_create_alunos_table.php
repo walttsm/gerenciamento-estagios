@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('nome_trabalho')->nullable();
             $table->unsignedBigInteger('turma_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('orientador_id')->nullable();
             $table->unsignedBigInteger('banca1_id')->nullable();
             $table->unsignedBigInteger('banca2_id')->nullable();

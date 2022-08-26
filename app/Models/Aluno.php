@@ -57,23 +57,28 @@ class Aluno extends Model
         return $this->belongsTo(Orientador::class, 'orientador_id');
     }
 
-    public function banca1() {
+    public function banca1()
+    {
         return $this->belongsTo(Orientador::class, 'banca1_id');
     }
 
-    public function banca2() {
+    public function banca2()
+    {
         return $this->belongsTo(Orientador::class, 'banca2_id');
     }
 
-    public function registros() {
+    public function registros()
+    {
         return $this->hasMany(Registro::class);
     }
 
-    public function horario_orientacao() {
-        return $this->hasOne(Horario_orientacao::class. 'aluno_id');
+    public function horario_orientacao()
+    {
+        return $this->hasOne(Horario_orientacao::class . 'aluno_id');
     }
 
-    public function rpods() {
+    public function rpods()
+    {
         return $this->hasMany(Rpod::class, 'aluno_id');
     }
 }
