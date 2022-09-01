@@ -6,50 +6,14 @@
     </div>
     <hr>
 
-    @if ($message = Session::get('message'))
-        <div class="message-success" id="messageSuccess">
-            <p>{{ $message }}</p>
-            <button type="button" class="self-end" onclick="hideMessage('Success')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24"
-                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <desc>Download more icon variants from https://tabler-icons.io/i/x</desc>
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="message-error" id="messageError">
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            <button type="button" class="self-middle" onclick="hideMessage('Error')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24"
-                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <desc>Download more icon variants from https://tabler-icons.io/i/x</desc>
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-    @endif
+    <x-message-card />
 
     <div>
         <div class="p-4 align-middle flex w-full justify-between">
             <form action="{{ route('alunos.index') }}" method="GET">
                 <span id="filters">
-                    <input type="text" placeholder="Nome" name="filtro_nome"
-                        value="{{ $filtro_nome ? $filtro_nome : '' }}" class="bg-white max-w-2xl h-10 mx-8 my-auto">
+                    <input type="text" placeholder="Nome" name="filtro_nome" value="{{ $filtro_nome ? $filtro_nome : '' }}"
+                        class="bg-white max-w-2xl h-10 mx-8 my-auto">
                     {!! Form::select('filtro_turma', array_combine($turmas, $turmas), $filtro_turma, ['class' => '']) !!}
                     <button type="submit" class="default-button rounded-full w-fit ml-8 p-2 text-white align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
@@ -67,6 +31,14 @@
             <div>
                 <button type="button" class="default-button mx-4 min-w-fit inline-flex"
                     onclick="openModal('#upload_csv_modal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-table-import" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                            d="M4 13.5v-7.5a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-6m-8 -10h16m-10 -6v11.5m-8 3.5h7m-3 -3l3 3l-3 3">
+                        </path>
+                    </svg>
                     <span class="ml-2 font-bold">
                         Adicionar via CSV
                     </span>

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Aluno;
+use App\Models\Orientador;
 use App\Models\Turma;
 
 class CSVController extends Controller
@@ -57,6 +58,50 @@ class CSVController extends Controller
         }
 
         return redirect(Route('alunos.index'))->with(['message' => 'Alunos inseridos com sucesso!']);
+    }
+
+    /**
+     * Este método cadastra alunos no sistema usando CSV
+     */
+    public function cadastrar_orientadores(Request $request)
+    {
+        $request->validate([
+            'arquivo' => 'required|mimes:csv,txt'
+        ]);
+        $file = $request->file('arquivo');
+        if ($file) {
+            $filename = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $fileSize = $file->getSize();
+
+            $this->checkUploadedFileProperties($extension, $fileSize);
+            if (!Storage::exists('/app/public/csv_uploads')) {
+                Storage::makeDirectory('/public/csv_uploads');
+            }
+            $location = storage_path('app/public/csv_uploads');
+            $file->move($location, $filename);
+            $filepath = $location . "/" . $filename;
+            $imported_data_arr = $this->readCSV($filepath);
+
+            foreach ($imported_data_arr as $data_row) {
+                try {
+                    Orientador::updateOrCreate(
+                        [
+                            'email' => $data_row[2],
+                        ],
+                        [
+                            'nome' => $data_row[0],
+                            'curso' => $data_row[1],
+                        ]
+                    );
+                } catch (Exception $e) {
+                    dd($e);
+                    DB::rollback();
+                }
+            }
+        }
+
+        return redirect(Route('orientadores.index'))->with(['message' => 'Orientadores inseridos com sucesso!']);
     }
 
     public function checkUploadedFileProperties($extension, $fileSize)

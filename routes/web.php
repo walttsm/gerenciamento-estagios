@@ -95,5 +95,6 @@ Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(f
 
     Route::prefix('/csv')->group(function () {
         Route::post('/alunos', [CSVController::class, 'cadastrar_alunos'])->name('alunos_csv');
+        Route::post('/orientadores', [CSVController::class, 'cadastrar_orientadores'])->name('orientadores_csv');
     });
 });
