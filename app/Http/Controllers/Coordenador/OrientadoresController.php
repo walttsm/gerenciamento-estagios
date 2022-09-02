@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Registro;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrientadoresController extends Controller
 {
@@ -60,8 +61,8 @@ class OrientadoresController extends Controller
 
         foreach ($orientador->alunos as $aluno) {
             $n = Registro::select('*')
-            ->where('aluno_id', $aluno->id)
-            ->where('presenca', 0)->get()->count();
+                ->where('aluno_id', $aluno->id)
+                ->where('presenca', 0)->get()->count();
             $faltas[$aluno->id] = $n;
         }
 
@@ -141,6 +142,7 @@ class OrientadoresController extends Controller
         } catch (Exception $e) {
             $message = "Erro ao criar orientador." . $e;
             $type = "error";
+            DB::rollBack();
         }
 
         return redirect()->route('orientadores.index')->with(['message' => $message, 'type' => $type]);
@@ -174,6 +176,7 @@ class OrientadoresController extends Controller
         } catch (Exception $e) {
             $message = "Erro ao editar orientador, tente novamente!";
             $type = "error";
+            DB::rollBack();
         }
 
         return redirect()->route('orientadores.index')->with(['message' => $message, 'type' => $type]);
@@ -194,7 +197,8 @@ class OrientadoresController extends Controller
             $type = "success";
         } catch (Exception $e) {
             $message = "Erro ao deletar orientador! Tente novamente!";
-            $type = "success";
+            $type = "error";
+            DB::rollBack();
         }
 
         return redirect()->route('orientadores.index')->with(['message' => $message, 'type' => $type]);

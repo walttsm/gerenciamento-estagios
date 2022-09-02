@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
 use App\Models\Aluno;
-use App\Models\Turma;
 use Spatie\Browsershot\Browsershot;
 
 class CoordenadorController extends Controller

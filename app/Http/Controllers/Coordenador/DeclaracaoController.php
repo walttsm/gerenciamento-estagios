@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Aluno;
 use App\Models\Turma;
+use Exception;
 
 class DeclaracaoController extends Controller
 {
@@ -70,21 +71,60 @@ class DeclaracaoController extends Controller
             'data' => 'required',
         ]);
 
-        if (!Storage::exists('/zips')) {
-            Storage::makeDirectory('/public/zips');
+        try {
+
+            if (!Storage::exists('/zips')) {
+                Storage::makeDirectory('/public/zips');
+            }
+            if (!Storage::exists('/temp')) {
+                Storage::makeDirectory('/public/temp');
+            }
+
+            $zip_file = storage_path() . '/zips/declaracoes' . date('d-m-Y') . '.zip';
+
+            $zipper = new ZipArchive();
+            $zipper->open($zip_file, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+            foreach ($request['data'] as $id) {
+                $aluno = Aluno::find($id);
+                $savepath = storage_path() . '/temp/declaracao ' . $aluno->matricula . '-' . $aluno->nome_aluno  . '.pdf';
+
+                if (!Storage::exists($savepath)) {
+                    $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
+
+                    Browsershot::html($string)
+                        ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
+                        ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
+                        ->timeout(120)
+                        ->emulateMedia("screen")
+                        ->format('A4')
+                        ->savePdf($savepath);
+                }
+
+                $zipper->addFile($savepath, $aluno->matricula . '-' . $aluno->nome_aluno . '.pdf');
+            }
+
+            $zipper->close();
+
+            return response()->download($zip_file);
+        } catch (Exception $e) {
+            return redirect()->route('declaracoes', ['message' => 'Erro ao gerar declarações, tente novamente!', $type = 'error']);
         }
-        if (!Storage::exists('/temp')) {
-            Storage::makeDirectory('/public/temp');
-        }
+    }
 
-        $zip_file = storage_path() . '/zips/declaracoes' . date('d-m-Y') . '.zip';
+    /**
+     * Gera a declaração de um aluno.
+     * @return Illuminate\Contracts\Routing\ResponseFactory::download PDF da declaração para download.
+     */
+    public function gerar_declaracao(Aluno $aluno)
+    {
 
-        $zipper = new ZipArchive();
-        $zipper->open($zip_file, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        try {
+            if (!Storage::exists('/temp')) {
+                Storage::makeDirectory('/public/temp');
+            }
 
-        foreach ($request['data'] as $id) {
-            $aluno = Aluno::find($id);
-            $savepath = storage_path() . '/temp/declaracao ' . $aluno->matricula . '-' . $aluno->nome_aluno  . '.pdf';
+            $savepath = storage_path() . '/temp/declaracao ' . $aluno->nome_aluno . '.pdf';
 
             if (!Storage::exists($savepath)) {
                 $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
@@ -98,39 +138,9 @@ class DeclaracaoController extends Controller
                     ->savePdf($savepath);
             }
 
-            $zipper->addFile($savepath, $aluno->matricula . '-' . $aluno->nome_aluno . '.pdf');
+            return response()->download($savepath);
+        } catch (Exception $e) {
+            return redirect()->route('declaracoes', ['message' => 'Erro ao gerar declarações, tente novamente!', $type = 'error']);
         }
-
-        $zipper->close();
-
-        return response()->download($zip_file);
-    }
-
-    /**
-     * Gera a declaração de um aluno.
-     * @return Illuminate\Contracts\Routing\ResponseFactory::download PDF da declaração para download.
-     */
-    public function gerar_declaracao(Aluno $aluno)
-    {
-
-        if (!Storage::exists('/temp')) {
-            Storage::makeDirectory('/public/temp');
-        }
-
-        $savepath = storage_path() . '/temp/declaracao ' . $aluno->nome_aluno . '.pdf';
-
-        if (!Storage::exists($savepath)) {
-            $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
-
-            Browsershot::html($string)
-                ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
-                ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
-                ->timeout(120)
-                ->emulateMedia("screen")
-                ->format('A4')
-                ->savePdf($savepath);
-        }
-
-        return response()->download($savepath);
     }
 }

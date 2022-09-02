@@ -9,8 +9,8 @@ use App\Models\Turma;
 use App\Models\User;
 use App\Models\Registro;
 use Exception;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AlunosController extends Controller
 {
@@ -117,37 +117,45 @@ class AlunosController extends Controller
             'turma' => 'required',
         ]);
 
-        $turma = Turma::where('ano', $request['turma'])->get()->first();
-        $orientador = Orientador::where('nome', $request['orientador'])->get()->first();
-        $banca1 = Orientador::where('nome', $request['banca1'])->get()->first();
-        $banca2 = Orientador::where('nome', $request['banca2'])->get()->first();
-        // dd($banca1, $banca2);
-        $user = new User([
-            'name' => $request['nome_aluno'],
-            'email' => $request['email'],
-            'password' => hash('md5', '12345'),
-        ]);
+        try {
+            $turma = Turma::where('ano', $request['turma'])->get()->first();
+            $orientador = Orientador::where('nome', $request['orientador'])->get()->first();
+            $banca1 = Orientador::where('nome', $request['banca1'])->get()->first();
+            $banca2 = Orientador::where('nome', $request['banca2'])->get()->first();
+            // dd($banca1, $banca2);
+            $user = new User([
+                'name' => $request['nome_aluno'],
+                'email' => $request['email'],
+                'password' => hash('md5', '12345'),
+            ]);
 
-        $user->save();
+            $user->save();
 
-        $user = User::where('name', $user->name)->get()->first();
-        $user_id = $user->id;
+            $user = User::where('name', $user->name)->get()->first();
+            $user_id = $user->id;
 
-        $aluno = new Aluno([
-            'nome_aluno' => $request['nome_aluno'],
-            'curso' => $request['curso'],
-            'matricula' => $request['matricula'],
-            'email' => $request['email'],
-            'nome_trabalho' => $request['titulo'],
-            'turma_id' => $turma['id'],
-            'user_id' => $user_id,
-            'orientador_id' => $orientador['id'],
-            'banca1_id' => $banca1->id,
-            'banca2_id' => $banca2->id,
-        ]);
+            $aluno = new Aluno([
+                'nome_aluno' => $request['nome_aluno'],
+                'curso' => $request['curso'],
+                'matricula' => $request['matricula'],
+                'email' => $request['email'],
+                'nome_trabalho' => $request['titulo'],
+                'turma_id' => $turma['id'],
+                'user_id' => $user_id,
+                'orientador_id' => $orientador['id'],
+                'banca1_id' => $banca1->id,
+                'banca2_id' => $banca2->id,
+            ]);
 
-        $aluno->save();
-        return redirect()->route('alunos.index')->with(['message' => "Aluno criado com sucesso!"]);
+            $aluno->save();
+            $message = "Aluno criado com sucesso!";
+            $type = 'success';
+        } catch (Exception $e) {
+            DB::rollback();
+            $message = 'Houve um erro ao inserir os alunos, confira os dados e tente novamente!';
+            $type = 'error';
+        }
+        return redirect()->route('alunos.index')->with(['message' => $message]);
     }
 
     /**
@@ -187,6 +195,7 @@ class AlunosController extends Controller
             $message = "Aluno editado com sucesso!";
         } catch (Exception $e) {
             $message = "Erro ao editar aluno, tente novamente!";
+            DB::rollBack();
         }
 
         return redirect()->route('alunos.index')->with(['message' => $message]);

@@ -51,7 +51,6 @@ class CSVController extends Controller
                         'user_id' => 1,
                     ]);
                 } catch (Exception $e) {
-                    dd($e);
                     DB::rollback();
                 }
             }
