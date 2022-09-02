@@ -9,13 +9,13 @@
 
                 <div>
                     <label for="ano">Ano</label>
-                    <input type="number" min="2000" max="{{ date('Y') }}" value="{{ date('Y') }}"
+                    <input required type="number" min="2000" max="{{ date('Y') }}" value="{{ date('Y') }}"
                         name="ano" id="ano">
                 </div>
 
                 <div>
                     <label for="codigo">Código</label>
-                    <input type="text" name="codigo" id="codigo">
+                    <input required type="text" name="codigo" id="codigo">
                 </div>
             </div>
 

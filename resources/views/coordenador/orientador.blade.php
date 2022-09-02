@@ -4,7 +4,9 @@
 
     <h1 class="h1 my-8">Orientador: {{ $orientador->nome }}</h1>
 
-    @include('layouts.messages')
+    {{-- @include('layouts.messages') --}}
+
+    <x-message-card />
 
     <div class="mx-auto flex flex-col item-center justify-center">
         <h2 class="mx-auto">Horários:</h2>
@@ -25,19 +27,19 @@
             <div id="{{ 'horarios' . $orientador['id'] }}">
                 @if (count($orientador->horarios_orientacao))
                     @foreach ($orientador->horarios_orientacao as $horario)
-                        {{-- {{ dd($alunos) }} --}}
                         <div class="mx-auto my-4 flex justify-evenly">
                             {!! Form::hidden('id[]', $horario->id, ['form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4']) !!}
                             {!! Form::select(
                                 'dia[]',
                                 ['2' => 'segunda', '3' => 'terça', '4' => 'quarta', '5' => 'quinta', '6' => 'sexta', '7' => 'sabado'],
                                 $horario->dia,
-                                ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4'],
+                                ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4', 'required'],
                             ) !!}
                             {!! Form::time('hora[]', $horario->hora, [
                                 'placeholder' => 'Hora',
                                 'form' => 'formHorariosEdit' . $orientador['id'],
                                 'class' => 'mx-4',
+                                'required',
                             ]) !!}
                             {!! Form::select(
                                 'aluno[]',
@@ -45,10 +47,11 @@
                                 $horario->aluno ? $horario->aluno->nome_aluno : '',
                                 [
                                     'id' => 'nome' . $horario->id,
+                                    'required',
                                 ],
                             ) !!}
                             <button id="deletarHorario" type="button" title="Deletar Horário" class="align-middle w-6 mx-4"
-                                onclick=" /*document.getElementById('#{{ 'deleteInput' . $horario->id }}').value = 'true';*/ removeTime(this.parentNode);">
+                                onclick="removeTime(this.parentNode);">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-trash text-red-500 hover:brightness-125"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -201,19 +204,24 @@
         function newTime(id) {
             $(id).append(`
             <div class="mx-auto my-4 flex justify-evenly">
-                {!! Form::hidden('id[]', null, ['form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4']) !!}
+                {!! Form::hidden('id[]', null, [
+                    'form' => 'formHorariosEdit' . $orientador['id'],
+                    'class' => 'mx-4',
+                    'required',
+                ]) !!}
                 {!! Form::select(
                     'dia[]',
                     ['2' => 'segunda', '3' => 'terça', '4' => 'quarta', '5' => 'quinta', '6' => 'sexta', '7' => 'sabado'],
                     null,
-                    ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4'],
+                    ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4', 'required'],
                 ) !!}
                 {!! Form::time('hora[]', null, [
                     'placeholder' => 'Hora',
                     'form' => 'formHorariosEdit' . $orientador['id'],
                     'class' => 'mx-4',
+                    'required',
                 ]) !!}
-                {!! Form::select('aluno[]', array_combine($alunos, $alunos), null, []) !!}
+                {!! Form::select('aluno[]', array_combine($alunos, $alunos), null, ['required']) !!}
 
                 <button onclick="removeTime(this.parentNode)" class="align-middle w-6 mx-4">
                     <svg xmlns="http://www.w3.org/2000/svg"

@@ -42,7 +42,7 @@
                         Adicionar via CSV
                     </span>
                 </button>
-                <button type="button" class="default-button openModal mx-4 min-w-fit inline-flex">
+                <button type="button" class="default-button mx-4 min-w-fit inline-flex" onclick="openModal('#addModal')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -126,16 +126,6 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('.openModal').on('click', function(e) {
-                $('#addModal').removeClass('hidden');
-                $('.modal-container').removeClass('hidden')
-            });
-            $('.closeAddModal').on('click', function(e) {
-                $('#addModal').addClass('hidden');
-            });
-        });
-
         function openModal(id) {
             $(id).removeClass('hidden');
         }

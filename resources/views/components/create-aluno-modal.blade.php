@@ -7,26 +7,26 @@
         <div class="my-8 flex justify-between">
             <div class="mx-auto">
                 <label for="nome_aluno">Nome</label>
-                <input type="text" name="nome_aluno" id="nome_aluno">
+                <input type="text" name="nome_aluno" id="nome_aluno" required>
             </div>
             <div class="mx-auto">
                 <label for="turma">Turma</label>
-                <input type="number" min="2000" max="{{ date('Y') }}" value="{{ date('Y') }}"
+                <input type="number" min="2000" max="{{ date('Y') }}" value="{{ date('Y') }}" required
                     name="turma" id="turma">
             </div>
             <div class="mx-auto">
                 <label for="Curso">Curso</label>
-                <input type="text" name="curso" id="curso">
+                <input type="text" name="curso" id="curso" required>
             </div>
         </div>
         <div class="my-8 flex justify-between">
             <div class="mx-auto">
                 <label for="matricula">Matrícula</label>
-                <input type="text" name="matricula" id="input-matricula">
+                <input type="text" name="matricula" id="input-matricula" required>
             </div>
             <div class="mx-auto">
                 <label for="email">Email</label>
-                <input type="text" name="email" id="input-email">
+                <input type="text" name="email" id="input-email" required>
             </div>
             <div class="mx-auto">
                 <label for="titulo">Título do trabalho</label>
