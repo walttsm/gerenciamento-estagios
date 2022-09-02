@@ -91,13 +91,14 @@
             <tbody>
                 @foreach ($alunos as $aluno)
                     <x-edit-aluno-modal :aluno="$aluno" turma="{{ $aluno->turma->ano }}"
-                        orientador="{{ $aluno->orientador->nome }}" banca1="{{ $aluno->banca1->nome }}"
-                        banca2="{{ $aluno->banca2->nome }}" :orientadores="$orientadores" />
+                        orientador="{{ $aluno->orientador ? $aluno->orientador->nome : '' }}"
+                        banca1="{{ $aluno->banca1 ? $aluno->banca1->nome : '' }}"
+                        banca2="{{ $aluno->banca2 ? $aluno->banca2->nome : '' }}" :orientadores="$orientadores" />
                     <tr class="odd:bg-orange-200">
                         <td><a href="{{ route('alunos.show', $aluno->id) }}">{{ $aluno->nome_aluno }}</a></td>
                         <td>{{ $aluno->turma->ano }}</td>
                         <td>{{ $aluno->curso }}</td>
-                        <td>{{ $aluno->orientador->nome }}</td>
+                        <td>{{ $aluno->orientador ? $aluno->orientador->nome : '-' }}</td>
                         <td class="flex justify-center items-center">
                             <button id="editarUsuario" type="button"
                                 onclick="openModal({{ 'editModal' . $aluno->id }})">

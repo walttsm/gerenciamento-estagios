@@ -1,6 +1,4 @@
 <?php
-use App\Models\Aluno;
-use Spatie\Browsershot\Browsershot;
 
 /**
  *  Converte o mes recebido em número em seu equivalente por escrito
