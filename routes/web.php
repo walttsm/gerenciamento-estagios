@@ -3,15 +3,18 @@ require __DIR__ . '/auth.php';
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\RpodController;
+use App\Http\Controllers\Auth\LoginController;
+
+use App\Http\Controllers\Coordenador\CSVController;
 use App\Http\Controllers\Coordenador\DeclaracaoController;
 use App\Http\Controllers\Coordenador\AlunosController;
-use App\Http\Controllers\Coordenador\OrientadoresController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Coordenador\OrientacoesController;
+use App\Http\Controllers\Coordenador\OrientadoresController;
 use App\Http\Controllers\Coordenador\TurmaController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Orientador\RegistroController;
-use App\Http\Controllers\Coordenador\CSVController;
+use App\Http\Controllers\RpodController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +30,14 @@ use App\Http\Controllers\Coordenador\CSVController;
 Route::get('/', function () {
     return redirect('login');
 });
+
+
+/**
+ * Rotas do google
+ */
+
+Route::get('/redirect', [LoginController::class, 'redirectToProvider'])->name('google_login'); // Abre a janela de autenticação na mesma janela da página
+Route::get('/callback', [LoginController::class, 'handleProviderCallback']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

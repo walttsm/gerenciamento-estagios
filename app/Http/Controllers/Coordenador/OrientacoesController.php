@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Coordenador;
 use App\Http\Controllers\Controller;
 use App\Models\Aluno;
 use App\Models\Horario_orientacao;
-use App\Models\Orientador;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 
 class OrientacoesController extends Controller
 {

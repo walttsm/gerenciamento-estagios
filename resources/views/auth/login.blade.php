@@ -56,5 +56,14 @@
                 @endif
             </div>
         </form>
+
+        <div>
+            <a href="{{ Route('google_login') }}">
+                <button
+                    class="default-button flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150'">
+                    Login com google
+                </button>
+            </a>
+        </div>
     </x-auth-card>
 </x-guest-layout>
