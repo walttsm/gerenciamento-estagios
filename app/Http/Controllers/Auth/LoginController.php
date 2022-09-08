@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 
 class LoginController extends Controller
 {
@@ -32,17 +33,33 @@ class LoginController extends Controller
         } catch (\Exception $e) {
             return redirect('/login');
         }
-        // only allow people with @company.com to login
-        if (explode("@", $user->email)[1] !== 'company.com') {
+        // Verifica se o e-mail do usuário é dos domínios permitidos
+        $allow = false;
+        $permitted_domains = ['edu.unifil.br', 'unifil.br', 'colegiolondrinense.com.br'];
+        $user_domain = explode("@", $user->email)[1];
+        foreach ($permitted_domains as $permitted_domain) {
+            if ($user_domain === $permitted_domain) {
+                $allow = true;
+                break;
+            }
+        }
+
+        // Condição de teste para email pessoal como coordenador. REMOVER!!!!
+        if ($user->email === 'waltmarinho@gmail.com') {
+            $allow = true;
+        }
+
+        if ($allow == false) {
             return redirect()->to('/');
         }
-        // check if they're an existing user
+
+        // Verifica se é um usuário já existente
         $existingUser = User::where('email', $user->email)->first();
         if ($existingUser) {
-            // log them in
+            // Loga o usuário
             auth()->login($existingUser, true);
         } else {
-            // create a new user
+            // Cria um novo usuário
             $newUser                  = new User;
             $newUser->name            = $user->name;
             $newUser->email           = $user->email;
@@ -52,6 +69,6 @@ class LoginController extends Controller
             $newUser->save();
             auth()->login($newUser, true);
         }
-        return redirect()->to('/home');
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 }
