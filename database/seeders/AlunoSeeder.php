@@ -25,20 +25,12 @@ class AlunoSeeder extends Seeder
         $turmas = Turma::all()->pluck('id');
         $faker = Faker::create();
 
-        $user = User::create([
-            'name' => 'Walter Aluno',
-            'email' => 'waltersmarinho@edu.unifil.br',
-            'password' => Hash::make('password'),
-            'permissao' => 1,
-        ]);
-
         Aluno::create([
-            'nome_aluno' => $user->name,
+            'nome_aluno' => 'Walter Aluno',
             'curso' => $cursos[array_rand($cursos)],
             'matricula' => rand(190000000, 220000000),
-            'email' => $user->email,
+            'email' => 'waltersmarinho@edu.unifil.br',
             'nome_trabalho' => $faker->sentence(),
-            'user_id' => $user->id,
             'orientador_id' => $faker->randomElement($orientadores),
             'turma_id' => $faker->randomElement($turmas),
             'banca1_id' => $faker->randomElement($orientadores),
@@ -55,11 +47,11 @@ class AlunoSeeder extends Seeder
                 'matricula' => rand(190000000, 220000000),
                 'email' => $user->email,
                 'nome_trabalho' => $faker->sentence(),
-                'user_id' => $user->id,
                 'orientador_id' => $faker->randomElement($orientadores),
                 'turma_id' => $faker->randomElement($turmas),
                 'banca1_id' => $faker->randomElement($orientadores),
                 'banca2_id' => $faker->randomElement($orientadores),
+                'user_id' => $user->id,
             ]);
         }
     }

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use Faker\Factory as Faker;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,21 +19,13 @@ class OrientadorSeeder extends Seeder
      */
     public function run()
     {
-        //
         $cursos = ['CC', 'ES'];
-
-        $user = User::create([
-            'name' => 'Walter Orientador',
-            'email' => 'walter.marinho@colegiolondrinense.com.br',
-            'password' => Hash::make('password'),
-            'permissao' => 2,
-        ]);
+        $faker = Faker::create();
 
         Orientador::create([
-            'nome' => $user['name'],
+            'nome' => 'Walter Orientador',
             'curso' => $cursos[array_rand($cursos)],
-            'email' => $user['email'],
-            'user_id' => $user->id,
+            'email' => 'walter.marinho@colegiolondrinense.com.br',
         ]);
 
         for ($i = 0; $i < 10; $i++) {
@@ -39,9 +33,9 @@ class OrientadorSeeder extends Seeder
 
 
             Orientador::create([
-                'nome' => $user['name'],
+                'nome' => $user->name,
                 'curso' => $cursos[array_rand($cursos)],
-                'email' => $user['email'],
+                'email' => $user->email,
                 'user_id' => $user->id,
             ]);
         }

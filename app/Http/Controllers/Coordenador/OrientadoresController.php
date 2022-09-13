@@ -91,13 +91,13 @@ class OrientadoresController extends Controller
         ]);
 
         try {
-            $user = User::updateOrCreate(
-                ['email' => $request['email']],
-                [
-                    "name" => $request['nome'],
-                    "password" => hash('md5', '12345'),
-                ],
-            );
+            // $user = User::updateOrCreate(
+            //     ['email' => $request['email']],
+            //     [
+            //         "name" => $request['nome'],
+            //         "password" => hash('md5', '12345'),
+            //     ],
+            // );
 
             $orientador = Orientador::where('email', $request['email'])->first();
 
@@ -105,7 +105,6 @@ class OrientadoresController extends Controller
                 $orientador = new Orientador([
                     "nome" => $request['nome'],
                     "curso" => $request['curso'],
-                    "user_id" => $user->id,
                     "email" => $request['email']
                 ]);
             } else {
@@ -114,7 +113,6 @@ class OrientadoresController extends Controller
                 }
                 $orientador->nome = $request['nome'];
                 $orientador->curso = $request['curso'];
-                $orientador->user_id = $user->id;
                 if ($request['email'] != $orientador->email) {
                     $orientador->email = $request['email'];
                 }

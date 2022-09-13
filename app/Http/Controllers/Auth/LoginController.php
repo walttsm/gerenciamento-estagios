@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aluno;
+use App\Models\Orientador;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -54,27 +58,56 @@ class LoginController extends Controller
         }
 
         // Verifica se é um usuário já existente
-        $existingUser = User::where('email', $user->email)->first();
-        if ($existingUser) {
-            // Loga o usuário
-            if ($existingUser->google_id == null) {
-                $existingUser->google_id = $user->id;
-                $existingUser->avatar = $user->avatar;
-                $existingUser->avatar_original = $user->avatar_original;
-                $existingUser->save();
+        try {
+            $existingUser = User::where('email', $user->email)->first();
+            if ($existingUser) {
+                // Loga o usuário
+                if ($existingUser->google_id == null) {
+                    $existingUser->google_id = $user->id;
+                    $existingUser->avatar = $user->avatar;
+                    $existingUser->avatar_original = $user->avatar_original;
+                    $existingUser->save();
+                }
+                auth()->login($existingUser, true);
+            } else {
+                switch ($user_domain) {
+                    case 'unifil.br' or 'colegiolondrinense.com.br':
+                        $user_permission = 2;
+                        break;
+                    default:
+                        $user_permission = 1;
+                        break;
+                }
+                // Cria um novo usuário
+                $newUser                  = new User;
+                $newUser->name            = $user->name;
+                $newUser->email           = $user->email;
+                $newUser->google_id       = $user->id;
+                $newUser->avatar          = $user->avatar;
+                $newUser->avatar_original = $user->avatar_original;
+                $newUser->permissao      = $user_permission;
+                $newUser->password        = Hash::make('password');  //REMOVER!!! FALHA DE SEGURANÇA
+                $newUser->save();
+
+                switch ($user_domain) {
+                    case 'unifil.br' or 'colegiolondrinense.com.br':
+                        $entity = Orientador::where('email', 'like', $user->email)->get()->first();
+                        break;
+                    default:
+                        $entity = Aluno::where('email', 'like', $user->email)->get()->first();
+                        break;
+                }
+
+                $created_user = User::select('id')->where('email', 'like', $user->email)->get()->first();
+                $entity->user_id = $created_user->id;
+                $entity->save();
+                auth()->login($newUser, true);
             }
-            auth()->login($existingUser, true);
-        } else {
-            // Cria um novo usuário
-            $newUser                  = new User;
-            $newUser->name            = $user->name;
-            $newUser->email           = $user->email;
-            $newUser->google_id       = $user->id;
-            $newUser->avatar          = $user->avatar;
-            $newUser->avatar_original = $user->avatar_original;
-            $newUser->save();
-            auth()->login($newUser, true);
+            return redirect()->intended(RouteServiceProvider::HOME);
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollBack();
+            return redirect('/login')->with(['error' => $e]);
         }
-        return redirect()->intended(RouteServiceProvider::HOME);
     }
 }

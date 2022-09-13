@@ -123,16 +123,16 @@ class AlunosController extends Controller
             $banca1 = Orientador::where('nome', $request['banca1'])->get()->first();
             $banca2 = Orientador::where('nome', $request['banca2'])->get()->first();
             // dd($banca1, $banca2);
-            $user = new User([
-                'name' => $request['nome_aluno'],
-                'email' => $request['email'],
-                'password' => hash('md5', '12345'),
-            ]);
+            // $user = new User([
+            //     'name' => $request['nome_aluno'],
+            //     'email' => $request['email'],
+            //     'password' => hash('md5', '12345'),
+            // ]);
 
-            $user->save();
+            // $user->save();
 
-            $user = User::where('name', $user->name)->get()->first();
-            $user_id = $user->id;
+            // $user = User::where('name', $user->name)->get()->first();
+            // $user_id = $user->id;
 
             $aluno = new Aluno([
                 'nome_aluno' => $request['nome_aluno'],
@@ -141,7 +141,7 @@ class AlunosController extends Controller
                 'email' => $request['email'],
                 'nome_trabalho' => $request['titulo'],
                 'turma_id' => $turma['id'],
-                'user_id' => $user_id,
+                // 'user_id' => $user_id,
                 'orientador_id' => $orientador['id'],
                 'banca1_id' => $banca1->id,
                 'banca2_id' => $banca2->id,
@@ -155,7 +155,7 @@ class AlunosController extends Controller
             $message = 'Houve um erro ao inserir os alunos, confira os dados e tente novamente!';
             $type = 'error';
         }
-        return redirect()->route('alunos.index')->with(['message' => $message]);
+        return redirect()->route('alunos.index')->with(['message' => $message, 'type' => $type]);
     }
 
     /**
