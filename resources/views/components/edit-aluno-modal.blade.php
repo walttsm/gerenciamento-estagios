@@ -5,64 +5,62 @@
     <form id="{{ 'editForm' . $aluno['id'] }}" action="{{ route('alunos.update', $aluno['id']) }}" method="POST">
         @csrf
         @method('PUT')
-        <div class="my-8 flex justify-between">
-            <div class="mx-auto">
+        <div class="my-8 grid grid-cols-3 gap-y-4 justify-start md:grid-cols-1">
+            <div>
                 <label for="nome_aluno">Nome</label>
+                <br>
                 <input required type="text" name="nome_aluno" id="nome_aluno" value="{{ $aluno['nome_aluno'] }}">
             </div>
-            <div class="mx-auto">
+            <div>
                 <label for="turma">Turma</label>
+                <br>
                 <input required type="number" min="2000" max="{{ date('Y') }}" value="{{ $turma }}"
                     name="turma" id="turma">
             </div>
-            <div class="mx-auto">
+            <div>
                 <label for="Curso">Curso</label>
+                <br>
                 <input required type="text" name="curso" id="curso" value="{{ $aluno['curso'] }}">
             </div>
-        </div>
-        <div class="my-8 flex justify-between">
-            <div class="mx-auto">
+            <div>
                 <label for="matricula">Matrícula</label>
+                <br>
                 <input required type="text" name="matricula" id="input-matricula" value="{{ $aluno['matricula'] }}">
             </div>
-            <div class="mx-auto">
+            <div>
                 <label for="email">Email</label>
+                <br>
                 <input required type="text" name="email" id="input-email" value="{{ $aluno['email'] }}">
             </div>
-            <div class="mx-auto">
+            <div>
                 <label for="titulo">Título do trabalho</label>
+                <br>
                 <input type="text" name="titulo" id="titulo" value="{{ $aluno['nome_trabalho'] }}">
             </div>
-        </div>
-        <div class="my-8 flex justify-between items-center">
-            <div class="mx-auto">
+            <div>
                 {!! Form::label('orientador', 'Orientador') !!}
+                <br>
                 {!! Form::select('orientador', array_combine($orientadores, $orientadores), $orientador, [
                     'class' => 'form-control',
                 ]) !!}
             </div>
-            <div class="mx-auto">
-                {{-- <label for="banca1">Banca 1</label>
-                    <input type="text" name="banca1" id="banca1" value="{{ $aluno->banca1->nome }}"> --}}
+            <div>
                 {!! Form::label('banca1', 'Banca 1') !!}
+                <br>
                 {!! Form::select('banca1', array_combine($orientadores, $orientadores), $banca1, ['class' => 'form-control']) !!}
             </div>
-            <div class="mx-auto">
-                {{-- <label for="banca2">Banca 2</label>
-                    <input type="text" name="banca2" id="banca2" value="{{ $aluno->banca2->nome }}"> --}}
+            <div>
                 {!! Form::label('banca2', 'Banca 2') !!}
+                <br>
                 {!! Form::select('banca2', array_combine($orientadores, $orientadores), $banca2, ['class' => 'form-control']) !!}
             </div>
-        </div>
-        <div class="my-8 flex justify-between">
 
-        </div>
-
-        <div id="buttons" class="my-8 flex justify-end">
-            <button type="button" class="cancel-button mx-4"
-                onclick="document.getElementById('{{ 'editForm' . $aluno['id'] }}').reset();
+            <div id="buttons" class="my-8 flex col-span-3 justify-end md:justify-center">
+                <button type="button" class="cancel-button mx-4"
+                    onclick="document.getElementById('{{ 'editForm' . $aluno['id'] }}').reset();
                 closeModal({{ 'editModal' . $aluno['id'] }})">Descartar</button>
-            <button type="submit" class="default-button mx-4">Salvar</button>
+                <button type="submit" class="default-button mx-4">Salvar</button>
+            </div>
         </div>
     </form>
 

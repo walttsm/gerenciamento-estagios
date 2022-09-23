@@ -28,7 +28,7 @@
                 </span>
             </form>
 
-            <div>
+            <div class="flex">
                 <button type="button" class="default-button mx-4 min-w-fit inline-flex"
                     onclick="openModal('#upload_csv_modal')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-table-import" width="24"
