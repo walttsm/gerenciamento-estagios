@@ -4,7 +4,7 @@
 
     <form id="createForm" action="{{ route('orientadores.store') }}" method="POST">
         @csrf
-        <div class="my-8 grid grid-cols-3 md:grid-cols-1">
+        <div class="my-8 grid grid-cols-3">
             <div>
                 <label for="nome">Nome</label>
                 <br>

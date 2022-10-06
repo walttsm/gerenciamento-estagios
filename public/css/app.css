@@ -852,11 +852,11 @@ input[type="checkbox"]:focus{
 .z-10{
   z-index: 10;
 }
-.col-span-2{
-  grid-column: span 2 / span 2;
-}
 .col-span-3{
   grid-column: span 3 / span 3;
+}
+.col-span-2{
+  grid-column: span 2 / span 2;
 }
 .float-right{
   float: right;
@@ -1120,17 +1120,8 @@ input[type="checkbox"]:focus{
 .flex-col{
   flex-direction: column;
 }
-.place-content-center{
-  place-content: center;
-}
-.content-center{
-  align-content: center;
-}
 .items-center{
   align-items: center;
-}
-.items-stretch{
-  align-items: stretch;
 }
 .justify-start{
   justify-content: flex-start;
@@ -1149,9 +1140,6 @@ input[type="checkbox"]:focus{
 }
 .justify-evenly{
   justify-content: space-evenly;
-}
-.justify-items-start{
-  justify-items: start;
 }
 .justify-items-center{
   justify-items: center;
@@ -1604,8 +1592,8 @@ input[type="checkbox"]:focus{
   .sm\:flex-1{
     flex: 1 1 0%;
   }
-  .sm\:flex-col{
-    flex-direction: column;
+  .sm\:grid-cols-1{
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
   .sm\:items-center{
     align-items: center;

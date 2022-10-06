@@ -1,20 +1,19 @@
     <div class="modal hidden" id="turmaModal">
 
-        <h1 class="my-8">Editar aluno</h1>
+        <h1 class="my-8">Nova turma</h1>
 
         <form id="createTurmaForm" action="{{ route('turma.store') }}" method="POST">
             @csrf
 
-            <div id="inputs" class="flex justify-around md:flex-col">
-
-                <div>
+            <div id="inputs" class="grid grid-cols-2">
+                <div class="mx-auto">
                     <label for="ano">Ano</label>
                     <br>
                     <input required type="number" min="2000" max="{{ date('Y') }}" value="{{ date('Y') }}"
                         name="ano" id="ano">
                 </div>
 
-                <div>
+                <div class="mx-auto">
                     <label for="codigo">Código</label>
                     <br>
                     <input required type="text" name="codigo" id="codigo">

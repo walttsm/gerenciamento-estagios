@@ -4,7 +4,7 @@
 
     <form id="createForm" action="{{ route('alunos.store') }}" method="POST">
         @csrf
-        <div class="my-8 grid grid-cols-3 gap-y-4 justify-start align-middle md:grid-cols-1">
+        <div class="my-8 grid grid-cols-3 gap-y-4 justify-evenly align-middle">
             <div class="">
                 <label for="nome_aluno">Nome</label>
                 <br>
@@ -52,12 +52,11 @@
                 {!! Form::select('banca2', array_combine($orientadores, $orientadores), null, ['class' => 'form-control']) !!}
             </div>
 
-            <div id="buttons" class="my-8 flex col-span-3 justify-end  md:justify-center">
+            <div id="buttons" class="mt-8 flex col-span-3 justify-end  md:justify-center">
                 <button type="button" class="cancel-button mx-4"
                     onclick="document.getElementById('createForm').reset(); closeModal('#createModal')">Descartar</button>
                 <button type="submit" class="default-button mx-4">Salvar</button>
             </div>
         </div>
     </form>
-    ]
 </div>

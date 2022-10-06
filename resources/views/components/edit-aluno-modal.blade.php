@@ -5,7 +5,7 @@
     <form id="{{ 'editForm' . $aluno['id'] }}" action="{{ route('alunos.update', $aluno['id']) }}" method="POST">
         @csrf
         @method('PUT')
-        <div class="my-8 grid grid-cols-3 gap-y-4 justify-start md:grid-cols-1">
+        <div class="my-8 grid grid-cols-3 gap-y-4 justify-start">
             <div>
                 <label for="nome_aluno">Nome</label>
                 <br>
@@ -55,7 +55,7 @@
                 {!! Form::select('banca2', array_combine($orientadores, $orientadores), $banca2, ['class' => 'form-control']) !!}
             </div>
 
-            <div id="buttons" class="my-8 flex col-span-3 justify-end md:justify-center">
+            <div id="buttons" class="mt-8 flex col-span-3 justify-end md:justify-center">
                 <button type="button" class="cancel-button mx-4"
                     onclick="document.getElementById('{{ 'editForm' . $aluno['id'] }}').reset();
                 closeModal({{ 'editModal' . $aluno['id'] }})">Descartar</button>
