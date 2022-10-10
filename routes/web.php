@@ -43,8 +43,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__ . '/auth.php';
-
 // Route::get('/rpodpage', [RpodController::class, "listarRpods"]);
 
 Route::post('/rpodpage', [RpodController::class, "criarRpods"]);
@@ -54,7 +52,6 @@ Route::get('/rpodpage/delete/{id}', [RpodController::class, "deleteRpod"])->name
 Route::get('/rpodpage/download/{id}', [RpodController::class, "downloadRpod"])->name('rpodpage.download');
 
 
-require __DIR__ . '/auth.php';
 
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
@@ -102,7 +99,7 @@ Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(f
     Route::get('declaracoes', [DeclaracaoController::class, 'create'])->name('declaracoes');
     Route::post('declaracoes', [DeclaracaoController::class, 'gerar_declaracoes']);
     Route::view('modelo_declaracao', 'coordenador.modelo.declaracao_modelo');
-    Route::get('modelo_declaracao/{aluno}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
+    Route::get('modelo_declaracao/{aluno}/{banca}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
 
     Route::prefix('/csv')->group(function () {
         Route::post('/alunos', [CSVController::class, 'cadastrar_alunos'])->name('alunos_csv');

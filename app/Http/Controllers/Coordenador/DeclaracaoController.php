@@ -87,10 +87,10 @@ class DeclaracaoController extends Controller
 
             foreach ($request['data'] as $id) {
                 $aluno = Aluno::find($id);
-                $savepath = storage_path() . '/temp/declaracao ' . $aluno->matricula . '-' . $aluno->nome_aluno  . '.pdf';
+                $savepath = storage_path() . '/temp/declaracao ' . $request->banca . '-' . $aluno->matricula . '-' . $aluno->nome_aluno  . '.pdf';
 
                 if (!Storage::exists($savepath)) {
-                    $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
+                    $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno, 'banca' => $request->banca])->render();
 
                     Browsershot::html($string)
                         ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
@@ -101,7 +101,7 @@ class DeclaracaoController extends Controller
                         ->savePdf($savepath);
                 }
 
-                $zipper->addFile($savepath, $aluno->matricula . '-' . $aluno->nome_aluno . '.pdf');
+                $zipper->addFile($savepath, 'declaração ' . $request->banca . '-' . $aluno->matricula . '-' . $aluno->nome_aluno . '.pdf');
             }
 
             $zipper->close();
@@ -116,7 +116,7 @@ class DeclaracaoController extends Controller
      * Gera a declaração de um aluno.
      * @return Illuminate\Contracts\Routing\ResponseFactory::download PDF da declaração para download.
      */
-    public function gerar_declaracao(Aluno $aluno)
+    public function gerar_declaracao(Aluno $aluno, $banca)
     {
 
         try {
@@ -127,7 +127,7 @@ class DeclaracaoController extends Controller
             $savepath = storage_path() . '/temp/declaracao ' . $aluno->nome_aluno . '.pdf';
 
             if (!Storage::exists($savepath)) {
-                $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno])->render();
+                $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno, 'banca' => $banca])->render();
 
                 Browsershot::html($string)
                     ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')

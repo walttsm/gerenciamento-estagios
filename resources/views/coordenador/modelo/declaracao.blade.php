@@ -232,7 +232,9 @@
         <br>
         <div class="flex justify-center max-w-xl">
             <p class="text-justify">
-                Declaramos a realização, em {{ date('Y') }}, da banca de avaliação de Estágio entitulado
+                Declaramos a realização, em {{ date('Y') }}, da banca de avaliação de Estágio
+                {{ $banca == 1 ? 'I' : 'II' }}
+                entitulado
                 <b>{{ $aluno->nome_trabalho }}</b>, de autoria de {{ $aluno->nome_aluno }}, discente do curso de
                 {{ $aluno->curso }}, sob orientação
                 do

@@ -8,9 +8,11 @@ use App\Models\Orientador;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use App\Providers\AuthServiceProvider;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -107,7 +109,8 @@ class LoginController extends Controller
         } catch (\Exception $e) {
             dd($e);
             DB::rollBack();
-            return redirect('/login')->with(['error' => $e]);
+            // return throw ValidationException::withMessages(['email' => 'Conta não encontrada em nossos registros, entre em contato com o coordenador.']);
+            return back()->with('status', 'Usuário não encontrado.');
         }
     }
 }

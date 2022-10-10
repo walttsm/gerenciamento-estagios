@@ -23,7 +23,11 @@
                 </button>
             </span>
         </form>
-        <div>
+        <div class="text-middle">
+            {!! Form::label('banca1', 'Banca estágio 1', []) !!}
+            {!! Form::radio('banca', 1, false, ['class' => '', 'form' => 'selecao_alunos', 'id' => 'banca1']) !!}
+            {!! Form::label('banca2', 'Banca estágio 2', []) !!}
+            {!! Form::radio('banca', 2, false, ['class' => '', 'form' => 'selecao_alunos', 'id' => 'banca2']) !!}
             <button type="submit" class="inline-flex gerar default-button float-right font-bold" form="selecao_alunos">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24"
                     height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -51,6 +55,7 @@
                     <th>Atividades</th>
                     <th>Horas</th>
                     <th>@sortablelink('orientador_id', 'Orientador')</th>
+                    <th>Banca 1/Banca 2</th>
                     </th>
                 </thead>
                 <tbody id="table-body">
@@ -67,7 +72,27 @@
                             <td>{{ $aluno->rpods->sum('horas_mes') }}/200</td>
                             <td>{{ $aluno->orientador->nome }}</td>
                             <td>
-                                <a href="/coordenador/modelo_declaracao/{{ $aluno->id }}" class="text-white">
+                                <a href="/coordenador/modelo_declaracao/{{ $aluno->id }}/1" class="text-white mx-2">
+                                    <button type="button"
+                                        class="bg-orange-600 hover:bg-orange-500 transition-all my-1 p-2 rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-file-download" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <desc>Download more icon variants from
+                                                https://tabler-icons.io/i/file-download
+                                            </desc>
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                            <path
+                                                d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
+                                            </path>
+                                            <path d="M12 17v-6"></path>
+                                            <path d="M9.5 14.5l2.5 2.5l2.5 -2.5"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                                <a href="/coordenador/modelo_declaracao/{{ $aluno->id }}/2" class="text-white mx-2">
                                     <button type="button"
                                         class="bg-orange-600 hover:bg-orange-500 transition-all my-1 p-2 rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg"
