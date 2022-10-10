@@ -23,12 +23,15 @@
                 </button>
             </span>
         </form>
-        <div class="text-middle">
-            {!! Form::label('banca1', 'Banca estágio 1', []) !!}
-            {!! Form::radio('banca', 1, false, ['class' => '', 'form' => 'selecao_alunos', 'id' => 'banca1']) !!}
-            {!! Form::label('banca2', 'Banca estágio 2', []) !!}
-            {!! Form::radio('banca', 2, false, ['class' => '', 'form' => 'selecao_alunos', 'id' => 'banca2']) !!}
-            <button type="submit" class="inline-flex gerar default-button float-right font-bold" form="selecao_alunos">
+        <div class="flex items-center">
+            <div class="text-middle">
+                {!! Form::label('banca1', 'Banca estágio 1', []) !!}
+                {!! Form::radio('banca', 1, false, ['class' => '', 'form' => 'selecao_alunos', 'id' => 'banca1']) !!}
+                {!! Form::label('banca2', 'Banca estágio 2', ['class' => 'ml-4']) !!}
+                {!! Form::radio('banca', 2, false, ['class' => '', 'form' => 'selecao_alunos', 'id' => 'banca2']) !!}
+            </div>
+            <button type="submit" class=" ml-4 inline-flex gerar default-button float-right font-bold"
+                form="selecao_alunos">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24"
                     height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
