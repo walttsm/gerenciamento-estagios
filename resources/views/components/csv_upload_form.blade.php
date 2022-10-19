@@ -14,7 +14,7 @@
     {!! Form::file('arquivo') !!}
 
     <div class="my-8 flex justify-end">
-        <a href="{{ Storage::url(Route::currentRouteName() == 'alunos.index' ? 'assets/alunos-teste.csv' : 'assets/orientadores-teste.csv') }}"
+        <a href="{{ asset(Route::currentRouteName() == 'alunos.index' ? 'assets/alunos-teste.csv' : 'assets/orientadores-teste.csv') }}"
             target="_blank" class="default-button flex hover:cursor-pointer" download="arquivo.csv">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-download" width="24"
                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
