@@ -95,7 +95,8 @@
                         banca1="{{ $aluno->banca1 ? $aluno->banca1->nome : '' }}"
                         banca2="{{ $aluno->banca2 ? $aluno->banca2->nome : '' }}" :orientadores="$orientadores" />
                     <tr class="odd:bg-orange-200">
-                        <td><a href="{{ route('alunos.show', $aluno->id) }}">{{ $aluno->nome_aluno }}</a></td>
+                        <td><a class="hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors"
+                                href="{{ route('alunos.show', $aluno->id) }}">{{ $aluno->nome_aluno }}</a></td>
                         <td>{{ $aluno->turma->ano }}</td>
                         <td>{{ $aluno->curso }}</td>
                         <td>{{ $aluno->orientador ? $aluno->orientador->nome : '-' }}</td>

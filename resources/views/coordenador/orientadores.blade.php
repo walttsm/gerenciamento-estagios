@@ -76,7 +76,8 @@
                 @foreach ($orientadores as $orientador)
                     <x-edit-orientador-modal :orientador="$orientador" />
                     <tr class="odd:bg-orange-200">
-                        <td><a href="{{ route('orientadores.show', $orientador->id) }}"> {{ $orientador->nome }} </a></td>
+                        <td><a class="hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors"
+                                href="{{ route('orientadores.show', $orientador->id) }}"> {{ $orientador->nome }} </a></td>
                         <td>{{ $orientador->email }}</td>
                         <td>{{ $orientador->curso }}</td>
                         <td class="flex justify-center">

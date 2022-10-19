@@ -68,7 +68,8 @@
                                 <input type="checkbox" name="data[]" id="checkbox{{ $aluno['id'] }}"
                                     value="{{ $aluno['id'] }}">
                             </td>
-                            <td>{{ $aluno->nome_aluno }}</td>
+                            <td><a class="hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors"
+                                    href="{{ route('alunos.show', $aluno->id) }}"> {{ $aluno->nome_aluno }} </a></td>
                             <td>{{ $aluno->turma->ano }}</td>
                             <td>{{ $aluno->curso }}</td>
                             <td>ok</td>
