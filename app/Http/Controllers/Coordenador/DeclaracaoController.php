@@ -80,7 +80,7 @@ class DeclaracaoController extends Controller
                 Storage::makeDirectory('/public/temp');
             }
 
-            $zip_file = storage_path() . '/zips/declaracoes' . date('d-m-Y') . '.zip';
+            $zip_file = public_path() . '/declaracoes_geradas/declaracoes' . date('d-m-Y') . '.zip';
 
             $zipper = new ZipArchive();
             $zipper->open($zip_file, ZipArchive::CREATE | ZipArchive::OVERWRITE);
@@ -124,7 +124,7 @@ class DeclaracaoController extends Controller
                 Storage::makeDirectory('/public/temp');
             }
 
-            $savepath = public_path() . '/declaracoes_geradas/declaracao-' . $aluno->nome_aluno . '.pdf';
+            $savepath = public_path() . '/declaracoes_geradas/declaracao-banca-' . $banca . '-' . $aluno->matricula . '-' . $aluno->nome_aluno  . '.pdf';
 
             if (!Storage::exists($savepath)) {
                 $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno, 'banca' => $banca])->render();
