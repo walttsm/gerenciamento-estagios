@@ -87,14 +87,14 @@ class DeclaracaoController extends Controller
 
             foreach ($request['data'] as $id) {
                 $aluno = Aluno::find($id);
-                $savepath = storage_path() . '/temp/declaracao ' . $request->banca . '-' . $aluno->matricula . '-' . $aluno->nome_aluno  . '.pdf';
+                $savepath = public_path() . '/declaracoes_geradas/declaracao ' . $request->banca . '-' . $aluno->matricula . '-' . $aluno->nome_aluno  . '.pdf';
 
                 if (!Storage::exists($savepath)) {
                     $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno, 'banca' => $request->banca])->render();
 
                     Browsershot::html($string)
-                        ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
-                        ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
+                        ->setNodeBinary('/usr/bin/node')
+                        ->setNpmBinary('/usr/bin/npm')
                         ->timeout(120)
                         ->emulateMedia("screen")
                         ->format('A4')
@@ -124,14 +124,14 @@ class DeclaracaoController extends Controller
                 Storage::makeDirectory('/public/temp');
             }
 
-            $savepath = storage_path() . '/temp/declaracao ' . $aluno->nome_aluno . '.pdf';
+            $savepath = public_path() . '/declaracoes_geradas/declaracao-' . $aluno->nome_aluno . '.pdf';
 
             if (!Storage::exists($savepath)) {
                 $string = view('coordenador.modelo.declaracao', ['aluno' => $aluno, 'banca' => $banca])->render();
 
                 Browsershot::html($string)
-                    ->setNodeBinary('/home/walter/.local/share/nvm/v17.9.0/bin/node')
-                    ->setNpmBinary('/home/walter/.local/share/nvm/v17.9.0/bin/npm')
+                    ->setNodeBinary('/usr/bin/node')
+                    ->setNpmBinary('/usr/bin/npm')
                     ->timeout(120)
                     ->emulateMedia("screen")
                     ->format('A4')

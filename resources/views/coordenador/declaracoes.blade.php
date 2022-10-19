@@ -74,7 +74,7 @@
                             <td>{{ $aluno->curso }}</td>
                             <td>ok</td>
                             <td>{{ $aluno->rpods->sum('horas_mes') }}/200</td>
-                            <td>{{ $aluno->orientador->nome }}</td>
+                            <td>{{ $aluno->orientador ? $aluno->orientador->nome : '-' }}</td>
                             <td>
                                 <a href="/coordenador/modelo_declaracao/{{ $aluno->id }}/1" class="text-white mx-2">
                                     <button type="button"
