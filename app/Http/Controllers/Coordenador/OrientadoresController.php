@@ -120,20 +120,20 @@ class OrientadoresController extends Controller
 
             $orientador->save();
 
-            $dias_disponiveis = count($request['dias']);
-            if ($dias_disponiveis != 0) {
-                for ($i = 0; $i < $dias_disponiveis; $i++) {
-                    $orientacao = new Horario_orientacao([
-                        'dia' => $request['dias'][$i],
-                        'hora' => $request['horas'][$i],
-                        'orientador_id' => $orientador->id,
-                    ]);
+            if ($request['dias']) {
+                $dias_disponiveis = count($request['dias']);
+                if ($dias_disponiveis != 0) {
+                    for ($i = 0; $i < $dias_disponiveis; $i++) {
+                        $orientacao = new Horario_orientacao([
+                            'dia' => $request['dias'][$i],
+                            'hora' => $request['horas'][$i],
+                            'orientador_id' => $orientador->id,
+                        ]);
 
-                    $orientacao->save();
+                        $orientacao->save();
+                    }
                 }
             }
-
-
 
             $message = "Orientador criado com sucesso!";
             $type = "success";

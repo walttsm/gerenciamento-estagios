@@ -75,7 +75,7 @@
 
         <x-csv_upload_form />
         <x-add-turma-modal />
-        <x-create-aluno-modal :orientadores="$orientadores" />
+        <x-create-aluno-modal :turmas="$turmas" :orientadores="$orientadores" />
 
         <table class="table-auto text-center w-full">
             <thead>
@@ -90,7 +90,7 @@
 
             <tbody>
                 @foreach ($alunos as $aluno)
-                    <x-edit-aluno-modal :aluno="$aluno" turma="{{ $aluno->turma->ano }}"
+                    <x-edit-aluno-modal :aluno="$aluno" turma="{{ $aluno->turma->ano }}" :turmas="$turmas"
                         orientador="{{ $aluno->orientador ? $aluno->orientador->nome : '' }}"
                         banca1="{{ $aluno->banca1 ? $aluno->banca1->nome : '' }}"
                         banca2="{{ $aluno->banca2 ? $aluno->banca2->nome : '' }}" :orientadores="$orientadores" />

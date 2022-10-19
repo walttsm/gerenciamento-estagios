@@ -1,6 +1,7 @@
 <div class="modal hidden" id="{{ 'editModal' . $aluno['id'] }}">
 
     <h1 class="my-8">Editar aluno</h1>
+    {{ end($turmas) }}
 
     <form id="{{ 'editForm' . $aluno['id'] }}" action="{{ route('alunos.update', $aluno['id']) }}" method="POST">
         @csrf
@@ -14,8 +15,8 @@
             <div>
                 <label for="turma">Turma</label>
                 <br>
-                <input required type="number" min="2000" max="{{ date('Y') }}" value="{{ $turma }}"
-                    name="turma" id="turma">
+                <input required type="number" min="{{ end($turmas) }} max="{{ $turmas[1] }}"
+                    value="{{ $turma }}" name="turma" id="turma">
             </div>
             <div>
                 <label for="Curso">Curso</label>

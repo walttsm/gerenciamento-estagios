@@ -13,8 +13,8 @@
             <div class="">
                 <label for="turma">Turma</label>
                 <br>
-                <input type="number" min="2000" max="{{ date('Y') }}" value="{{ date('Y') }}" required
-                    name="turma" id="turma">
+                <input type="number" min="{{ end($turmas) }}" max="{{ date('Y') }}" value="{{ date('Y') }}"
+                    required name="turma" id="turma">
             </div>
             <div class="">
                 <label for="Curso">Curso</label>
