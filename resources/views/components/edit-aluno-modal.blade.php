@@ -1,11 +1,8 @@
 <div class="modal hidden" id="{{ 'editModal' . $aluno['id'] }}">
 
     <h1 class="my-8">Editar aluno</h1>
-    @foreach ($turmas as $a)
-        {{ $a }}
-    @endforeach
 
-    <form id="{{ 'editForm' . $aluno['id'] }}" action="{{ route('alunos.update', $aluno['id']) }}" method="POST">
+    <form id="{{ 'editForm' . $aluno['id'] }}" action="{{ route('alunos.update', $aluno->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="my-8 grid grid-cols-3 gap-y-4 justify-start">

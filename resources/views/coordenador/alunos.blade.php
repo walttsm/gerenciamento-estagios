@@ -83,7 +83,7 @@
                     <th>@sortablelink('nome_aluno', 'Nome')</th>
                     <th>@sortablelink('turma.ano', 'Turma')</th>
                     <th>@sortablelink('curso', 'Curso')</th>
-                    <th>@sortablelink('orientador.nome', 'Orientador')</th>
+                    <th>Orientador</th>
                     <th>Opções</th>
                 </tr>
             </thead>
