@@ -18,12 +18,13 @@ return new class extends Migration
             $table->integer('mes');
             $table->integer('horas_mes');
             $table->string('local_arquivo');
+            $table->string('rpod_title');
             $table->unsignedBigInteger('aluno_id');
             $table->unsignedBigInteger('orientador_id');
 
             $table->foreign('aluno_id')->references('id')->on('alunos')->onDelete('cascade');
             $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('cascade');
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 

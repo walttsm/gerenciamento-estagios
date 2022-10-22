@@ -27,7 +27,7 @@ class CoordenadorSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('coord'),
             'remember_token' => Str::random(10),
-            'permission' => 0, // permissão de coordenador
+            'permissao' => 3, // permissão de coordenador
         ]);
         $cursos = ['CC', 'ES'];
         Orientador::create([

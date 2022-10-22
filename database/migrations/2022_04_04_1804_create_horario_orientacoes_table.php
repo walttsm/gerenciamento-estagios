@@ -18,8 +18,11 @@ return new class extends Migration
             $table->integer('dia');
             $table->time('hora');
             $table->unsignedBigInteger('orientador_id');
+            $table->unsignedBigInteger('aluno_id')->nullable();
+            $table->timestamps();
 
-            $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('cascade');
+            $table->foreign('orientador_id')->references('id')->on('orientadores');
+            $table->foreign('aluno_id')->references('id')->on('alunos');
         });
     }
 
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('horario_orientacaos');
+        Schema::dropIfExists('horario_orientacoes');
     }
 };

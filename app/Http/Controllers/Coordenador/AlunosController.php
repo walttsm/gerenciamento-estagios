@@ -7,6 +7,7 @@ use App\Models\Aluno;
 use App\Models\Orientador;
 use App\Models\Turma;
 use App\Models\User;
+use Exception;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 
@@ -37,13 +38,19 @@ class AlunosController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function show($id)
     {
         //
+        $aluno = Aluno::find($id);
+
+        $aluno->rpods = $aluno->rpods->sortBy('mes');
+
+        return view('coordenador.aluno', ['aluno' => $aluno]);
     }
 
     /**
@@ -56,14 +63,17 @@ class AlunosController extends Controller
     {
         //
         $request->validate([
-            'nome_aluno'=> 'required',
-            'email'=> 'required|unique:alunos,email',
+            'nome_aluno' => 'required',
+            'email' => 'required|unique:alunos,email',
             'matricula' => 'required|unique:alunos,matricula',
             'turma' => 'required',
         ]);
 
         $turma = Turma::where('ano', $request['turma'])->get()->first();
         $orientador = Orientador::where('nome', $request['orientador'])->get()->first();
+        $banca1 = Orientador::where('nome', $request['banca1'])->get()->first();
+        $banca2 = Orientador::where('nome', $request['banca2'])->get()->first();
+        // dd($banca1, $banca2);
         $user = new User([
             'name' => $request['nome_aluno'],
             'email' => $request['email'],
@@ -84,32 +94,12 @@ class AlunosController extends Controller
             'turma_id' => $turma['id'],
             'user_id' => $user_id,
             'orientador_id' => $orientador['id'],
+            'banca1_id' => $banca1->id,
+            'banca2_id' => $banca2->id,
         ]);
 
         $aluno->save();
-        return redirect()->route('alunos.index')->with(['message' => "Usuário criado com sucesso!"]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return redirect()->route('alunos.index')->with(['message' => "Aluno criado com sucesso!"]);
     }
 
     /**
@@ -121,7 +111,37 @@ class AlunosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $request->validate([
+                'nome_aluno' => 'required',
+                'email' => 'required',
+                'matricula' => 'required',
+                'turma' => 'required',
+            ]);
+
+            $turma = Turma::where('ano', $request['turma'])->get()->first();
+            $orientador = Orientador::where('nome', $request['orientador'])->get()->first();
+            $banca1 = Orientador::where('nome', $request['banca1'])->get()->first();
+            $banca2 = Orientador::where('nome', $request['banca2'])->get()->first();
+            $aluno = Aluno::find($id);
+
+            $aluno->nome_aluno = $request['nome_aluno'];
+            $aluno->curso = $request['curso'];
+            $aluno->matricula = $request['matricula'];
+            $aluno->email = $request['email'];
+            $aluno->nome_trabalho = $request['titulo'];
+            $aluno->turma_id = $turma['id'];
+            $aluno->orientador_id = $orientador['id'];
+            $aluno->banca1_id = $banca1['id'];
+            $aluno->banca2_id = $banca2['id'];
+
+            $aluno->save();
+            $message = "Aluno editado com sucesso!";
+        } catch (Exception $e) {
+            $message = "Erro ao editar aluno, tente novamente!";
+        }
+
+        return redirect()->route('alunos.index')->with(['message' => $message]);
     }
 
     /**
@@ -132,8 +152,10 @@ class AlunosController extends Controller
      */
     public function destroy($id)
     {
-        Aluno::destroy($id);
+        $aluno = Aluno::find($id);
+        User::destroy($aluno->user_id);
+        $aluno->delete();
 
-        return redirect()->route('alunos.index')->with(['message' => "Usuário deletado com sucesso!"]);
+        return redirect()->route('alunos.index')->with(['message' => "Aluno deletado com sucesso!"]);
     }
 }

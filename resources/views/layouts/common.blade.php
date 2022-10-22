@@ -17,6 +17,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.10.1/dist/alpine.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @stack('scripts')
 </head>
 
@@ -25,7 +26,7 @@
         <!-- Navigation -->
         @include('layouts.sideNavigation')
         <!-- Page Content -->
-        <main class="mx-16 flex-1 ">
+        <main class="mx-32 flex-1 ">
             @yield('content')
         </main>
     </div>

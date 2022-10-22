@@ -18,6 +18,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.10.1/dist/alpine.js" defer></script>
     @stack('scripts')
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -36,6 +37,7 @@
             @yield('content')
         </main>
     </div>
+    @livewireScripts
 </body>
 
 </html>

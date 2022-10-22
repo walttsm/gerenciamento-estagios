@@ -223,7 +223,6 @@
         .below-text {
             font-size: 0.6rem;
         }
-
     </style>
 </head>
 
@@ -238,8 +237,8 @@
                 {{ $aluno->curso }}, sob orientação
                 do
                 professor <b>{{ $aluno->orientador->nome }}</b>.
-                Além do orientador, a banca teve em sua composição de avaliação os professores <b>Banca 1</b> e <b>Banca
-                    2</b>.
+                Além do orientador, a banca teve em sua composição de avaliação os professores
+                <b>{{ $aluno->banca1->nome }}</b> e <b>{{ $aluno->banca2->nome }}</b>.
             </p>
         </div>
 

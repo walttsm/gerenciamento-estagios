@@ -7,15 +7,22 @@ use Illuminate\View\Component;
 
 class editAlunoModal extends Component
 {
+    public $aluno;
+    public $turma;
+    public $orientador;
+    public $orientadores;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(Aluno $aluno)
+    public function __construct($aluno, $turma, $orientador, $orientadores)
     {
         //
         $this->aluno = $aluno;
+        $this->turma = $turma;
+        $this->orientador = $orientador;
+        $this->orientadores = $orientadores;
     }
 
     /**
@@ -25,6 +32,6 @@ class editAlunoModal extends Component
      */
     public function render()
     {
-        return view('components.alunoModal')->with('aluno', $this->aluno);
+        return view('components.edit-aluno-modal');
     }
 }

@@ -13,21 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('registro', function (Blueprint $table) {
+        Schema::create('registros', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string('assunto');
+            $table->softDeletes();
+            $table->dateTime('data_orientacao');
+            $table->text('assunto');
             $table->string('prox_assunto');
             $table->string('observacao');
-            $table->boolean('presenca');
+            $table->boolean('presenca')->default(true);
+            $table->timestamps();
 
             $table->unsignedBigInteger('aluno_id');
             $table->unsignedBigInteger('orientador_id');
-            $table->unsignedBigInteger('orientacao_id');
 
-            $table->foreign('aluno_id')->references('id')->on('alunos')->onDelete('cascade');
-            $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('cascade');
-            $table->foreign('orientacao_id')->references('id')->on('orientacao')->onDelete('cascade');
+            $table->foreign('aluno_id')->references('id')->on('alunos');
+            $table->foreign('orientador_id')->references('id')->on('orientadores');
         });
     }
 
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('registro');
+        Schema::dropIfExists('registros');
     }
 };

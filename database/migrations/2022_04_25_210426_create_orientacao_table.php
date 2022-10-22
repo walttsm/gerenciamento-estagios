@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('orientacao', function (Blueprint $table) {
+        Schema::create('orientacoes', function (Blueprint $table) {
             $table->id();
             $table->date('data_orientacao');
             $table->time('horario');
             $table->unsignedBigInteger('aluno_id');
             $table->unsignedBigInteger('orientador_id');
 
-            $table->foreign('aluno_id')->references('id')->on('alunos')->onDelete('cascade');
-            $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('cascade');
+            $table->foreign('aluno_id')->references('id')->on('alunos');
+            $table->foreign('orientador_id')->references('id')->on('orientadores');
         });
     }
 

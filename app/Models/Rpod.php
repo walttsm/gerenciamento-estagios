@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Rpod extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
     protected $table = 'rpod';
     public $timestamps = false;
 
@@ -17,10 +18,16 @@ class Rpod extends Model
         'horas_mes',
     ];
 
-    public function aluno(){
-        return $this->belongsTo(Aluno::class, 'aluno_id');
-    }
-    public function orientador(){
-        return $this->belongsTo(Orientafor::class, 'orientador_id');
-    }
+    protected $fillable = [
+        'mes',
+        'local_arquivo',
+        'horas_mes',
+    ];
+
+
+    public $sortable = [
+        'mes'
+    ];
+
+    
 }

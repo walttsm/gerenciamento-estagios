@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Aluno;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Kyslik\ColumnSortable\Sortable;
 
 class Orientador extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, Sortable;
 
     protected $table = 'orientadores';
     public $timestamps = false;
@@ -18,6 +20,18 @@ class Orientador extends Model
         'nome',
         'curso',
         'email',
+        'user_id',
+    ];
+
+    public $sortable = [
+        'nome',
+        'curso',
+        'email',
+    ];
+
+    protected $hidden = [
+        'id',
+        'permissao'
     ];
 
     public function user() {
@@ -26,5 +40,17 @@ class Orientador extends Model
 
     public function alunos() {
         return $this->hasMany(Aluno::class);
+    }
+
+    public function bancas() {
+        return $this->hasMany(Aluno::class);
+    }
+
+    public function horarios_orientacao() {
+        return $this->hasMany(Horario_orientacao::class);
+    }
+
+    public function registros() {
+        return $this->hasMany(Registro::class);
     }
 }

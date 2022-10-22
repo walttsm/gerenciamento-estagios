@@ -1,4 +1,4 @@
-<div class=" bg-modal-purple hidden fixed z-10 inset-0 overflow-y-auto w-8/12 h-fit mx-auto my-auto px-16" id="interestModal">
+<div class="modal hidden" id="createModal">
 
     <h1 class="my-8">Adicionar aluno</h1>
 
@@ -38,12 +38,16 @@
                 {!! Form::select("orientador", array_combine($orientadores, $orientadores), null, ['class'     => 'form-control']) !!}
             </div>
             <div class="mx-auto">
-                <label for="banca1">Banca 1</label>
-                <input type="text" name="banca1" id="banca1">
+                {{-- <label for="banca1">Banca 1</label>
+                <input type="text" name="banca1" id="banca1" value="{{ $aluno->banca1->nome }}"> --}}
+                {!! Form::label('banca1', 'Banca 1') !!}
+                {!! Form::select('banca1', array_combine($orientadores, $orientadores), null, ['class' => 'form-control']) !!}
             </div>
             <div class="mx-auto">
-                <label for="banca2">Banca 2</label>
-                <input type="text" name="banca2" id="banca2">
+                {{-- <label for="banca2">Banca 2</label>
+                <input type="text" name="banca2" id="banca2" value="{{ $aluno->banca2->nome }}"> --}}
+                {!! Form::label('banca2', 'Banca 2') !!}
+                {!! Form::select('banca2', array_combine($orientadores, $orientadores), null, ['class' => 'form-control']) !!}
             </div>
         </div>
         <div class="my-8 flex justify-between">
