@@ -6,63 +6,16 @@
     </div>
     <hr>
 
-<<<<<<< HEAD
-    @if ($message = Session::get('message'))
-        <div class="message-success" id="messageSuccess">
-            <p>{{ $message }}</p>
-            <button type="button" class="self-end" onclick="hideMessage('Success')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24"
-                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <desc>Download more icon variants from https://tabler-icons.io/i/x</desc>
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="message-error" id="messageError">
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            <button type="button" class="self-middle" onclick="hideMessage('Error')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24"
-                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <desc>Download more icon variants from https://tabler-icons.io/i/x</desc>
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-    @endif
-
-=======
     <x-message-card />
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
 
     <div>
         <div class="p-4 align-middle flex w-full justify-between">
             <form action="{{ route('alunos.index') }}" method="GET">
                 <span id="filters">
-<<<<<<< HEAD
-                    <input type="text" placeholder="Nome" name="filtro_nome"
-                        class="bg-white max-w-2xl h-10 mx-8 my-auto">
-                    <button type="submit" class="default-button rounded-full w-fit p-2 text-white align-middle">
-=======
                     <input type="text" placeholder="Nome" name="filtro_nome" value="{{ $filtro_nome ? $filtro_nome : '' }}"
                         class="bg-white max-w-2xl h-10 mx-8 my-auto">
                     {!! Form::select('filtro_turma', array_combine($turmas, $turmas), $filtro_turma, ['class' => '']) !!}
                     <button type="submit" class="default-button rounded-full w-fit ml-8 p-2 text-white align-middle">
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -75,10 +28,6 @@
                 </span>
             </form>
 
-<<<<<<< HEAD
-            <div>
-                <button type="button" class="default-button openTurmaModal mx-4 min-w-fit inline-flex">
-=======
             <div class="flex">
                 <button type="button" class="default-button mx-4 min-w-fit inline-flex"
                     onclick="openModal('#upload_csv_modal')">
@@ -95,7 +44,6 @@
                     </span>
                 </button>
                 <button type="button" class="default-button mx-4 min-w-fit inline-flex" onclick="openModal('#turmaModal')">
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -108,12 +56,8 @@
                         Nova turma
                     </span>
                 </button>
-<<<<<<< HEAD
-                <button type="button" class="default-button openAlunoModal mx-4 min-w-fit inline-flex">
-=======
                 <button type="button" class="default-button mx-4 min-w-fit inline-flex"
                     onclick="openModal('#createModal')">
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -129,14 +73,9 @@
             </div>
         </div>
 
-<<<<<<< HEAD
-        <x-add-turma-modal />
-        <x-create-aluno-modal :orientadores="$orientadores" />
-=======
         <x-csv_upload_form />
         <x-add-turma-modal />
         <x-create-aluno-modal :turmas="$turmas" :orientadores="$orientadores" />
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
 
         <table class="table-auto text-center w-full">
             <thead>
@@ -151,18 +90,6 @@
 
             <tbody>
                 @foreach ($alunos as $aluno)
-<<<<<<< HEAD
-                    <x-edit-aluno-modal :aluno="$aluno" turma="{{ $aluno->turma->ano }}"
-                        orientador="{{ $aluno->orientador->nome }}" banca1="{{ $aluno->banca1->nome }}"
-                        banca2="{{ $aluno->banca2->nome }}" :orientadores="$orientadores" />
-                    <tr class="odd:bg-orange-200">
-                        <td><a href="{{ route('alunos.show', $aluno->id) }}">{{ $aluno->nome_aluno }}</a></td>
-                        <td>{{ $aluno->turma->ano }}</td>
-                        <td>{{ $aluno->curso }}</td>
-                        <td>{{ $aluno->orientador->nome }}</td>
-                        <td class="flex justify-center items-center">
-                            <button id="editarUsuario" type="button" onclick="openModal({{ $aluno->id }})">
-=======
                     <x-edit-aluno-modal :aluno="$aluno" turma="{{ $aluno->turma->ano }}" :turmas="$turmas"
                         orientador="{{ $aluno->orientador ? $aluno->orientador->nome : '' }}"
                         banca1="{{ $aluno->banca1 ? $aluno->banca1->nome : '' }}"
@@ -176,7 +103,6 @@
                         <td class="flex justify-center items-center">
                             <button id="editarUsuario" type="button"
                                 onclick="openModal({{ 'editModal' . $aluno->id }})">
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-edit text-orange-600 hover:brightness-125"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -218,22 +144,6 @@
 
 @push('scripts')
     <script type="text/javascript">
-<<<<<<< HEAD
-        $(document).ready(function() {
-            $('.openAlunoModal').on('click', function(e) {
-                $('#createModal').removeClass('hidden');
-            });
-            $('.closeAlunoModal').on('click', function(e) {
-                $('#createModal').addClass('hidden');
-            });
-            $('.openTurmaModal').on('click', function(e) {
-                $('#turmaModal').removeClass('hidden');
-            });
-            $('.closeTurmaModal').on('click', function(e) {
-                $('#turmaModal').addClass('hidden');
-            });
-        });
-=======
         function openModal(id) {
             $(id).removeClass('hidden');
         }
@@ -245,7 +155,6 @@
         function hideMessage(id) {
             $('#message' + id).addClass('hidden');
         }
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
     </script>
     <script type="text/javascript">
         function openModal(id) {

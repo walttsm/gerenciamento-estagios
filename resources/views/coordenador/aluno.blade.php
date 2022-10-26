@@ -16,13 +16,8 @@
                     <h3>RPOD {{ $rpod->mes }}</h3>
                     <b class="mt-2">{{ $rpod->horas_mes }} horas</b>
                     <p class="mt-2">{{ $rpod->rpod_title ? $rpod->rpod_title : 'Título não definido' }}</p>
-<<<<<<< HEAD
-                    <a href="{{ route('rpodpage.download', $rpod->id) }}" class="mt-4">
-                        <button type="button" class="flex default-button rounded text-white">
-=======
                     <a href="{{ route('rpodpage.download', $rpod->id) }}" class="mt-4 md:text-xs">
                         <button type="button" class="flex default-button rounded text-white items-center">
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 icon icon-tabler icon-tabler-file-download"
                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -32,13 +27,9 @@
                                 <path d="M12 17v-6"></path>
                                 <path d="M9.5 14.5l2.5 2.5l2.5 -2.5"></path>
                             </svg>
-<<<<<<< HEAD
-                            Baixar RPOD
-=======
                             <span>
                                 Baixar RPOD
                             </span>
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
                         </button>
                     </a>
                 </div>
@@ -48,12 +39,6 @@
 
     <div class="mx-8 mt-8">
         <h2>Orientações</h2>
-<<<<<<< HEAD
-        @foreach ($aluno->registros as $registro)
-            <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                <h3>Registro</h3>
-                <p>Data: {{ $registro->data_orientacao }}</p>
-=======
         <div class="flex items-center justify-around">
             <div>
                 <p class="text-lg">Número de orientações: <b>{{ count($aluno->registros) . ' orientações' }}</b></p>
@@ -121,16 +106,11 @@
             @endswitch
             {{-- <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
                 <h3>Data: {{ date('d/m/Y', strtotime($registro->data_orientacao)) }}</h3>
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
                 <p>Assunto: {{ $registro->assunto }}</p>
                 <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
                 <p>Observações: {{ $registro->observacao }}</p>
                 <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
-<<<<<<< HEAD
-            </div>
-=======
             </div> --}}
->>>>>>> a5e80c227b249e93c98b64fa60df52e6c7e2f46d
         @endforeach
     </div>
 @endsection
