@@ -29,5 +29,10 @@ class Rpod extends Model
         'mes'
     ];
 
-    
+    public function aluno(){
+        return $this->belongsTo(Aluno::class, 'aluno_id');
+    }
+    public function orientador(){
+        return $this->belongsTo(Orientafor::class, 'orientador_id');
+    }
 }

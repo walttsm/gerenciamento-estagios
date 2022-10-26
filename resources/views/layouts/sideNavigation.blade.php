@@ -16,7 +16,7 @@
         </div>
         <ul class="my-2">
 
-            @if (Auth::user()->permissao = 2)
+            @if (Auth::user()->permissao > 2)
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
                 <li>
@@ -153,45 +153,6 @@
 
                     </x-nav-link>
                 </li>
-
-            <br>
-
-            <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
-
-            <li>
-                <x-nav-link class="hidden group-hover:flex" :href="route('aluno_rpodpage')" :active="request()->routeIs('aluno_rpodpage')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <desc>Download more icon variants from https://tabler-icons.io/i/clipboard-check</desc>
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"></path>
-                        <rect x="9" y="3" width="6" height="4" rx="2"></rect>
-                        <path d="M9 14l2 2l4 -4"></path>
-                     </svg>
-                    {{ __('RPOD') }}
-
-                </x-nav-link>
-            </li>
-
-            <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
-
-            <br>
-
-            <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
-
-            <li>
-                <x-nav-link class="hidden group-hover:flex" :href="route('aluno_atividades')" :active="request()->routeIs('aluno_atividades')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-                        <path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z"></path>
-                     </svg>
-                    {{ __('Atividades') }}
-
-                </x-nav-link>
-            </li>
-
-            <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
             @endif

@@ -5,16 +5,22 @@ use App\Http\Controllers\AtividadesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrosController;
 use App\Http\Controllers\CoordenadorController;
-use App\Http\Controllers\RpodController;
 use App\Http\Controllers\AvisoController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Coordenador\CSVController;
 use App\Http\Controllers\Coordenador\DeclaracaoController;
 use App\Http\Controllers\Coordenador\AlunosController;
+use App\Http\Controllers\Coordenador\OrientacoesController;
 use App\Http\Controllers\Coordenador\OrientadoresController;
+use App\Http\Controllers\Coordenador\TurmaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DocumentosController;
 use App\Http\Controllers\OrientandosController;
 use App\Models\Aluno;
 use App\Models\Orientador;
+use App\Http\Controllers\Orientador\RegistroController;
+use App\Http\Controllers\RpodController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,15 +34,22 @@ use App\Models\Orientador;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
+
+
+/**
+ * Rotas do google
+ */
+
+Route::get('/redirect', [LoginController::class, 'redirectToProvider'])->name('google_login'); // Abre a janela de autenticação na mesma janela da página
+Route::get('/callback', [LoginController::class, 'handleProviderCallback']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 
-require __DIR__ . '/auth.php';
 
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
@@ -73,8 +86,12 @@ Route::prefix('/aluno')->middleware('auth')->controller(AlunoController::class)-
     Route::get('/rpodpage/download/{id}', [RpodController::class, "downloadRpod"])->name('rpodpage.download');
 });
 
+Route::prefix('/aluno')->middleware(['auth', 'permissao.acesso'])->controller(AlunoController::class)->group(function () {
+    Route::get('/rpodpage', [RpodController::class, "listarRpods"]);
+});
+
 // ROTAS ORIENTADOR
-Route::prefix('/orientador')->middleware('auth')->controller(OrientadorController::class)->group(function() {
+Route::prefix('/orientador')->middleware(['auth', 'permissao.acesso'])->controller(OrientadorController::class)->group(function () {
     Route::get('/rpods', function () {
         return view('orientador.rpods');
     })->name('orientador_rpods');
@@ -112,16 +129,21 @@ Route::prefix('/orientador')->middleware('auth')->controller(OrientadorControlle
 
 
 // ROTAS COORDENADOR
-Route::prefix('/coordenador')->middleware('auth')->controller(DeclaracaoController::class)->group(function () {
+Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(function () {
 
     Route::resources([
         'alunos' => AlunosController::class,
         'orientadores' => OrientadoresController::class,
+        'orientacoes' => OrientacoesController::class,
     ]);
 
+    Route::get('{orientador_id}/registros', [RegistroController::class, 'index'])->name('registrosCoord');
+
+    Route::post('/turma', [TurmaController::class, 'store'])->name('turma.store');
+
     // Rotas de geração de declarações
-    Route::get('declaracoes', 'create')->name('declaracoes');
-    Route::post('declaracoes', 'gerar_declaracoes');
+    Route::get('declaracoes', [DeclaracaoController::class, 'create'])->name('declaracoes');
+    Route::post('declaracoes', [DeclaracaoController::class, 'gerar_declaracoes']);
     Route::view('modelo_declaracao', 'coordenador.modelo.declaracao_modelo');
     Route::get('modelo_declaracao/{aluno}', 'gerar_declaracao')->name('gerar_declaracao');
 
@@ -143,4 +165,10 @@ Route::prefix('/coordenador')->middleware('auth')->controller(DeclaracaoControll
     Route::get('/atividades/delete/{id}', [AtividadesController::class, "deleteAtividade"])->name('atividades.delete');
     Route::get('/atividades/edit/{id}', [AtividadesController::class, "edit"])->name('atividades.edit');
     Route::put('/atividades/edit/{id}', [AtividadesController::class, "editAtividade"])->name('atividades.editAtividade');
+    Route::get('modelo_declaracao/{aluno}/{banca}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
+
+    Route::prefix('/csv')->group(function () {
+        Route::post('/alunos', [CSVController::class, 'cadastrar_alunos'])->name('alunos_csv');
+        Route::post('/orientadores', [CSVController::class, 'cadastrar_orientadores'])->name('orientadores_csv');
+    });
 });

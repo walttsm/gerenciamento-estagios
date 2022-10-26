@@ -26,7 +26,7 @@
         <!-- Navigation -->
         @include('layouts.sideNavigation')
         <!-- Page Content -->
-        <main class="mx-32 flex-1 ">
+        <main class="mx-32 flex-1 md:mx-16">
             @yield('content')
         </main>
     </div>

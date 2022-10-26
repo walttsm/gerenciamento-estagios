@@ -16,7 +16,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}" id="login_form">
             @csrf
 
             <!-- Email Address -->
@@ -41,20 +41,43 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-center mt-4">
+            {{-- <div class="flex items-center justify-center mt-4">
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
-            </div>
-
-            <div class="flex items-center justify-center mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-700 hover:text-orange-900"
-                        href="{{ route('password.request') }}">
-                        {{ __('Esqueci minha senha') }}
-                    </a>
-                @endif
-            </div>
+            </div> --}}
         </form>
+
+        <div class="flex items-center justify-center mt-4">
+            <button type="submit" form="login_form"
+                class="default-button flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                Entrar
+            </button>
+        </div>
+
+        <div class="flex items-center justify-center mt-4">
+            <a href="{{ Route('google_login') }}">
+                <button
+                    class="default-button flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150'">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-google"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M17.788 5.108a9 9 0 1 0 3.212 6.892h-8"></path>
+                    </svg>
+                    <span class="ml-4">
+                        Login com google
+                    </span>
+                </button>
+            </a>
+        </div>
+
+        <div class="flex items-center justify-center mt-4">
+            @if (Route::has('password.request'))
+                <a class="underline text-sm text-gray-700 hover:text-orange-900" href="{{ route('password.request') }}">
+                    {{ __('Esqueci minha senha') }}
+                </a>
+            @endif
+        </div>
     </x-auth-card>
 </x-guest-layout>

@@ -1,27 +1,28 @@
     <div class="modal hidden" id="turmaModal">
 
-        <h1 class="my-8">Editar aluno</h1>
+        <h1 class="my-8">Nova turma</h1>
 
-        <form action="{{ route('turma.store') }}" method="POST">
+        <form id="createTurmaForm" action="{{ route('turma.store') }}" method="POST">
             @csrf
 
-            <div id="inputs" class="flex justify-around">
-
-                <div>
+            <div id="inputs" class="grid grid-cols-2">
+                <div class="mx-auto">
                     <label for="ano">Ano</label>
-                    <input type="number" min="2000" max="{{ date('Y') }}" value="{{ date('Y') }}"
+                    <br>
+                    <input required type="number" min="2000" max="{{ date('Y') }}" value="{{ date('Y') }}"
                         name="ano" id="ano">
                 </div>
 
-                <div>
+                <div class="mx-auto">
                     <label for="codigo">Código</label>
-                    <input type="text" name="codigo" id="codigo">
+                    <br>
+                    <input required type="text" name="codigo" id="codigo">
                 </div>
             </div>
 
-            <div id="buttons" class="my-8 flex justify-end">
-                <button type="button" class="cancel-button mx-4 closeTurmaModal">Descartar</button>
-                {{-- <button type="reset"  class="default-button mx-4">Salvar/add outro</button> --}}
+            <div id="buttons" class="my-8 flex justify-end md:justify-center">
+                <button type="button" class="cancel-button mx-4"
+                    onclick="document.getElementById('createTurmaForm').reset(); closeModal('#turmaModal')">Descartar</button>
                 <button type="submit" class="default-button mx-4">Salvar</button>
             </div>
         </form>

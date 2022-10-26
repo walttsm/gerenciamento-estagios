@@ -4,7 +4,9 @@
 
     <h1 class="h1 my-8">Orientador: {{ $orientador->nome }}</h1>
 
-    @include('layouts.messages')
+    {{-- @include('layouts.messages') --}}
+
+    <x-message-card />
 
     <div class="mx-auto flex flex-col item-center justify-center">
         <h2 class="mx-auto">Horários:</h2>
@@ -25,19 +27,19 @@
             <div id="{{ 'horarios' . $orientador['id'] }}">
                 @if (count($orientador->horarios_orientacao))
                     @foreach ($orientador->horarios_orientacao as $horario)
-                        {{-- {{ dd($alunos) }} --}}
                         <div class="mx-auto my-4 flex justify-evenly">
                             {!! Form::hidden('id[]', $horario->id, ['form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4']) !!}
                             {!! Form::select(
                                 'dia[]',
                                 ['2' => 'segunda', '3' => 'terça', '4' => 'quarta', '5' => 'quinta', '6' => 'sexta', '7' => 'sabado'],
                                 $horario->dia,
-                                ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4'],
+                                ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4', 'required'],
                             ) !!}
                             {!! Form::time('hora[]', $horario->hora, [
                                 'placeholder' => 'Hora',
                                 'form' => 'formHorariosEdit' . $orientador['id'],
                                 'class' => 'mx-4',
+                                'required',
                             ]) !!}
                             {!! Form::select(
                                 'aluno[]',
@@ -45,10 +47,11 @@
                                 $horario->aluno ? $horario->aluno->nome_aluno : '',
                                 [
                                     'id' => 'nome' . $horario->id,
+                                    'required',
                                 ],
                             ) !!}
                             <button id="deletarHorario" type="button" title="Deletar Horário" class="align-middle w-6 mx-4"
-                                onclick=" /*document.getElementById('#{{ 'deleteInput' . $horario->id }}').value = 'true';*/ removeTime(this.parentNode);">
+                                onclick="removeTime(this.parentNode);">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-trash text-red-500 hover:brightness-125"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -103,23 +106,95 @@
         <x-calendario :horarios="$orientador->horarios_orientacao" />
     </div>
 
-    <div class="align-middle mx-12 my-8 text-2xl font-bold">
-        <h2>Registros de orientação</h2>
+    <div class="flex align-middle mx-12 mt-8">
+        <h2 class='font-bold mr-8'>Registros de orientação</h2>
+        <form action="{{ route('orientadores.show', $orientador->id) }}" method="get">
+            {!! Form::select(
+                'filtro_registros',
+                ['Todos', 'Presenças', 'Faltas'],
+                $filtro_registros ? $filtro_registros : 0,
+                ['class' => ''],
+            ) !!}
+            <button type="submit" class="default-button rounded-full w-fit ml-8 p-2 text-white align-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
+                    height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <desc>Download more icon variants from https://tabler-icons.io/i/search</desc>
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <circle cx="10" cy="10" r="7"></circle>
+                    <line x1="21" y1="21" x2="15" y2="15"></line>
+                </svg>
+            </button>
+        </form>
     </div>
 
     <div class="mx-12">
         @foreach ($orientador->alunos as $aluno)
-            <h3>Aluno: {{ $aluno->nome_aluno }}</h3>
-            @foreach ($aluno->registros as $registro)
-                <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                    <h3>Registro</h3>
-                    <p>Data: {{ $registro->data_orientacao }}</p>
-                    <p>Assunto: {{ $registro->assunto }}</p>
-                    <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
-                    <p>Observações: {{ $registro->observacao }}</p>
-                    <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
-                </div>
-            @endforeach
+            <div class="mb-4">
+                <a href="{{ route('alunos.show', $aluno->id) }}">
+                    <h3 class="hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors">Aluno:
+                        {{ $aluno->nome_aluno }}</h3>
+                </a>
+
+                @if (count($aluno->registros) == 0)
+                    Não há registros de orientação cadastrados para esse aluno.
+                @else
+                    <div x-data="{ expanded: false }">
+                        <div class="flex items-center">
+                            <p class="mr-4 text-center font-bold">
+                                {{ count($aluno->registros) == 1 ? '1 registro' : count($aluno->registros) . ' registros' }}
+                            </p>
+                            <p class="mr-4 text-center font-bold">
+                                {{ $faltas[$aluno->id] == 1 ? '1 falta' : $faltas[$aluno->id] . ' faltas.' }}</p>
+                            <button @click="expanded=!expanded"
+                                class=" h4 hover:underline hover:cursor-pointer hover:text-orange-500 transition-colors">Ver
+                                registros</button>
+                        </div>
+                        <div x-show="expanded" x-collapse.duration.1000ms>
+                            @foreach ($aluno->registros as $registro)
+                                @switch($filtro_registros)
+                                    @case(1)
+                                        @if ($registro->presenca == 1)
+                                            <div
+                                                class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                                                <h3>Data: {{ date('d/m/Y  H:i:s', strtotime($registro->data_orientacao)) }}</h3>
+                                                <p>Assunto: {{ $registro->assunto }}</p>
+                                                <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
+                                                <p>Observações: {{ $registro->observacao }}</p>
+                                                <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
+                                            </div>
+                                        @endif
+                                    @break
+
+                                    @case(2)
+                                        @if ($registro->presenca == 0)
+                                            <div
+                                                class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                                                <h3>Data: {{ date('d/m/Y  H:i:s', strtotime($registro->data_orientacao)) }}</h3>
+                                                <p>Assunto: {{ $registro->assunto }}</p>
+                                                <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
+                                                <p>Observações: {{ $registro->observacao }}</p>
+                                                <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
+                                            </div>
+                                        @endif
+                                    @break
+
+                                    @default
+                                        <div
+                                            class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
+                                            <h3>Data: {{ date('d/m/Y  H:i:s', strtotime($registro->data_orientacao)) }}</h3>
+                                            <p>Assunto: {{ $registro->assunto }}</p>
+                                            <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
+                                            <p>Observações: {{ $registro->observacao }}</p>
+                                            <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
+                                        </div>
+                                @endswitch
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+            </div>
         @endforeach
     </div>
 @endsection
@@ -129,19 +204,24 @@
         function newTime(id) {
             $(id).append(`
             <div class="mx-auto my-4 flex justify-evenly">
-                {!! Form::hidden('id[]', null, ['form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4']) !!}
+                {!! Form::hidden('id[]', null, [
+                    'form' => 'formHorariosEdit' . $orientador['id'],
+                    'class' => 'mx-4',
+                    'required',
+                ]) !!}
                 {!! Form::select(
                     'dia[]',
                     ['2' => 'segunda', '3' => 'terça', '4' => 'quarta', '5' => 'quinta', '6' => 'sexta', '7' => 'sabado'],
                     null,
-                    ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4'],
+                    ['placeholder' => 'Dia da semana', 'form' => 'formHorariosEdit' . $orientador['id'], 'class' => 'mx-4', 'required'],
                 ) !!}
                 {!! Form::time('hora[]', null, [
                     'placeholder' => 'Hora',
                     'form' => 'formHorariosEdit' . $orientador['id'],
                     'class' => 'mx-4',
+                    'required',
                 ]) !!}
-                {!! Form::select('aluno[]', array_combine($alunos, $alunos), null, []) !!}
+                {!! Form::select('aluno[]', array_combine($alunos, $alunos), null, ['required']) !!}
 
                 <button onclick="removeTime(this.parentNode)" class="align-middle w-6 mx-4">
                     <svg xmlns="http://www.w3.org/2000/svg"

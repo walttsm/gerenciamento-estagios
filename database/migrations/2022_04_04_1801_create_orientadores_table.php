@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('curso');
             $table->string('email');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

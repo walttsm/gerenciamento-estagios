@@ -232,13 +232,20 @@
         <br>
         <div class="flex justify-center max-w-xl">
             <p class="text-justify">
-                Declaramos a realização, em {{ date('Y') }}, da banca de avaliação de Estágio entitulado
-                <b>{{ $aluno->nome_trabalho }}</b>, de autoria de {{ $aluno->nome_aluno }}, discente do curso de
+                Declaramos a realização, em {{ date('Y') }}, da banca de avaliação de Estágio
+                {{ $banca == 1 ? 'I' : 'II' }}
+                entitulado
+                <b>{{ $aluno->nome_trabalho != 'null' ? $aluno->nome_trabalho : '__________________________________________________________________________' }}</b>,
+                de
+                autoria
+                de {{ $aluno->nome_aluno }}, discente do curso de
                 {{ $aluno->curso }}, sob orientação
                 do
-                professor <b>{{ $aluno->orientador->nome }}</b>.
+                professor
+                <b>{{ $aluno->orientador ? $aluno->orientador->nome : '_____________________________________' }}</b>.
                 Além do orientador, a banca teve em sua composição de avaliação os professores
-                <b>{{ $aluno->banca1->nome }}</b> e <b>{{ $aluno->banca2->nome }}</b>.
+                <b>{{ $aluno->banca1 ? $aluno->banca1->nome : '_____________________________________' }}</b> e
+                <b>{{ $aluno->banca2 ? $aluno->banca2->nome : '_____________________________________' }}</b>.
             </p>
         </div>
 

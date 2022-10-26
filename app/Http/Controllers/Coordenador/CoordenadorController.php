@@ -12,8 +12,9 @@ use Spatie\Browsershot\Browsershot;
 class CoordenadorController extends Controller
 {
     //
-    public function show_geracao()
+    public function show_geracao(Request $request)
     {
+
         $alunos = Aluno::sortable(['turma_id' => 'desc'])->select('*')->get();
 
         return view(

@@ -19,7 +19,6 @@ class PermissionSeeder extends Seeder
     {
         //
         $role = Role::create(['name' => 'Coord']);
-        $role = Role::create(['name' => 'Aluno']);
 
         $coordPermissions = [
             'coord_alunos',

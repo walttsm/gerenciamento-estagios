@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 /*
-! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
+! tailwindcss v3.1.8 | MIT License | https://tailwindcss.com
 */
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -140,6 +140,7 @@ select,
 textarea {
   font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
+  font-weight: inherit; /* 1 */
   line-height: inherit; /* 1 */
   color: inherit; /* 1 */
   margin: 0; /* 2 */
@@ -263,10 +264,6 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   opacity: 1; /* 1 */
   color: #9ca3af; /* 2 */
 }
-input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-  opacity: 1; /* 1 */
-  color: #9ca3af; /* 2 */
-}
 input::placeholder,
 textarea::placeholder {
   opacity: 1; /* 1 */
@@ -309,12 +306,6 @@ video {
   max-width: 100%;
   height: auto;
 }
-/*
-Ensure the default browser behavior of the `hidden` attribute.
-*/
-[hidden] {
-  display: none;
-}
 [type='text'],[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -344,10 +335,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: #2563eb;
 }
 input::-moz-placeholder, textarea::-moz-placeholder{
-  color: #6b7280;
-  opacity: 1;
-}
-input:-ms-input-placeholder, textarea:-ms-input-placeholder{
   color: #6b7280;
   opacity: 1;
 }
@@ -395,7 +382,6 @@ select{
   background-origin: border-box;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   flex-shrink: 0;
   height: 1rem;
@@ -464,61 +450,71 @@ select{
 [type='file']:focus{
   outline: 1px auto -webkit-focus-ring-color;
 }
-h1, .h1{
+h1, 
+    .h1{
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 700;
 }
 @media (min-width: 768px){
-  h1, .h1{
+  h1, 
+    .h1{
     font-size: 2.25rem;
     line-height: 2.5rem;
   }
 }
-h2, .h2{
+h2, 
+    .h2{
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1.25rem;
   line-height: 1.75rem;
   font-weight: 700;
 }
 @media (min-width: 768px){
-  h2, .h2{
+  h2, 
+    .h2{
     font-size: 1.875rem;
     line-height: 2.25rem;
   }
 }
-h3, .h3{
+h3, 
+    .h3{
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 700;
 }
 @media (min-width: 768px){
-  h3, .h3{
+  h3, 
+    .h3{
     font-size: 1.5rem;
     line-height: 2rem;
   }
 }
-h4, .h4{
+h4, 
+    .h4{
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 700;
 }
 @media (min-width: 768px){
-  h4, .h4{
+  h4, 
+    .h4{
     font-size: 1.125rem;
     line-height: 1.75rem;
   }
 }
-body, .p{
+body, 
+    .p{
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 @media (min-width: 768px){
-  body, .p{
+  body, 
+    .p{
     font-size: 1rem;
     line-height: 1.5rem;
   }
@@ -560,6 +556,8 @@ input[type="checkbox"]:focus{
   --tw-ring-opacity: 0.5;
 }
 *, ::before, ::after{
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
   --tw-translate-x: 0;
   --tw-translate-y: 0;
   --tw-rotate: 0;
@@ -751,9 +749,6 @@ input[type="checkbox"]:focus{
 .fixed{
   position: fixed;
 }
-.absolute{
-  position: absolute;
-}
 .relative{
   position: relative;
 }
@@ -794,8 +789,11 @@ input[type="checkbox"]:focus{
 .z-10{
   z-index: 10;
 }
-.z-50{
-  z-index: 50;
+.col-span-3{
+  grid-column: span 3 / span 3;
+}
+.col-span-2{
+  grid-column: span 2 / span 2;
 }
 .z-20{
   z-index: 20;
@@ -919,6 +917,12 @@ input[type="checkbox"]:focus{
 .mr-10{
   margin-right: 2.5rem;
 }
+.mt-6{
+  margin-top: 1.5rem;
+}
+.ml-4{
+  margin-left: 1rem;
+}
 .ml-1{
   margin-left: 0.25rem;
 }
@@ -1006,14 +1010,38 @@ input[type="checkbox"]:focus{
 .mt-6{
   margin-top: 1.5rem;
 }
-.-mr-2{
-  margin-right: -0.5rem;
+.mb-4{
+  margin-bottom: 1rem;
+}
+.mr-4{
+  margin-right: 1rem;
+}
+.mt-1{
+  margin-top: 0.25rem;
+}
+.mt-3{
+  margin-top: 0.75rem;
+}
+.ml-5{
+  margin-left: 1.25rem;
 }
 .mt-12{
   margin-top: 3rem;
 }
 .mb-0{
   margin-bottom: 0px;
+}
+.mt-40{
+  margin-top: 10rem;
+}
+.mb-20{
+  margin-bottom: 5rem;
+}
+.mt-12{
+  margin-top: 3rem;
+}
+.mb-8{
+  margin-bottom: 2rem;
 }
 .box-border{
   box-sizing: border-box;
@@ -1060,6 +1088,9 @@ input[type="checkbox"]:focus{
 .h-16{
   height: 4rem;
 }
+.h-20{
+  height: 5rem;
+}
 .h-fit{
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -1098,12 +1129,6 @@ input[type="checkbox"]:focus{
 .w-5{
   width: 1.25rem;
 }
-.w-\[5\%\]{
-  width: 5%;
-}
-.w-8{
-  width: 2rem;
-}
 .w-full{
   width: 100%;
 }
@@ -1119,8 +1144,11 @@ input[type="checkbox"]:focus{
 .w-7{
   width: 1.75rem;
 }
-.w-4{
-  width: 1rem;
+.w-8{
+  width: 2rem;
+}
+.w-auto{
+  width: auto;
 }
 .w-max{
   width: -webkit-max-content;
@@ -1352,10 +1380,9 @@ input[type="checkbox"]:focus{
   -moz-column-gap: 0.75rem;
        column-gap: 0.75rem;
 }
-.space-y-2 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+.gap-x-3{
+  -moz-column-gap: 0.75rem;
+       column-gap: 0.75rem;
 }
 .space-x-4 > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 0;
@@ -1367,10 +1394,8 @@ input[type="checkbox"]:focus{
   margin-right: calc(2rem * var(--tw-space-x-reverse));
   margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
 }
-.space-y-1 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+.gap-y-4{
+  row-gap: 1rem;
 }
 .self-end{
   align-self: flex-end;
@@ -1588,7 +1613,7 @@ input[type="checkbox"]:focus{
   --tw-bg-opacity: 1;
   background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
-.bg-blue-800{
+.bg-orange-600{
   --tw-bg-opacity: 1;
   background-color: rgb(30 64 175 / var(--tw-bg-opacity));
 }
@@ -1608,7 +1633,7 @@ input[type="checkbox"]:focus{
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
 }
-.bg-blue-700{
+.bg-slate-300{
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
@@ -1879,9 +1904,8 @@ input[type="checkbox"]:focus{
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
-.text-base{
-  font-size: 1rem;
-  line-height: 1.5rem;
+.text-\[0\.6rem\]{
+  font-size: 0.6rem;
 }
 .text-xs{
   font-size: 0.75rem;
@@ -1921,8 +1945,17 @@ input[type="checkbox"]:focus{
 .leading-6{
   line-height: 1.5rem;
 }
-.tracking-wider{
-  letter-spacing: 0.05em;
+.text-gray-500{
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+.text-gray-700{
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+.text-green-600{
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity));
 }
 .tracking-widest{
   letter-spacing: 0.1em;
@@ -2120,8 +2153,12 @@ input[type="checkbox"]:focus{
 .duration-150{
   transition-duration: 150ms;
 }
-.duration-200{
-  transition-duration: 200ms;
+.transition-colors{
+  transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 .duration-300{
   transition-duration: 300ms;
@@ -2708,8 +2745,12 @@ input[type="checkbox"]:focus{
   .md\:border-t-0{
     border-top-width: 0px;
   }
-  .md\:border-l{
-    border-left-width: 1px;
+  .md\:justify-center{
+    justify-content: center;
+  }
+  .md\:text-xs{
+    font-size: 0.75rem;
+    line-height: 1rem;
   }
 }
 @media (min-width: 1024px){
