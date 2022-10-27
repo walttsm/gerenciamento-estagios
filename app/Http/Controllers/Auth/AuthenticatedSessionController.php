@@ -32,7 +32,16 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $user = Auth::user();
+        $prefix = '';
+
+        if ($user->permissao == 1) {
+            $prefix = 'aluno';
+        } else {
+            $prefix = 'orientador';
+        }
+
+        return redirect()->intended($prefix . RouteServiceProvider::HOME);
     }
 
     /**

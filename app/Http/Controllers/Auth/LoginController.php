@@ -13,6 +13,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -72,14 +73,12 @@ class LoginController extends Controller
                 }
                 auth()->login($existingUser, true);
             } else {
-                switch ($user_domain) {
-                    case 'unifil.br' or 'colegiolondrinense.com.br':
-                        $user_permission = 2;
-                        break;
-                    default:
-                        $user_permission = 1;
-                        break;
+                if ($user_domain == 'unifil.br' or 'colegiolondrinense.com.br') {
+                    $user_permission = 2;
+                } else {
+                    $user_permission = 1;
                 }
+
                 // Cria um novo usuário
                 $newUser                  = new User;
                 $newUser->name            = $user->name;
@@ -91,23 +90,23 @@ class LoginController extends Controller
                 $newUser->password        = Hash::make('password');  //REMOVER!!! FALHA DE SEGURANÇA
                 $newUser->save();
 
-                switch ($user_domain) {
-                    case 'unifil.br' or 'colegiolondrinense.com.br':
-                        $entity = Orientador::where('email', 'like', $user->email)->get()->first();
-                        break;
-                    default:
-                        $entity = Aluno::where('email', 'like', $user->email)->get()->first();
-                        break;
-                }
-
-                $created_user = User::select('id')->where('email', 'like', $user->email)->get()->first();
-                $entity->user_id = $created_user->id;
-                $entity->save();
+                $data = ($user_domain == 'unifil.br' or $user_domain == 'colegiolondrinense.com.br') ? Orientador::where('email', 'like', $user->email)->first() : Aluno::where('email', 'like', $user->email)->first();
+                $created_user = User::select('id')->where('email', 'like', $newUser->email)->get()->first();
+                $data->user_id = $created_user->id;
+                $data->save();
                 auth()->login($newUser, true);
             }
-            return redirect()->intended(RouteServiceProvider::HOME);
+
+            $logged_user = Auth::user();
+            $prefix = '';
+
+            if ($logged_user->permissao == 1) {
+                $prefix = 'aluno';
+            } else {
+                $prefix = 'orientador';
+            }
+            return redirect()->intended($prefix . RouteServiceProvider::HOME);
         } catch (\Exception $e) {
-            dd($e);
             DB::rollBack();
             // return throw ValidationException::withMessages(['email' => 'Conta não encontrada em nossos registros, entre em contato com o coordenador.']);
             return back()->with('status', 'Usuário não encontrado.');

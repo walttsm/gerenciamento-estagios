@@ -1,12 +1,12 @@
 /db
 /node_modules
 /public/hot
-/public/storage
-/public/declaracoes_geradas/*.pdf
+/public/declaracoes_geradas/*
 /storage/*.key
 /vendor
 .env
 .env.backup
+.env.save
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json

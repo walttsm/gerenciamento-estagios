@@ -31,15 +31,27 @@
             </h3>
             @foreach ($horarios as $horario)
                 @if ($horario->dia == $dia)
-                    <a class="" href="{{ route('alunos.show', $horario->aluno->id) }}">
-                        <div
-                            class="orientacao-card bg-orange-400 rounded-md p-4 row-[{{ date_format(new DateTime($horario->hora), 'H') - 6 }}] hover:underline hover:cursor-pointer hover:text-black transition-colors">
-                            <p>
-                                Aluno:
-                                {{ date_format(new DateTime($horario->hora), 'H:i') . ' - ' . $horario->aluno->nome_aluno }}
-                            </p>
-                        </div>
-                    </a>
+                    @if (Auth::user()->permissao == 3)
+                        <a class="" href="{{ route('alunos.show', $horario->aluno->id) }}">
+                            <div
+                                class="orientacao-card bg-orange-400 rounded-md p-4 row-[{{ date_format(new DateTime($horario->hora), 'H') - 6 }}] hover:underline hover:cursor-pointer hover:text-black transition-colors">
+                                <p>
+                                    Aluno:
+                                    {{ date_format(new DateTime($horario->hora), 'H:i') . ' - ' . $horario->aluno->nome_aluno }}
+                                </p>
+                            </div>
+                        </a>
+                    @else
+                        <a class="" href="{{ route('orientador.rpodPages', $horario->aluno->id) }}">
+                            <div
+                                class="orientacao-card bg-orange-400 rounded-md p-4 row-[{{ date_format(new DateTime($horario->hora), 'H') - 6 }}] hover:underline hover:cursor-pointer hover:text-black transition-colors">
+                                <p>
+                                    Aluno:
+                                    {{ date_format(new DateTime($horario->hora), 'H:i') . ' - ' . $horario->aluno->nome_aluno }}
+                                </p>
+                            </div>
+                        </a>
+                    @endif
                 @endif
             @endforeach
         </div>

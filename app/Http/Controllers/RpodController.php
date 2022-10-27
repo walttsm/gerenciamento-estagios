@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -12,52 +13,57 @@ use Illuminate\Support\Facades\Auth;
 
 class RpodController extends Controller
 {
-    public function listarRpods(){
-        $id_user = Auth::user()->id;
-        $aluno = Aluno::where('user_id', $id_user)->first();
-        
-        $rpod = Rpod::where('aluno_id',$aluno->id)
-                ->orderBy('mes','desc')
-                ->get();
+    public function listarRpods()
+    {
+        $user = Auth::user();
+        $aluno = Aluno::where('email', $user->email)->first();
 
-        $rpod_h = Rpod::where('aluno_id',$aluno->id)
-                ->sum('horas_mes');
-                
+        $rpod = Rpod::where('aluno_id', $aluno->id)
+            ->orderBy('mes', 'desc')
+            ->get();
+
+        $rpod_h = Rpod::where('aluno_id', $aluno->id)
+            ->sum('horas_mes');
+
         return view('aluno.rpodpage', ['rpods' => $rpod, 'rpod_h' => $rpod_h]);
     }
 
-    public function criarRpods(rpodcreateRequests $request){
+    public function criarRpods(rpodcreateRequests $request)
+    {
         $rpod = new Rpod;
-        $id_user = Auth::user()->id;
-        $aluno = Aluno::where('user_id', $id_user)->first();
+        $id_user = Auth::user();
+        $aluno = Aluno::where('email', $id_user->email)->first();
 
         $rpod->mes = $request->mes;
         $rpod->horas_mes = $request->horas_mes;
         $rpod->aluno_id = $aluno->id;
         $rpod->orientador_id = $aluno->orientador_id;
-        
-        
-        if($request->hasFile('local_arquivo')){
+
+
+        if ($request->hasFile('local_arquivo')) {
             $file = $request->local_arquivo;
             $rpod->rpod_title = $file->getClientOriginalName();
             $rpod->local_arquivo = $file->store('RpodAlunos');
         }
-            
+
         $rpod->save();
 
         return redirect('aluno/rpodpage');
     }
-    public function create(){
+    public function create()
+    {
         return view('aluno.criarpod');
     }
 
-    public function downloadRpod($id){
-        $rpod = Rpod::find($id);   
+    public function downloadRpod($id)
+    {
+        $rpod = Rpod::find($id);
         $file = $rpod->local_arquivo;
         return Storage::download($file, $rpod->rpod_title);
     }
 
-    public function deleteRpod($id){
+    public function deleteRpod($id)
+    {
         $rpod = Rpod::find($id);
         $file = $rpod->local_arquivo;
         Storage::deleteDirectory($file);
@@ -65,21 +71,23 @@ class RpodController extends Controller
 
         return redirect('/aluno/rpodpage');
     }
-    
-    public function edit($id){
+
+    public function edit($id)
+    {
         $rpod = Rpod::find($id);
         $directory = $rpod->local_arquivo . "/" . $rpod->rpod_title;
-                
-        return view('aluno.editrpod',['rpods' => $rpod, 'arq_rpod' => $directory]);
+
+        return view('aluno.editrpod', ['rpods' => $rpod, 'arq_rpod' => $directory]);
     }
-    public function editRpods(rpodeditRequest $request, $id){
+    public function editRpods(rpodeditRequest $request, $id)
+    {
         $rpod = Rpod::find($id);
 
-        if($request->hasFile('local_arquivo') && $request->file('local_arquivo')->isValid()){
+        if ($request->hasFile('local_arquivo') && $request->file('local_arquivo')->isValid()) {
             Storage::deleteDirectory($rpod->local_arquivo);
-            
+
             $reqArq = $request->local_arquivo;
-            
+
             $rpod->rpod_title = $reqArq->getClientOriginalName();
             $rpod->local_arquivo = md5(strtotime("now") . $reqArq->getClientOriginalName());
 
@@ -92,5 +100,4 @@ class RpodController extends Controller
 
         return redirect('/aluno/rpodpage');
     }
-
 }
