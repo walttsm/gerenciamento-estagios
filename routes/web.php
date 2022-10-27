@@ -60,11 +60,10 @@ Route::get('/avisos', function () {
 
 
 // ROTAS ALUNO
-Route::prefix('/aluno')->middleware('auth')->controller(AlunoController::class)->group(function() {
-    
-    //documentos
+Route::prefix('/aluno')->middleware(['auth', 'permissao.acesso'])->controller(AlunoController::class)->group(function () {
+    ;//documentos
     Route::get('/documentos', [DocumentosController::class, "listarDocsAluno"])->name('aluno_docpage');
-    Route::get('/documentos/download/{id}', [DocumentosController::class, "downloadDoc"])->name('documentos.download');
+    Route::get('/documentos/download/{id}', [DocumentosController::class, "downloadDoc"])->name('documentosAluno.download');
 
     //atividades
     Route::get('/atividades', [AtividadesController::class, "listarAtividadesAluno"])->name('aluno_atividades');
@@ -72,6 +71,8 @@ Route::prefix('/aluno')->middleware('auth')->controller(AlunoController::class)-
     Route::get('/atividades/{id}', [AtividadesController::class, "infoAtividadeAluno"])->name('atividades.infoAtividadeAluno');
     Route::put('/atividades/{id}', [AtividadesController::class, "editarEnvioAtividade"])->name('atividades.editarEnvioAtividade');
 
+    //orientacoes
+    Route::get('/orientacoes', [OrientandosController::class, "orientacoesAlunoPage"])->name('aluno_orientacoes');
 
     //avisos
     Route::get('/avisos', [AvisoController::class, "listarAvisosAluno"])->name('aluno_avisospage'); 
@@ -86,23 +87,19 @@ Route::prefix('/aluno')->middleware('auth')->controller(AlunoController::class)-
     Route::get('/rpodpage/download/{id}', [RpodController::class, "downloadRpod"])->name('rpodpage.download');
 });
 
-Route::prefix('/aluno')->middleware(['auth', 'permissao.acesso'])->controller(AlunoController::class)->group(function () {
-    Route::get('/rpodpage', [RpodController::class, "listarRpods"]);
-});
-
 // ROTAS ORIENTADOR
 Route::prefix('/orientador')->middleware(['auth', 'permissao.acesso'])->controller(OrientadorController::class)->group(function () {
     Route::get('/rpods', function () {
         return view('orientador.rpods');
     })->name('orientador_rpods');
 
-    // Route::get('/orientandos', function () {
-    //     return view('orientador.orientandos');
-    // })->name('orientador_orientandos');
+    Route::get('/orientandos', function () {
+        return view('orientador.orientandos');
+    })->name('orientador_orientandos');
 
-    Route::get('/orientacoes', function () {
-        return view('orientador.orientacoes');
-    })->name('orientador_orientacoes');
+    // Route::get('/orientacoes', function () {
+    //     return view('orientador.orientacoes');
+    // })->name('orientador_orientacoes');
 
     //Registros
     Route::get('/registros', [RegistrosController::class, "listarRegistros"])->name('orientador_registrospage');
@@ -145,7 +142,7 @@ Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(f
     Route::get('declaracoes', [DeclaracaoController::class, 'create'])->name('declaracoes');
     Route::post('declaracoes', [DeclaracaoController::class, 'gerar_declaracoes']);
     Route::view('modelo_declaracao', 'coordenador.modelo.declaracao_modelo');
-    Route::get('modelo_declaracao/{aluno}', 'gerar_declaracao')->name('gerar_declaracao');
+    //Route::get('modelo_declaracao/{aluno}', 'gerar_declaracao')->name('gerar_declaracao');
 
     //Pagina de Documentos
     Route::get('/documentos', [DocumentosController::class, "listarDocs"])->name('coordenador_docpage');
@@ -165,7 +162,8 @@ Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(f
     Route::get('/atividades/delete/{id}', [AtividadesController::class, "deleteAtividade"])->name('atividades.delete');
     Route::get('/atividades/edit/{id}', [AtividadesController::class, "edit"])->name('atividades.edit');
     Route::put('/atividades/edit/{id}', [AtividadesController::class, "editAtividade"])->name('atividades.editAtividade');
-    Route::get('modelo_declaracao/{aluno}/{banca}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
+    
+    //Route::get('modelo_declaracao/{aluno}/{banca}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
 
     Route::prefix('/csv')->group(function () {
         Route::post('/alunos', [CSVController::class, 'cadastrar_alunos'])->name('alunos_csv');

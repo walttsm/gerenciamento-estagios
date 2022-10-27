@@ -1,11 +1,12 @@
-<div class="flex justify-end">
+<div class="flex justify-start">
     <div x-data="{ modelOpen: false }">
         <li>
-            <a href="" class="flex p-2 font-medium 
-            text-gray-600 rounded-md
-            hover:bg-gray-100 hover:text-black">
-            Deletar
-            </a>
+                <button @click="modelOpen =!modelOpen" class="flex p-2 font-medium 
+                text-gray-600 rounded-md
+                hover:bg-gray-100 hover:text-black">
+                Deletar
+                </button>
+            
         </li>
     
         <div x-show="modelOpen" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">

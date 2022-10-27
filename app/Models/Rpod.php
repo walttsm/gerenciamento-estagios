@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Rpod extends Model
 {
     use HasFactory, Sortable;
+    use SoftDeletes;
     protected $table = 'rpod';
     public $timestamps = false;
 

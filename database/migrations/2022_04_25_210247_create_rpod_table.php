@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('rpod', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes();
             $table->integer('mes');
             $table->integer('horas_mes');
             $table->string('local_arquivo');

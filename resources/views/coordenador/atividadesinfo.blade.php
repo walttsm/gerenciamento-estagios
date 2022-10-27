@@ -34,11 +34,13 @@
                     class="bg-white text-gray-700 rounded-md shadow-lg absolute py-2 mt-2"
                     style="min-width:15rem"
                     >
-                        <li>
+                        <li class="flex justify-start">
                             <a href="{{ route('atividades.edit', $atv->id) }}" class="flex p-2 font-medium 
                             text-gray-600 rounded-md
                             hover:bg-gray-100 hover:text-black">
-                            Editar
+                                <button>
+                                    Editar
+                                </button>
                             </a>
                         </li>
                         @include('coordenador._partials.modalButtonAtividade')
@@ -48,7 +50,7 @@
                             hover:bg-gray-100 hover:text-black">
                             Deletar
                             </a>
-                        </li> --}}
+                        </li>  --}}
                     </ul>
                 </div>
             </div>
