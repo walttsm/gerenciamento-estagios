@@ -97,6 +97,25 @@
             @elseif (Auth::user()->permissao > 1)
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
+
+                <li>
+                    <x-nav-link class="hidden group-hover:flex" :href="route('orientador_avisospage')" :active="request()->routeIs('orientador_avisospage')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home mr-2"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <desc>Download more icon variants from https://tabler-icons.io/i/home</desc>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <polyline points="5 12 3 12 12 3 21 12 19 12"></polyline>
+                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+                        </svg>
+                        {{ __('Avisos') }}
+
+                    </x-nav-link>
+                </li>
+
+                <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
+
                 <li>
                     <x-nav-link class="hidden group-hover:flex" :href="route('orientador_registrospage')" :active="request()->routeIs('orientador_registrospage')">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive mr-2"

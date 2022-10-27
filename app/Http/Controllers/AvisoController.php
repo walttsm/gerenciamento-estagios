@@ -6,35 +6,38 @@ use Illuminate\Http\Request;
 use App\Models\Aviso;
 use App\Models\Aluno;
 use App\Models\Orientador;
+use Illuminate\Support\Facades\Auth;
 
 class AvisoController extends Controller
 {
-    public function listarAvisosOrientador(){
+    public function listarAvisosOrientador()
+    {
         // $id_user = Auth::user()->id;
         $avisos = Aviso::where('orientador_id', 1)
-                ->get();
+            ->get();
         $alunos = [];
         $al = [];
-        foreach($avisos as $a){
-            
-            foreach(json_decode($a->alunos) as $j){
+        foreach ($avisos as $a) {
+
+            foreach (json_decode($a->alunos) as $j) {
                 array_push($al, Aluno::where('id', $j)
-                ->get());
+                    ->get());
             }
             array_push($alunos, $al);
             $al = [];
         }
         return view('orientador.avisospage', ['avisos' => $avisos, 'alunos' => $alunos]);
     }
-    public function listarAvisosAluno(){
+    public function listarAvisosAluno()
+    {
         // $id_user = Auth::user()->id;
         $avisos = Aviso::all();
 
         $avisosAluno = [];
         $orientador = [];
-        foreach($avisos as $a){
-            foreach(json_decode($a->alunos) as $j){
-                if($j == 18){
+        foreach ($avisos as $a) {
+            foreach (json_decode($a->alunos) as $j) {
+                if ($j == 18) {
                     array_push($avisosAluno, $a);
                     array_push($orientador, Orientador::where('id', $a->orientador_id)->first());
                 }
@@ -43,14 +46,20 @@ class AvisoController extends Controller
         return view('aluno.avisospage', ['avisos' => $avisosAluno, 'orientador' => $orientador]);
     }
 
-    public function create(){
-        $a = Aluno::where('orientador_id', 1)
-            ->get();
+    public function create()
+    {
+        if (Auth::user()->permissao == 3) {
+            $a = Aluno::all();
+        } else {
+            $orientador = Orientador::where('user_id', Auth::user()->id)->first();
+            $a = Aluno::where('orientador_id', $orientador->id)->get();
+        }
 
         return view('orientador.criaravisos', ['alunos' => $a]);
     }
 
-    public function criarAvisos(Request $request){
+    public function criarAvisos(Request $request)
+    {
         $a = new Aviso;
         $a->aviso_titulo = $request->aviso_titulo;
         $a->aviso_conteudo = $request->aviso_conteudo;
@@ -62,7 +71,8 @@ class AvisoController extends Controller
         return redirect('orientador/avisos');
     }
 
-    public function deleteAviso($id){
+    public function deleteAviso($id)
+    {
         $aviso = Aviso::find($id);
         $aviso->delete();
 
