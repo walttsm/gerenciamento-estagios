@@ -13,6 +13,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -105,7 +106,16 @@ class LoginController extends Controller
                 $entity->save();
                 auth()->login($newUser, true);
             }
-            return redirect()->intended(RouteServiceProvider::HOME);
+
+            $logged_user = Auth::user();
+            $prefix = '';
+
+            if ($logged_user->permissao == 1) {
+                $prefix = 'aluno';
+            } else {
+                $prefix = 'orientador';
+            }
+            return redirect()->intended($prefix . RouteServiceProvider::HOME);
         } catch (\Exception $e) {
             dd($e);
             DB::rollBack();

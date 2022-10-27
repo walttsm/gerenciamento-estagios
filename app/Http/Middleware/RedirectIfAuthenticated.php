@@ -23,7 +23,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $user = Auth::user();
+
+                $prefix = ($user->permissao == 1 ? '/aluno' : '/orientador');
+                return redirect($prefix . RouteServiceProvider::HOME);
             }
         }
 

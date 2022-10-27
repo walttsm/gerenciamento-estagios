@@ -16,7 +16,7 @@
                     <h3>RPOD {{ $rpod->mes }}</h3>
                     <b class="mt-2">{{ $rpod->horas_mes }} horas</b>
                     <p class="mt-2">{{ $rpod->rpod_title ? $rpod->rpod_title : 'Título não definido' }}</p>
-                    <a href="{{ route('rpodpage.download', $rpod->id) }}" class="mt-4 md:text-xs">
+                    <a href="{{ route('coordenador.rpodpage.download', $rpod->id) }}" class="mt-4 md:text-xs">
                         <button type="button" class="flex default-button rounded text-white items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 icon icon-tabler icon-tabler-file-download"
                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -104,13 +104,6 @@
                         <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
                     </div>
             @endswitch
-            {{-- <div class="bg-orange-100 my-4 px-8 py-4 border-solid border-[5px] border-orange-600 rounded-3xl">
-                <h3>Data: {{ date('d/m/Y', strtotime($registro->data_orientacao)) }}</h3>
-                <p>Assunto: {{ $registro->assunto }}</p>
-                <p>Próxima orientação: {{ $registro->prox_assunto }}</p>
-                <p>Observações: {{ $registro->observacao }}</p>
-                <p>Aluno Presente? {{ $registro->presenca == 1 ? 'Sim' : 'Não' }}</p>
-            </div> --}}
         @endforeach
     </div>
 @endsection

@@ -1,5 +1,5 @@
 <nav id="sidebar"
-    class=" group fixed left-0 h-screen w-[3%] min-w-[50px] hover:w-[250px] bg-orange-500 text-white smooth-transition overflow-y-auto over">
+    class=" group fixed left-0 h-screen w-[3%] min-w-[50px] hover:w-[250px] bg-orange-500 text-white smooth-transition overflow-y-auto z-10">
     <div class="flex flex-col">
         <div class="mr-1 text-right">
             <button class="w-10 align-bottom" id="toggle-nav" type="button">

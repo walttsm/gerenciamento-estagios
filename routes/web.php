@@ -15,6 +15,7 @@ use App\Http\Controllers\Coordenador\OrientadoresController;
 use App\Http\Controllers\Coordenador\TurmaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DocumentosController;
+use App\Http\Controllers\Orientador\OrientadorController;
 use App\Http\Controllers\OrientandosController;
 use App\Models\Aluno;
 use App\Models\Orientador;
@@ -82,9 +83,7 @@ Route::prefix('/orientador')->middleware(['auth', 'permissao.acesso'])->controll
     //     return view('orientador.orientandos');
     // })->name('orientador_orientandos');
 
-    Route::get('/orientacoes', function () {
-        return view('orientador.orientacoes');
-    })->name('orientador_orientacoes');
+    Route::get('/orientacoes', [OrientadorController::class, 'show'])->name('orientador_orientacoes');
 
     //Registros
     Route::get('/registros', [RegistrosController::class, "listarRegistros"])->name('orientador_registrospage');
@@ -107,6 +106,9 @@ Route::prefix('/orientador')->middleware(['auth', 'permissao.acesso'])->controll
     Route::get('/orientandos/atividade/{id}', [OrientandosController::class, "atividadePage"])->name('orientador.atividadePage');
     Route::get('/orientandos/atividade/{idAtv}/aluno/{idAluno}', [OrientandosController::class, "infoAtividadeAluno"])->name('orientador.infoAtividadeAluno');
     Route::get('/orientandos/atividade/download/{id}', [OrientandosController::class, "downloadFile"])->name('orientador.downloadFile');
+
+    // Download de RPODS
+    Route::get('/rpodpage/download/{id}', [RpodController::class, "downloadRpod"])->name('orientador.rpodpage.download');
 });
 
 
@@ -149,6 +151,10 @@ Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(f
     Route::put('/atividades/edit/{id}', [AtividadesController::class, "editAtividade"])->name('atividades.editAtividade');
     Route::get('modelo_declaracao/{aluno}/{banca}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
 
+    // Download de RPODS
+    Route::get('/rpodpage/download/{id}', [RpodController::class, "downloadRpod"])->name('coordenador.rpodpage.download');
+
+    //Envio de csv
     Route::prefix('/csv')->group(function () {
         Route::post('/alunos', [CSVController::class, 'cadastrar_alunos'])->name('alunos_csv');
         Route::post('/orientadores', [CSVController::class, 'cadastrar_orientadores'])->name('orientadores_csv');
