@@ -38,6 +38,24 @@
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
                 <li>
+                    <x-nav-link class="hidden group-hover:flex" :href="route('coordenador_atividades')" :active="request()->routeIs('coordenador_atividades')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book-upload mr-2"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M14 20h-8a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12v5"></path>
+                            <path d="M11 16h-5a2 2 0 0 0 -2 2"></path>
+                            <path d="M15 16l3 -3l3 3"></path>
+                            <path d="M18 13v9"></path>
+                        </svg>
+                        {{ __('Atividades') }}
+
+                    </x-nav-link>
+                </li>
+
+                <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
+
+                <li>
                     <x-nav-link class="hidden group-hover:flex" :href="route('orientadores.index')" :active="request()->routeIs('orientadores.index')">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school mr-2"
                             width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -94,27 +112,30 @@
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
                 <br>
-            @elseif (Auth::user()->permissao > 1)
+            @endif
+
+            @if (Auth::user()->permissao > 1)
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
+                @if (Auth::user()->permissao == 2)
+                    <li>
+                        <x-nav-link class="hidden group-hover:flex" :href="route('orientador_avisospage')" :active="request()->routeIs('orientador_avisospage')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home mr-2"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <desc>Download more icon variants from https://tabler-icons.io/i/home</desc>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <polyline points="5 12 3 12 12 3 21 12 19 12"></polyline>
+                                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                                <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+                            </svg>
+                            {{ __('Avisos') }}
 
-                <li>
-                    <x-nav-link class="hidden group-hover:flex" :href="route('orientador_avisospage')" :active="request()->routeIs('orientador_avisospage')">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home mr-2"
-                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <desc>Download more icon variants from https://tabler-icons.io/i/home</desc>
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <polyline points="5 12 3 12 12 3 21 12 19 12"></polyline>
-                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
-                            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
-                        </svg>
-                        {{ __('Avisos') }}
+                        </x-nav-link>
+                    </li>
 
-                    </x-nav-link>
-                </li>
-
-                <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
+                    <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
+                @endif
 
                 <li>
                     <x-nav-link class="hidden group-hover:flex" :href="route('orientador_registrospage')" :active="request()->routeIs('orientador_registrospage')">

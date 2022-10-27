@@ -142,7 +142,6 @@ Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(f
 
     //Pagina de Atividades
     Route::get('/atividades', [AtividadesController::class, "listarAtividades"])->name('coordenador_atividades');
-
     Route::post('/atividades/adicionar', [AtividadesController::class, "criarAtividades"])->name('atividades.criarAtividades');
     Route::get('/atividades/adicionar', [AtividadesController::class, "create"])->name('atividades.create');
     Route::get('/atividades/{id}', [AtividadesController::class, "infoAtividade"])->name('atividade.infoAtividade');
