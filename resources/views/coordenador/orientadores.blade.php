@@ -60,7 +60,6 @@
 
         <x-csv_upload_form />
         <x-add-orientador-modal />
-        {{-- <x-create-orientador-modal :orientadores="$orientadores" /> --}}
 
         <table class="table-auto text-center w-full">
             <thead>
