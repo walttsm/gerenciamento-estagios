@@ -68,15 +68,11 @@ class AtividadesController extends Controller
     public function editAtividade(Request $request, $id)
     {
         $atv = Atividade::find($id);
-
-        $nome_atividade = $request->nome_atividade;
-        if ($request->doc_nome != null) {
-            $descricao = $request->descricao;
-        } else {
-            $descricao = null;
-        }
+        
+   
         $data = $request->only('descricao', 'nome_atividade');
         $atv->update($data);
+
         return redirect('coordenador/atividades');
     }
 
@@ -130,13 +126,19 @@ class AtividadesController extends Controller
             ->get();
 
         $filesAnt = $request->filenamesAnt;
-        foreach ($atv as $file) {
-            if (!in_array($file->id, $filesAnt)) {
-                $file->delete();
+        
+        if($filesAnt == null){
+            $atv = AtividadeFile::where('aluno_id', $aluno->id)
+            ->where('atividade_id', $id)
+            ->delete();
+        }else{
+            foreach ($atv as $file) {
+                if (!in_array($file->id, $filesAnt)) {
+                    $file->delete();
+                }
             }
         }
-
-        $files = $request->filenames;
+        
         if ($request->hasFile('filenames')) {
             foreach ($request->filenames as $file) {
                 $atv = new AtividadeFile;

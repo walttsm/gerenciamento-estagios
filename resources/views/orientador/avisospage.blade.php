@@ -1,3 +1,4 @@
+
 @extends('layouts.common')
 
 @section('content')
@@ -39,9 +40,7 @@
                 <span class="text-xs">{{ date('d-m-Y', strtotime($a->updated_at))}} - </span>
                 <span class="text-xs">
                 @foreach($alunos[$i] as $aluno)
-                    @foreach($aluno as $al)
-                    / {{$al['nome_aluno']}}
-                    @endforeach
+                    / {{$aluno['nome_aluno']}}
                 @endforeach
             </span>
                 <h3 class="text-gray-900 text-xl leading-tight font-medium">{{$a['aviso_titulo']}}</h3>

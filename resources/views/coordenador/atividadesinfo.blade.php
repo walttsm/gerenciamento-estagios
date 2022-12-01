@@ -43,8 +43,8 @@
                                 </button>
                             </a>
                         </li>
-                        {{-- @include('coordenador._partials.modalButtonAtividade') --}}
-                        <li>
+                        @include('coordenador._partials.modalButtonAtividade')
+                        {{-- <li>
                             <a href="{{ route('atividades.delete', $atv->id) }}"
                                 class="flex p-2 font-medium
                             text-gray-600 rounded-md

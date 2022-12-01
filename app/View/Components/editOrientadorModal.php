@@ -6,14 +6,16 @@ use Illuminate\View\Component;
 
 class editOrientadorModal extends Component
 {
+    public $orientador;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($orientador)
     {
         //
+        $this->orientador = $orientador;
     }
 
     /**

@@ -19,8 +19,10 @@ return new class extends Migration
             $table->timestamps();
             $table->string('aviso_titulo');
             $table->string('aviso_conteudo');
-            $table->string('alunos')->nullable();
+            $table->string('aluno_aviso_id');
             $table->unsignedBigInteger('orientador_id');
+
+            $table->foreign('aluno_aviso_id')->references('id')->on('alunos_aviso')->onDelete('cascade');
 
             $table->foreign('orientador_id')->references('id')->on('orientadores')->onDelete('cascade');
         });

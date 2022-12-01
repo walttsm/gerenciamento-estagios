@@ -34,7 +34,7 @@
                         <div class="press flex justify-center increment">
                             <div class="mb-3 xl:w-96">
                                 <div class="input-group relative flex flex-wrap items-stretch mb-4">
-                                    <input name="filenames[]" type="file" class="form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+                                    <input name="filenames[]" type="file" class="form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" required>
                                     <button class="adicionar btn inline-block px-2 py-2 border-2 border-green-600 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-green-500" type="button" id="button-addon3">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

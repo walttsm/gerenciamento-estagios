@@ -4,7 +4,7 @@
 @section('content')
     <div class="grid grid-cols-9 mt-5 mb-5">
         <div class="border-solid border-2 col-span-2 border-x-orange-400 border-y-white text-center">
-            <span class="text-3xl font-bold m-1" href="" >Atividades</span>
+            <a class="text-3xl font-bold m-1" href="{{ URL::previous() }}" >Atividades</a>
         </div> 
     </div>
 

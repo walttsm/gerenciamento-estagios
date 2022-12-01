@@ -1,6 +1,117 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@alpinejs/collapse/dist/module.esm.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@alpinejs/collapse/dist/module.esm.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ module_default)
+/* harmony export */ });
+// packages/collapse/src/index.js
+function src_default(Alpine) {
+  Alpine.directive("collapse", collapse);
+  collapse.inline = (el, {modifiers}) => {
+    if (!modifiers.includes("min"))
+      return;
+    el._x_doShow = () => {
+    };
+    el._x_doHide = () => {
+    };
+  };
+  function collapse(el, {modifiers}) {
+    let duration = modifierValue(modifiers, "duration", 250) / 1e3;
+    let floor = modifierValue(modifiers, "min", 0);
+    let fullyHide = !modifiers.includes("min");
+    if (!el._x_isShown)
+      el.style.height = `${floor}px`;
+    if (!el._x_isShown && fullyHide)
+      el.hidden = true;
+    if (!el._x_isShown)
+      el.style.overflow = "hidden";
+    let setFunction = (el2, styles) => {
+      let revertFunction = Alpine.setStyles(el2, styles);
+      return styles.height ? () => {
+      } : revertFunction;
+    };
+    let transitionStyles = {
+      transitionProperty: "height",
+      transitionDuration: `${duration}s`,
+      transitionTimingFunction: "cubic-bezier(0.4, 0.0, 0.2, 1)"
+    };
+    el._x_transition = {
+      in(before = () => {
+      }, after = () => {
+      }) {
+        if (fullyHide)
+          el.hidden = false;
+        if (fullyHide)
+          el.style.display = null;
+        let current = el.getBoundingClientRect().height;
+        el.style.height = "auto";
+        let full = el.getBoundingClientRect().height;
+        if (current === full) {
+          current = floor;
+        }
+        Alpine.transition(el, Alpine.setStyles, {
+          during: transitionStyles,
+          start: {height: current + "px"},
+          end: {height: full + "px"}
+        }, () => el._x_isShown = true, () => {
+          if (el.style.height == `${full}px`) {
+            el.style.overflow = null;
+          }
+        });
+      },
+      out(before = () => {
+      }, after = () => {
+      }) {
+        let full = el.getBoundingClientRect().height;
+        Alpine.transition(el, setFunction, {
+          during: transitionStyles,
+          start: {height: full + "px"},
+          end: {height: floor + "px"}
+        }, () => el.style.overflow = "hidden", () => {
+          el._x_isShown = false;
+          if (el.style.height == `${floor}px` && fullyHide) {
+            el.style.display = "none";
+            el.hidden = true;
+          }
+        });
+      }
+    };
+  }
+}
+function modifierValue(modifiers, key, fallback) {
+  if (modifiers.indexOf(key) === -1)
+    return fallback;
+  const rawValue = modifiers[modifiers.indexOf(key) + 1];
+  if (!rawValue)
+    return fallback;
+  if (key === "duration") {
+    let match = rawValue.match(/([0-9]+)ms/);
+    if (match)
+      return match[1];
+  }
+  if (key === "min") {
+    let match = rawValue.match(/([0-9]+)px/);
+    if (match)
+      return match[1];
+  }
+  return rawValue;
+}
+
+// packages/collapse/builds/module.js
+var module_default = src_default;
+
+
+
+/***/ }),
+
 /***/ "./node_modules/alpinejs/dist/module.esm.js":
 /*!**************************************************!*\
   !*** ./node_modules/alpinejs/dist/module.esm.js ***!
@@ -436,13 +547,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
 }
 
 // packages/alpinejs/src/evaluator.js
-var shouldAutoEvaluateFunctions = true;
-function dontAutoEvaluateFunctions(callback) {
-  let cache = shouldAutoEvaluateFunctions;
-  shouldAutoEvaluateFunctions = false;
-  callback();
-  shouldAutoEvaluateFunctions = cache;
-}
 function evaluate(el, expression, extras = {}) {
   let result;
   evaluateLater(el, expression)((value) => result = value, extras);
@@ -513,7 +617,7 @@ function generateEvaluatorFromString(dataStack, expression, el) {
   };
 }
 function runIfTypeOfFunction(receiver, value, scope2, params, el) {
-  if (shouldAutoEvaluateFunctions && typeof value === "function") {
+  if (typeof value === "function") {
     let result = value.apply(scope2, params);
     if (result instanceof Promise) {
       result.then((i) => runIfTypeOfFunction(receiver, i, scope2, params)).catch((error2) => handleError(error2, el, value));
@@ -647,7 +751,6 @@ var directiveOrder = [
   "bind",
   "init",
   "for",
-  "mask",
   "model",
   "modelable",
   "transition",
@@ -676,17 +779,11 @@ function dispatch(el, name, detail = {}) {
 // packages/alpinejs/src/nextTick.js
 var tickStack = [];
 var isHolding = false;
-function nextTick(callback = () => {
-}) {
+function nextTick(callback) {
+  tickStack.push(callback);
   queueMicrotask(() => {
     isHolding || setTimeout(() => {
       releaseNextTicks();
-    });
-  });
-  return new Promise((res) => {
-    tickStack.push(() => {
-      callback();
-      res();
     });
   });
 }
@@ -1436,9 +1533,8 @@ var Alpine = {
   get raw() {
     return raw;
   },
-  version: "3.10.3",
+  version: "3.9.5",
   flushAndStopDeferringMutations,
-  dontAutoEvaluateFunctions,
   disableEffectScheduling,
   setReactivityEngine,
   closestDataStack,
@@ -2239,13 +2335,6 @@ magic("id", (el) => (name, key = null) => {
 // packages/alpinejs/src/magics/$el.js
 magic("el", (el) => el);
 
-// packages/alpinejs/src/magics/index.js
-warnMissingPluginMagic("Focus", "focus", "focus");
-warnMissingPluginMagic("Persist", "persist", "persist");
-function warnMissingPluginMagic(name, magicName, slug) {
-  magic(magicName, (el) => warn(`You can't use [$${directiveName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
-}
-
 // packages/alpinejs/src/directives/x-modelable.js
 directive("modelable", (el, {expression}, {effect: effect3, evaluateLater: evaluateLater2}) => {
   let func = evaluateLater2(expression);
@@ -2650,30 +2739,18 @@ directive("data", skipDuringClone((el, {expression}, {cleanup: cleanup2}) => {
 // packages/alpinejs/src/directives/x-show.js
 directive("show", (el, {modifiers, expression}, {effect: effect3}) => {
   let evaluate2 = evaluateLater(el, expression);
-  if (!el._x_doHide)
-    el._x_doHide = () => {
-      mutateDom(() => {
-        el.style.setProperty("display", "none", modifiers.includes("important") ? "important" : void 0);
-      });
-    };
-  if (!el._x_doShow)
-    el._x_doShow = () => {
-      mutateDom(() => {
-        if (el.style.length === 1 && el.style.display === "none") {
-          el.removeAttribute("style");
-        } else {
-          el.style.removeProperty("display");
-        }
-      });
-    };
-  let hide = () => {
-    el._x_doHide();
+  let hide = () => mutateDom(() => {
+    el.style.display = "none";
     el._x_isShown = false;
-  };
-  let show = () => {
-    el._x_doShow();
+  });
+  let show = () => mutateDom(() => {
+    if (el.style.length === 1 && el.style.display === "none") {
+      el.removeAttribute("style");
+    } else {
+      el.style.removeProperty("display");
+    }
     el._x_isShown = true;
-  };
+  });
   let clickAwayCompatibleShow = () => setTimeout(show);
   let toggle = once((value) => value ? show() : hide(), (value) => {
     if (typeof el._x_toggleAndCascadeWithTransitions === "function") {
@@ -2929,15 +3006,6 @@ directive("on", skipDuringClone((el, {value, modifiers, expression}, {cleanup: c
   });
   cleanup2(() => removeListener());
 }));
-
-// packages/alpinejs/src/directives/index.js
-warnMissingPluginDirective("Collapse", "collapse", "collapse");
-warnMissingPluginDirective("Intersect", "intersect", "intersect");
-warnMissingPluginDirective("Focus", "trap", "focus");
-warnMissingPluginDirective("Mask", "mask", "mask");
-function warnMissingPluginDirective(name, directiveName2, slug) {
-  directive(directiveName2, (el) => warn(`You can't use [x-${directiveName2}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
-}
 
 // packages/alpinejs/src/index.js
 alpine_default.setEvaluator(normalEvaluator);
@@ -5115,13 +5183,13 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '@alpinejs/collapse'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _alpinejs_collapse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @alpinejs/collapse */ "./node_modules/@alpinejs/collapse/dist/module.esm.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
-alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(Object(function webpackMissingModule() { var e = new Error("Cannot find module '@alpinejs/collapse'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(_alpinejs_collapse__WEBPACK_IMPORTED_MODULE_1__["default"]);
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
 
 /***/ }),

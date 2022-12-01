@@ -79,14 +79,14 @@
                             name="observacao" required></textarea>
                     </div>
                 </div>
-                @if ($errors->any())
+                {{-- @if ($errors->any())
                     <ul>
                         @foreach ($errors->all() as $e)
                             <li class="error">{{ $e }}</li>
                         @endforeach
                     </ul>
                     <br>
-                @endif
+                @endif --}}
                 <input class="default-button" type="submit" class="mr-10">
 
             </form>

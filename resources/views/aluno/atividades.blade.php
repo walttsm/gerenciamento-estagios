@@ -14,19 +14,25 @@
     <hr>            
     <br>
 
-    @foreach ($atv as $atv)
+    @foreach ($atv as $i => $atv)
         
     
     <div class="flex justify-center">
-        <div 
-        @foreach ($envio as $e)
-            @if($e->atividade_id == $atv->id)
-                class="border-2 border-green-400 block p-6 rounded-lg shadow-lg bg-white w-5/6"
-                @break
+        <div
+            @if(count($envio) < 1)
+                class="border-2 border-red-500 block p-6 rounded-lg shadow-lg bg-white w-5/6"
+            @else
+                @foreach ($envio as $e)
+                    @if($e->atividade_id == $atv->id)
+                        class="border-2 border-green-400 block p-6 rounded-lg shadow-lg bg-white w-5/6"
+                        @break
+                    @endif 
+                    class="border-2 border-red-500 block p-6 rounded-lg shadow-lg bg-white w-5/6"
+                @endforeach
             @endif
-            class="border-2 border-red-500 block p-6 rounded-lg shadow-lg bg-white w-5/6"     
-        @endforeach
-            > 
+            
+            >
+
             <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">
                 {{$atv['nome_atividade']}}
             </h5>

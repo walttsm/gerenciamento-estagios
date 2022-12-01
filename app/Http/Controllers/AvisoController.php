@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Aviso;
 use App\Models\Aluno;
+use App\Models\AlunosAviso;
 use App\Models\Orientador;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,37 +13,51 @@ class AvisoController extends Controller
 {
     public function listarAvisosOrientador()
     {
-        // $id_user = Auth::user()->id;
-        $avisos = Aviso::where('orientador_id', 1)
+        $id_user = Auth::user()->id;
+        $orientador = Orientador::where('user_id', $id_user)->first();
+        $avisos = Aviso::where('orientador_id', $orientador->id)
+            ->orderBy('created_at', 'desc')
             ->get();
         $alunos = [];
-        $al = [];
-        foreach ($avisos as $a) {
-
-            foreach (json_decode($a->alunos) as $j) {
-                array_push($al, Aluno::where('id', $j)
-                    ->get());
-            }
-            array_push($alunos, $al);
-            $al = [];
+        $aluno = [];
+        $avisosAluno = [];
+        
+        foreach($avisos as $aa){
+            array_push($avisosAluno, AlunosAviso::where('aviso_id', $aa->id)->get());
         }
+        
+        foreach ($avisosAluno as $aa) {
+            foreach($aa as $a){
+                array_push($aluno, Aluno::where('id', $a->aluno_id)
+                    ->first());
+            }
+            array_push($alunos, $aluno);
+            $aluno = [];
+        }
+
+
+        
         return view('orientador.avisospage', ['avisos' => $avisos, 'alunos' => $alunos]);
     }
+    
     public function listarAvisosAluno()
     {
-        // $id_user = Auth::user()->id;
-        $avisos = Aviso::all();
+        $id_user = Auth::user()->id;
+        $aluno = Aluno::where('user_id', $id_user)->first();
 
         $avisosAluno = [];
         $orientador = [];
-        foreach ($avisos as $a) {
-            foreach (json_decode($a->alunos) as $j) {
-                if ($j == 18) {
-                    array_push($avisosAluno, $a);
-                    array_push($orientador, Orientador::where('id', $a->orientador_id)->first());
-                }
-            }
+        $avisos = AlunosAviso::where('aluno_id', $aluno->id)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+        foreach($avisos as $a){
+            $a = Aviso::where('id', $a->aviso_id)->first();
+            array_push($avisosAluno, $a);
+            array_push($orientador, Orientador::where('id', $a->orientador_id)->first());
         }
+                    
+                
         return view('aluno.avisospage', ['avisos' => $avisosAluno, 'orientador' => $orientador]);
     }
 
@@ -63,11 +78,18 @@ class AvisoController extends Controller
         $a = new Aviso;
         $a->aviso_titulo = $request->aviso_titulo;
         $a->aviso_conteudo = $request->aviso_conteudo;
-        $a->alunos = json_encode($request->alunos);
+        $alunos = $request->alunos;
 
-        // $id_user = Auth::user()->id;
-        $a->orientador_id = 1;
+        $id_user = Auth::user()->id;
+        $orientador = Orientador::where('user_id', $id_user)->first();
+        $a->orientador_id = $orientador->id;
         $a->save();
+        foreach($alunos as $aluno){
+            $aviso_aluno = new AlunosAviso;
+            $aviso_aluno->aviso_id = $a->id;
+            $aviso_aluno->aluno_id = $aluno;
+            $aviso_aluno->save();
+        }
         return redirect('orientador/avisos');
     }
 

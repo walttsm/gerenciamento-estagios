@@ -8,6 +8,8 @@ use App\Models\Aluno;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+
+
 class RegistrosController extends Controller
 {
     public function listarRegistros(){

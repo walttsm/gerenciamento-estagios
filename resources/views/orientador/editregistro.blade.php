@@ -51,25 +51,25 @@
                     </div>
                     <div class="pb-8 p-3">
                         <label for="data_orientacao" class="form-label inline-block mb-2">Data da orientação:   </label> 
-                        <input value={{$dia_mes}} type="date" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="data_orientacao" >
+                        <input value={{$dia_mes}} type="date" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="data_orientacao" required>
                     </div> 
                     <div class="pb-8 p-3">
                         <label for="data" class="form-label inline-block mb-2">Hora:   </label> 
-                        <input type="time" value={{$hora}} class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="data" >
+                        <input type="time" value={{$hora}} class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="data" required>
                     </div>
                     <div class="form-group p-3 mb-3 col-span-2">
                         <label for="assunto" class="form-label inline-block mb-2">Assuntos discutidos na orientação:   </label> 
-                        <textarea type="text" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="assunto">{{$r['assunto']}}</textarea>
+                        <textarea type="text" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="assunto" required>{{$r['assunto']}}</textarea>
                     </div>
                     <div class="form-group p-3 mb-3 col-span-2">
                         <label for="prox_assunto" class="form-label inline-block mb-2">Assuntos a serem discutidos na próxima orientação:   </label> 
-                        <textarea type="text" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="prox_assunto">{{$r['prox_assunto']}}</textarea>
+                        <textarea type="text" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="prox_assunto" required>{{$r['prox_assunto']}}</textarea>
                     </div>
                     <div class="form-group p-3 mb-3 col-span-2">
                         <label for="observacao" class="form-label inline-block mb-2">Observação:   </label> 
-                        <textarea type="text" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="observacao">{{$r['observacao']}}</textarea>
+                        <textarea type="text" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="observacao" required>{{$r['observacao']}}</textarea>
                     </div>
-                </div>
+                {{-- </div>
                 @if ($errors->any())
                 <ul>
                     @foreach($errors->all() as $e)
@@ -77,7 +77,7 @@
                     @endforeach
                 </ul>
                 <br>
-                @endif
+                @endif --}}
                 <input class="default-button" type="submit" class="mr-10">
             
             </form>               

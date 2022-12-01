@@ -75,7 +75,8 @@
 
         <x-csv_upload_form />
         <x-add-turma-modal />
-        <x-create-aluno-modal :turmas="$turmas" :orientadores="$orientadores" />
+
+        <x-create-aluno-modal :turmas="$turmas" :orientadores="$orientadores"  />
 
         <table class="table-auto text-center w-full">
             <thead>
@@ -150,19 +151,6 @@
 
         function closeModal(id) {
             $(id).addClass('hidden');
-        }
-
-        function hideMessage(id) {
-            $('#message' + id).addClass('hidden');
-        }
-    </script>
-    <script type="text/javascript">
-        function openModal(id) {
-            $('#editModal' + id).removeClass('hidden');
-        }
-
-        function closeModal(id) {
-            $('#editModal' + id).addClass('hidden');
         }
 
         function hideMessage(id) {

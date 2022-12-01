@@ -32,10 +32,10 @@
                 @method('PUT')
                 <div class="form-group p-3 mb-1">
                     <label for="nome_atividade" class="form-label inline-block mb-2">Nome da atividade:   </label> 
-                    <input value="{{$atv['nome_atividade']}}" type="text" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="nome_atividade">
+                    <input value="{{$atv['nome_atividade']}}" type="text" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="nome_atividade" required>
                 </div>
                 <div class="form-group p-3 mb-3">
-                    <label for="descricao" class="form-label inline-block mb-2"></label> 
+                    <label for="descricao" class="form-label inline-block mb-2">Descrição</label> 
                     <textarea type="text" rows="10" cols="40" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="descricao">{{$atv['descricao']}}</textarea>
                 </div>
 

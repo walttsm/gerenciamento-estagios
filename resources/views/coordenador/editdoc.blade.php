@@ -32,7 +32,7 @@
                     <input type="text" 
                         class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" 
                         name="doc_nome"
-                        value="{{$doc['doc_nome']}}">
+                        value="{{$doc['doc_nome']}}" required>
                 </div>
                 <div class="form-group mb-5">
                     <div class="form-group mb-8">

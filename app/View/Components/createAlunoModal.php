@@ -14,10 +14,11 @@ class createAlunoModal extends Component
      *
      * @return void
      */
-    public function __construct($orientadores)
+    public function __construct($orientadores, $turmas)
     {
         //
         $this->orientadores = $orientadores;
+        $this->turmas = $turmas;
     }
 
     /**

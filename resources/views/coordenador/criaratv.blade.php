@@ -34,7 +34,7 @@
                     <input type="text" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="nome_atividade">
                 </div>
                 <div class="form-group p-3 mb-3">
-                    <label for="descricao" class="form-label inline-block mb-2"></label> 
+                    <label for="descricao" class="form-label inline-block mb-2">Descrição</label> 
                     <textarea type="text" class="form-control w-full px-2 py-1 font-normal bg-white border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600" name="doc_nome"></textarea>
                 </div>
 

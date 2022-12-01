@@ -45,11 +45,11 @@
                         <div x-show.transition="show"
                             class="relative z-20 mt-1 flex w-64 flex-col px-4 py-8 whitespace-nowrap border border-gray-600 rounded bg-white">
                             <div>
-                                <input type="checkbox" id="checkall" class="inline-block mr-2" />Todos
+                                <input type="checkbox" id="checkall" class="inline-block mr-2" checked />Todos
                             </div>
                             @foreach ($alunos as $aluno)
                                 <div><input type="checkbox" name="alunos[]" value="{{ $aluno->id }}"
-                                        class="checkitem inline-block mr-2" />{{ $aluno->nome_aluno }}</div>
+                                        class="checkitem inline-block mr-2" checked/>{{ $aluno->nome_aluno }}</div>
                             @endforeach
                         </div>
                     </div>
@@ -94,14 +94,14 @@
                         focus:text-gray-700 focus:bg-white focus:outline-none"
                         name="aviso_conteudo" rows="3" placeholder="Assunto" required></textarea>
                 </div>
-                @if ($errors->any())
+                {{-- @if ($errors->any())
                     <ul>
                         @foreach ($errors->all() as $e)
                             <li class="error">{{ $e }}</li>
                         @endforeach
                     </ul>
                     <br>
-                @endif
+                @endif --}}
                 <input class="default-button" type="submit" class="mr-10">
 
             </form>
