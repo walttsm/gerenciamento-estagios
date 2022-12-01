@@ -103,7 +103,7 @@
                         <td>{{ $aluno->orientador ? $aluno->orientador->nome : '-' }}</td>
                         <td class="flex justify-center items-center">
                             <button id="editarUsuario" type="button"
-                                onclick="openModal({{ 'editModal' . $aluno->id }})">
+                                onclick="openModal('#{{ 'editModal' . $aluno->id }}')">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-edit text-orange-600 hover:brightness-125"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
