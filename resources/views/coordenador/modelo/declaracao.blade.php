@@ -258,6 +258,8 @@
 
         <div class="flex justify-evenly my-40">
             <div class="flex flex-col">
+                <img src="{{ public_path('/assets/assinaturas/assinatura-sergio.jpeg') }}" width="256px"
+                    height="130px">
                 <hr>
                 <b>Prof. Sérgio Akio Tanaka</b>
                 <p>Coord. de curso</p>
@@ -265,6 +267,8 @@
                 <p>Instituto Filadélfia de Londrina | Unifil</p>
             </div>
             <div class="flex flex-col">
+                <img src="{{ public_path('/assets/assinaturas/assinatura-simone.jpeg') }}" width="256px"
+                    height="130px">
                 <hr>
                 <b>Profª. Simone Sawasaki Tanaka</b>
                 <p>Coord. de estágios</p>

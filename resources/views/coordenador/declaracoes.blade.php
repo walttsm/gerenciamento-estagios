@@ -75,7 +75,7 @@
                             <td>{{ $aluno->rpods->sum('horas_mes') }}/200</td>
                             <td>{{ $aluno->orientador ? $aluno->orientador->nome : '-' }}</td>
                             <td>
-                                <a href="/coordenador/modelo_declaracao/{{ $aluno->id }}/1" class="text-white mx-2">
+                                <a href="{{ route('gerar_declaracao', [$aluno->id, 1]) }}" class="text-white mx-2">
                                     <button type="button"
                                         class="bg-orange-600 hover:bg-orange-500 transition-all my-1 p-2 rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +95,7 @@
                                         </svg>
                                     </button>
                                 </a>
-                                <a href="/coordenador/modelo_declaracao/{{ $aluno->id }}/2" class="text-white mx-2">
+                                <a href="{{ route('gerar_declaracao', [$aluno->id, 2]) }}" class="text-white mx-2">
                                     <button type="button"
                                         class="bg-orange-600 hover:bg-orange-500 transition-all my-1 p-2 rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg"

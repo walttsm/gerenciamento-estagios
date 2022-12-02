@@ -132,7 +132,7 @@ Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(f
     Route::get('declaracoes', [DeclaracaoController::class, 'create'])->name('declaracoes');
     Route::post('declaracoes', [DeclaracaoController::class, 'gerar_declaracoes']);
     Route::view('modelo_declaracao', 'coordenador.modelo.declaracao_modelo');
-    // Route::get('modelo_declaracao/{aluno}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
+    Route::get('/modelo_declaracao/{aluno}/{banca}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
 
     //Pagina de Documentos
     Route::get('/documentos', [DocumentosController::class, "listarDocs"])->name('coordenador_docpage');
@@ -151,7 +151,7 @@ Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(f
     Route::get('/atividades/delete/{id}', [AtividadesController::class, "deleteAtividade"])->name('atividades.delete');
     Route::get('/atividades/edit/{id}', [AtividadesController::class, "edit"])->name('atividades.edit');
     Route::put('/atividades/edit/{id}', [AtividadesController::class, "editAtividade"])->name('atividades.editAtividade');
-    
+
     //Route::get('modelo_declaracao/{aluno}/{banca}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
 
     // Download de RPODS
