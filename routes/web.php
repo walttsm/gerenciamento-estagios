@@ -52,13 +52,16 @@ Route::prefix('/aluno')->middleware(['auth', 'permissao.acesso'])->controller(Al
 
     //documentos
     Route::get('/documentos', [DocumentosController::class, "listarDocsAluno"])->name('aluno_docpage');
-    Route::get('/documentos/download/{id}', [DocumentosController::class, "downloadDoc"])->name('documentos.download');
+    Route::get('/documentos/download/{id}', [DocumentosController::class, "downloadDoc"])->name('documentosAluno.download');
 
     //atividades
     Route::get('/atividades', [AtividadesController::class, "listarAtividadesAluno"])->name('aluno_atividades');
     Route::post('/atividades/{id}', [AtividadesController::class, "enviarAtividade"])->name('atividades.enviarAtividade');
     Route::get('/atividades/{id}', [AtividadesController::class, "infoAtividadeAluno"])->name('atividades.infoAtividadeAluno');
     Route::put('/atividades/{id}', [AtividadesController::class, "editarEnvioAtividade"])->name('atividades.editarEnvioAtividade');
+
+    //orientacoes
+    Route::get('/orientacoes', [OrientandosController::class, "orientacoesAlunoPage"])->name('aluno_orientacoes');
 
     //avisos
     Route::get('/avisos', [AvisoController::class, "listarAvisosAluno"])->name('aluno_avisospage');
@@ -79,9 +82,9 @@ Route::prefix('/orientador')->middleware(['auth', 'permissao.acesso'])->controll
         return view('orientador.rpods');
     })->name('orientador_rpods');
 
-    // Route::get('/orientandos', function () {
-    //     return view('orientador.orientandos');
-    // })->name('orientador_orientandos');
+    Route::get('/orientandos', function () {
+        return view('orientador.orientandos');
+    })->name('orientador_orientandos');
 
     Route::get('/orientacoes', [OrientadorController::class, 'show'])->name('orientador_orientacoes');
 
@@ -148,7 +151,8 @@ Route::prefix('/coordenador')->middleware(['auth', 'permissao.acesso'])->group(f
     Route::get('/atividades/delete/{id}', [AtividadesController::class, "deleteAtividade"])->name('atividades.delete');
     Route::get('/atividades/edit/{id}', [AtividadesController::class, "edit"])->name('atividades.edit');
     Route::put('/atividades/edit/{id}', [AtividadesController::class, "editAtividade"])->name('atividades.editAtividade');
-    Route::get('modelo_declaracao/{aluno}/{banca}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
+    
+    //Route::get('modelo_declaracao/{aluno}/{banca}', [DeclaracaoController::class, 'gerar_declaracao'])->name('gerar_declaracao');
 
     // Download de RPODS
     Route::get('/rpodpage/download/{id}', [RpodController::class, "downloadRpod"])->name('coordenador.rpodpage.download');
