@@ -23,12 +23,13 @@
             @if(count($envio) < 1)
                 class="border-2 border-red-500 block p-6 rounded-lg shadow-lg bg-white w-5/6"
             @else
-                @foreach ($envio as $e)
+                @foreach ($envio as $i => $e)
                     @if($e->atividade_id == $atv->id)
                         class="border-2 border-green-400 block p-6 rounded-lg shadow-lg bg-white w-5/6"
                         @break
-                    @endif 
-                    class="border-2 border-red-500 block p-6 rounded-lg shadow-lg bg-white w-5/6"
+                    @elseif(count($envio) == $i+1)
+                        class="border-2 border-red-500 block p-6 rounded-lg shadow-lg bg-white w-5/6"
+                    @endif
                 @endforeach
             @endif
             >

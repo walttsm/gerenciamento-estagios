@@ -50,11 +50,12 @@ class AvisoController extends Controller
         $avisos = AlunosAviso::where('aluno_id', $aluno->id)
                     ->orderBy('created_at', 'desc')
                     ->get();
-
+        
         foreach($avisos as $a){
-            $a = Aviso::where('id', $a->aviso_id)->first();
-            array_push($avisosAluno, $a);
-            array_push($orientador, Orientador::where('id', $a->orientador_id)->first());
+            $aviso = Aviso::where('id', $a->aviso_id)->first();
+            array_push($avisosAluno, $aviso);
+            
+            array_push($orientador, Orientador::where('id', $aviso->orientador_id)->first());
         }
                     
                 
