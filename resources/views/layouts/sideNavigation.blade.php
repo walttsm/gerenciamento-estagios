@@ -211,7 +211,7 @@
 
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
                 <br>
-            @else
+                {{-- @else
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
                 <li>
@@ -283,26 +283,27 @@
 
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
-                <br>
+                <br> --}}
             @endif
+
             @if (Auth::user()->permissao == 1)
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
-                    <li>
-                        <x-nav-link class="hidden group-hover:flex" :href="route('avisos')" :active="request()->routeIs('avisos')">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home mr-2"
-                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <desc>Download more icon variants from https://tabler-icons.io/i/home</desc>
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <polyline points="5 12 3 12 12 3 21 12 19 12"></polyline>
-                                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
-                                <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
-                            </svg>
-                            {{ __('Avisos') }}
+                <li>
+                    <x-nav-link class="hidden group-hover:flex" :href="route('aluno_avisospage')" :active="request()->routeIs('avisos')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home mr-2"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <desc>Download more icon variants from https://tabler-icons.io/i/home</desc>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <polyline points="5 12 3 12 12 3 21 12 19 12"></polyline>
+                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+                        </svg>
+                        {{ __('Avisos') }}
 
-                        </x-nav-link>
-                    </li>
+                    </x-nav-link>
+                </li>
                 <hr class="hidden group-hover:block border-y-[1px] border-y-gray">
 
                 <li>
@@ -364,14 +365,17 @@
 
                 <li>
                     <x-nav-link class="hidden group-hover:flex" :href="route('aluno_docpage')" :active="request()->routeIs('orientador_orientacoes')">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-text" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-text"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
+                            </path>
                             <line x1="9" y1="9" x2="10" y2="9"></line>
                             <line x1="9" y1="13" x2="15" y2="13"></line>
                             <line x1="9" y1="17" x2="15" y2="17"></line>
-                         </svg>
+                        </svg>
                         {{ __('Documentos') }}
 
                     </x-nav-link>
